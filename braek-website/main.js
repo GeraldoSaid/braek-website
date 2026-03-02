@@ -1,0 +1,412 @@
+document.addEventListener('DOMContentLoaded', () => {
+
+    // 0. Hero Title: Jumpy Block Animation (Flawless DOM Splitting)
+    // We split the text nodes character by character for the JumpyText FX without destroying <br> or <strong> tags.
+    // Raw spaces remain text nodes so the browser handles word wrapping naturally.
+    const jumpyTitles = document.querySelectorAll('.jumpy-trigger');
+    jumpyTitles.forEach(title => {
+        let globalLetterIndex = 0;
+
+        function splitNode(node, container) {
+            if (node.nodeType === Node.TEXT_NODE) {
+                const text = node.textContent;
+                // We split by every character, preserving raw spaces for line wrapping
+                const chars = text.split('');
+                chars.forEach(char => {
+                    if (/\s/.test(char)) {
+                        // Inherit raw space so kerning and native wrapping work
+                        container.appendChild(document.createTextNode(char));
+                    } else {
+                        const span = document.createElement('span');
+                        span.className = 'char-anim';
+                        span.textContent = char;
+                        span.style.animationDelay = `${globalLetterIndex * 0.04}s`;
+                        container.appendChild(span);
+                        globalLetterIndex++;
+                    }
+                });
+            } else if (node.nodeType === Node.ELEMENT_NODE) {
+                if (node.tagName === 'BR') {
+                    container.appendChild(document.createElement('br'));
+                } else {
+                    const clone = node.cloneNode(false);
+                    container.appendChild(clone);
+                    Array.from(node.childNodes).forEach(child => splitNode(child, clone));
+                }
+            }
+        }
+
+        const originalNodes = Array.from(title.childNodes);
+        title.innerHTML = '';
+        originalNodes.forEach(child => splitNode(child, title));
+    });
+
+
+    // 1. Initial Load Animations
+    // Smoothly reveal navbar and hero elements on page load
+    setTimeout(() => {
+        const navbar = document.getElementById('navbar');
+        if (navbar) {
+            navbar.style.opacity = '1';
+            // Preserve the horizontal centering from CSS while resetting any vertical offset
+            navbar.style.transform = 'translate(-50%, 0)';
+        }
+    }, 100);
+
+    // 2. Intersection Observer for 'Framer-like' Scroll Animations
+    // Now configured to both ENTER and EXIT for re-triggering animations
+    const observerOptions = {
+        root: null,
+        rootMargin: '-50px 0px -50px 0px', // Trigger slightly inside the viewport
+        threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Add the 'active' class to trigger CSS transition entering screen
+                entry.target.classList.add('active');
+            } else {
+                // Remove the 'active' class to reset transition when leaving screen
+                // This allows the element to animate again when scrolled back
+                entry.target.classList.remove('active');
+            }
+        });
+    }, observerOptions);
+
+    const revealElements = document.querySelectorAll('.reveal-up, .jumpy-trigger, .reveal-blur');
+    revealElements.forEach(el => {
+        observer.observe(el);
+    });
+
+    // 3. Navbar scroll effect (add blur/bg when scrolling down)
+    const navbar = document.querySelector('.navbar');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+
+    // 4. Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    // 5. Mouse tracking glow cards
+    const glowCards = document.querySelectorAll('.glow-mouse-card');
+    glowCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            // Calculate mouse position relative to card boundaries
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            card.style.setProperty('--mouse-x', `${x}px`);
+            card.style.setProperty('--mouse-y', `${y}px`);
+        });
+    });
+
+    // 6. GSAP ScrollTrigger - character reveal for .gsap-reveal-title
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        gsap.registerPlugin(ScrollTrigger);
+
+        const gsapTitles = document.querySelectorAll('.gsap-reveal-title');
+
+        gsapTitles.forEach(el => {
+            // Capture computed styles BEFORE clearing the element
+            const computed = window.getComputedStyle(el);
+            const styles = {
+                fontSize: computed.fontSize,
+                fontFamily: computed.fontFamily,
+                fontWeight: computed.fontWeight,
+                lineHeight: computed.lineHeight,
+                letterSpacing: computed.letterSpacing,
+                color: computed.color,
+                textTransform: computed.textTransform,
+                display: 'inline-block',
+            };
+
+            // Walk child nodes BEFORE clearing innerHTML so we can honour <br> tags
+            const originalNodes = Array.from(el.childNodes);
+            el.innerHTML = '';
+
+            const allCharSpans = [];
+
+            // Helper: split a text segment into word-wrapped char spans
+            function appendWords(text, container) {
+                const words = text.split(' ');
+                words.forEach((word, wordIndex) => {
+                    if (word.length === 0) return;
+
+                    // Word wrapper prevents mid-word line breaks
+                    const wordWrap = document.createElement('span');
+                    wordWrap.style.display = 'inline-block';
+                    wordWrap.style.whiteSpace = 'nowrap';
+
+                    [...word].forEach(char => {
+                        const span = document.createElement('span');
+                        Object.assign(span.style, styles);
+                        span.style.opacity = '0';
+                        span.textContent = char;
+                        wordWrap.appendChild(span);
+                        allCharSpans.push(span);
+                    });
+
+                    container.appendChild(wordWrap);
+
+                    // Space between words (outside nowrap wrapper = natural break point)
+                    if (wordIndex < words.length - 1) {
+                        const space = document.createElement('span');
+                        Object.assign(space.style, styles);
+                        space.style.opacity = '1';
+                        space.innerHTML = '&nbsp;';
+                        container.appendChild(space);
+                    }
+                });
+            }
+
+            originalNodes.forEach(node => {
+                if (node.nodeType === Node.TEXT_NODE) {
+                    appendWords(node.textContent, el);
+                } else if (node.nodeName === 'BR') {
+                    // Preserve the line break exactly as written in HTML
+                    el.appendChild(document.createElement('br'));
+                }
+            });
+
+            const chars = allCharSpans;
+
+            gsap.fromTo(chars,
+                { opacity: 0 },
+                {
+                    opacity: 1,
+                    ease: 'none',
+                    stagger: 0.03,
+                    scrollTrigger: {
+                        trigger: el,
+                        start: 'top 75%',
+                        end: 'bottom 40%',
+                        scrub: true,
+                        once: false,
+                    }
+                }
+            );
+        });
+    }
+
+    // 7. Dynamic Project Engine (CMS Bridge)
+    const PROJECTS_DATA_PATH = 'data/projects.json';
+
+    async function fetchProjects() {
+        try {
+            const response = await fetch(PROJECTS_DATA_PATH);
+            if (!response.ok) throw new Error('Failed to load projects');
+            return await response.json();
+        } catch (error) {
+            console.error('Error loading projects:', error);
+            return [];
+        }
+    }
+
+    function createProjectCard(project, isLarge = false) {
+        if (isLarge) {
+            // Pattern LARGE (Reference Enix)
+            return `
+                <div class="project-card large reveal-up" data-category="${project.tags[0].toLowerCase()}">
+                    <img src="${project.heroImage}" alt="${project.title}" class="project-img">
+                    <div class="project-overlay"></div>
+                    <div class="project-content">
+                        <div class="project-top">
+                            <span class="project-badge">${project.category}</span>
+                            <button class="project-arrow-btn" aria-label="Ver projeto" onclick="window.location.href='project-details.html?id=${project.id}'">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                                    <polyline points="7 7 17 7 17 17"></polyline>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="project-bottom">
+                            <div class="project-info">
+                                <h3>${project.title}</h3>
+                                <p>${project.subtitle}</p>
+                            </div>
+                            <span class="project-year">${project.year}</span>
+                        </div>
+                    </div>
+                    <div class="project-hover-bar">
+                        <p>${project.about || ''}</p>
+                        <a href="project-details.html?id=${project.id}">View Project ↗</a>
+                    </div>
+                </div>
+            `;
+        } else {
+            // Pattern SMALL (Reference SSG/Aurora)
+            return `
+                <div class="project-card medium reveal-up" data-category="${project.tags[0].toLowerCase()}">
+                    <img src="${project.heroImage}" alt="${project.title}" class="project-img">
+                    <div class="project-overlay"></div>
+                    <div class="project-content">
+                        <div class="project-top">
+                            <span class="project-badge">${project.category}</span>
+                            <button class="project-arrow-btn" aria-label="Ver projeto" onclick="window.location.href='project-details.html?id=${project.id}'">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                                    <polyline points="7 7 17 7 17 17"></polyline>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="project-bottom">
+                            <div class="project-info">
+                                <h3>${project.title}</h3>
+                                <p>${project.subtitle}</p>
+                            </div>
+                            <span class="project-year">${project.year}</span>
+                        </div>
+                    </div>
+                    <div class="project-hover-bar">
+                        <p>${project.about || ''}</p>
+                        <a href="project-details.html?id=${project.id}">View Project ↗</a>
+                    </div>
+                </div>
+            `;
+        }
+    }
+
+    async function initProjectEngine() {
+        const data = await fetchProjects();
+        const projects = data.projects || [];
+        if (!projects || projects.length === 0) return;
+
+        // Render Homepage Featured Projects (Disabled for hardcoded stability)
+        /*
+        const featuredGrid = document.querySelector('.featured-projects-grid');
+        if (featuredGrid) {
+            const featuredOnes = projects.filter(p => p.featured);
+            // First is Large, others are Small
+            featuredGrid.innerHTML = featuredOnes.map((p, index) => createProjectCard(p, index === 0)).join('');
+        }
+        */
+
+        // Render Portfolio Grid
+        const portfolioGrid = document.querySelector('.portfolio-grid-inner');
+        if (portfolioGrid) {
+            // All in portfolio are "Small" pattern but in a 2-col grid
+            portfolioGrid.innerHTML = projects.map(p => createProjectCard(p, false)).join('');
+
+            initDynamicFilters(projects);
+        }
+        // Update total count if display exists
+        const countDisplay = document.getElementById('count-value');
+        if (countDisplay) countDisplay.textContent = projects.length;
+
+        // Handle Project Details Template
+        if (window.location.pathname.includes('project-details.html')) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const projectId = urlParams.get('id');
+            const project = projects.find(p => p.id === projectId);
+
+            if (project) {
+                updateProjectDetailsUI(project);
+            }
+        }
+
+        // Re-observe all newly created reveal elements
+        const allRevealElements = document.querySelectorAll('.reveal-up, .jumpy-trigger');
+        allRevealElements.forEach(el => observer.observe(el));
+    }
+
+    function updateProjectDetailsUI(project) {
+        // Hero Section
+        const heroImg = document.querySelector('.pd-hero-media img');
+        if (heroImg) heroImg.src = project.heroImage;
+
+        const badge = document.querySelector('.pd-hero-content .project-badge');
+        if (badge) badge.textContent = project.category;
+
+        const h1 = document.querySelector('.pd-hero-content h1');
+        if (h1) h1.textContent = project.title;
+
+        const p = document.querySelector('.pd-hero-content p');
+        if (p) p.textContent = project.subtitle;
+
+        // Info Items
+        const infoValues = document.querySelectorAll('.pd-sidebar-card .pd-info-value');
+        if (infoValues.length >= 3) {
+            infoValues[0].textContent = project.role;
+            infoValues[1].textContent = project.client;
+            infoValues[2].textContent = project.year;
+        }
+
+        // About & Challenge
+        const descSections = document.querySelectorAll('.pd-content .pd-section');
+        descSections.forEach(section => {
+            const h2 = section.querySelector('h2');
+            const p = section.querySelector('p');
+            if (h2 && p) {
+                if (h2.textContent.includes('OVERVIEW') || h2.textContent.includes('Sobre')) {
+                    p.innerHTML = project.about;
+                } else if (h2.textContent.includes('Desafio')) {
+                    p.innerHTML = project.challenge;
+                }
+            }
+        });
+
+        // Gallery
+        const galleryGrid = document.querySelector('.gallery-grid');
+        if (galleryGrid) {
+            galleryGrid.innerHTML = project.gallery.map(img => `
+                <div class="gallery-item reveal-up">
+                    <img src="${img}" alt="Gallery Image">
+                </div>
+            `).join('');
+        }
+    }
+
+    function initDynamicFilters(projects) {
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const countDisplay = document.getElementById('count-value');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const filterValue = btn.getAttribute('data-filter');
+
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // Get all cards from the INNER grid specifically
+                const projectCards = document.querySelectorAll('.portfolio-grid-inner .project-card');
+
+                let count = 0;
+                projectCards.forEach(card => {
+                    const category = card.getAttribute('data-category');
+                    if (filterValue === 'all' || category === filterValue) {
+                        card.style.display = 'block';
+                        card.classList.remove('filtered-out');
+                        count++;
+                    } else {
+                        card.style.display = 'none';
+                        card.classList.add('filtered-out');
+                    }
+                });
+
+                if (countDisplay) countDisplay.textContent = count;
+                if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+            });
+        });
+    }
+
+    initProjectEngine();
+});

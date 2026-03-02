@@ -1,0 +1,52 @@
+{
+  "projects": [
+    {
+      "id": "ssg-saude",
+      "title": "SSG SAÚDE",
+      "category": "Landing Page",
+      "subtitle": "Design System",
+      "heroImage": "assets/ssg.png",
+      "role": "Lead Designer",
+      "client": "SSG Saúde",
+      "year": "2024",
+      "duration": "3 Months",
+      "about": "O projeto SSG Saúde foi focado em criar uma experiência digital moderna e acessível para o setor de saúde, unindo funcionalidade e estética premium.",
+      "challenge": "O desafio era organizar uma vasta gama de informações em um layout limpo e intuitivo, mantendo a identidade visual forte da marca.",
+      "tags": [
+        "UX/UI",
+        "Design System",
+        "Branding"
+      ],
+      "gallery": [
+        "assets/ssg.png",
+        "assets/ssg.png",
+        "assets/ssg.png"
+      ],
+      "visitLink": "#",
+      "featured": true
+    },
+    {
+      "id": "porsche-case",
+      "title": "PORSCHE RS",
+      "category": "Web Design",
+      "subtitle": "Automotive Experience",
+      "heroImage": "assets/ssg.png",
+      "role": "UI Designer",
+      "client": "Porsche",
+      "year": "2023",
+      "duration": "2 Months",
+      "about": "Exploração visual para um configurador de veículos de luxo, focando em performance e interatividade.",
+      "challenge": "Transmitir a sensação de velocidade e exclusividade da marca através de uma interface minimalista.",
+      "tags": [
+        "UI Design",
+        "Interactive",
+        "Luxury"
+      ],
+      "gallery": [
+        "assets/ssg.png"
+      ],
+      "visitLink": "#",
+      "featured": true
+    }
+  ]
+}

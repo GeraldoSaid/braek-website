@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glow Test — Isolated</title>
+    <style>
+        /* ============================================================
+     CONTROLLED TEST — ZERO GLOBAL CSS, ZERO CACHE POSSIBLE
+     Only card + glow rules. If this works, the glow code is safe.
+     ============================================================ */
+
+        body {
+            margin: 0;
+            padding: 60px;
+            background: #000;
+            font-family: sans-serif;
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        label {
+            color: #fff;
+            font-size: 12px;
+            margin-bottom: 8px;
+            display: block;
+            opacity: 0.6;
+        }
+
+        /* CARD BASE — identical to what .pk-card uses in the main project */
+        .test-card {
+            background-color: #0A0A0A;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            box-sizing: border-box;
+            overflow: hidden;
+            width: 420px;
+            height: 280px;
+        }
+
+        .test-card h3 {
+            font-size: 1.2rem;
+            color: #ffffff;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .test-card p {
+            font-size: 0.95rem;
+            color: #a3a3a3;
+            line-height: 1.65;
+            margin: 0;
+        }
+
+        /* ============================================================
+     GLOW-MOUSE-CARD
+     The ONLY CSS for the effect — background-image + border-color.
+     NO pseudo-elements. NO z-index. NO isolation. NO border removal.
+     ============================================================ */
+        .glow-mouse-card {
+            background-image: radial-gradient(600px circle at var(--mouse-x, -9999px) var(--mouse-y, -9999px),
+                    rgba(255, 255, 255, 0.08),
+                    transparent 65%);
+            transition: border-color 0.4s ease;
+        }
+
+        .glow-mouse-card:hover {
+            border-color: rgba(255, 255, 255, 0.30);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- CARD A: WITHOUT glow-mouse-card (reference) -->
+    <div>
+        <label>Card A — NO glow class (reference)</label>
+        <div class="test-card">
+            <h3>Referência — sem animação</h3>
+            <p>Este card NÃO tem a classe glow-mouse-card. O texto deve estar visível em cinza claro aqui.</p>
+        </div>
+    </div>
+
+    <!-- CARD B: WITH glow-mouse-card (test) -->
+    <div>
+        <label>Card B — COM glow-mouse-card (teste)</label>
+        <div class="test-card glow-mouse-card" id="glowCard">
+            <h3>Teste — com animação</h3>
+            <p>Este card TEM a classe glow-mouse-card. O texto DEVE estar visível também. Passe o mouse aqui para ver o
+                efeito.</p>
+        </div>
+    </div>
+
+    <script>
+        // Exact same JS as in main.js
+        const glowCards = document.querySelectorAll('.glow-mouse-card');
+        glowCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        // Diagnostic: print computed styles of Card B p element
+        window.addEventListener('load', () => {
+            const pEl = document.querySelector('#glowCard p');
+            const computed = window.getComputedStyle(pEl);
+            console.log('=== CARD B <p> COMPUTED STYLES ===');
+            console.log('color:', computed.color);
+            console.log('opacity:', computed.opacity);
+            console.log('display:', computed.display);
+            console.log('visibility:', computed.visibility);
+            console.log('z-index:', computed.zIndex);
+            console.log('position:', computed.position);
+            console.log('background:', computed.background);
+
+            const cardEl = document.querySelector('#glowCard');
+            const cardComputed = window.getComputedStyle(cardEl);
+            console.log('=== CARD B computed styles ===');
+            console.log('backgroundImage:', cardComputed.backgroundImage);
+            console.log('isolation:', cardComputed.isolation);
+            console.log('overflow:', cardComputed.overflow);
+            console.log('border:', cardComputed.border);
+
+            // Also check ::before and ::after
+            const beforeStyle = window.getComputedStyle(cardEl, '::before');
+            const afterStyle = window.getComputedStyle(cardEl, '::after');
+            console.log('::before content:', beforeStyle.content);
+            console.log('::after content:', afterStyle.content);
+        });
+    </script>
+</body>
+
+</html>
