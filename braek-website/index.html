@@ -890,17 +890,18 @@
             </div>
             <div class="contact-form">
                 <p>No Brasil, cada detalhe importa, é hora<br>de dar esse seu próximo passo!</p>
-                <form onsubmit="event.preventDefault();">
+                <form id="lead-form" onsubmit="event.preventDefault();">
                     <div class="form-row">
-                        <input type="text" placeholder="Seu nome">
-                        <input type="email" placeholder="Seu email">
+                        <input type="text" id="lead-name" placeholder="Seu nome" required>
+                        <input type="email" id="lead-email" placeholder="Seu email" required>
                     </div>
                     <div class="form-row">
-                        <input type="tel" placeholder="Seu Whatsapp">
-                        <input type="text" placeholder="Qual a sua necessidade?">
+                        <input type="tel" id="lead-phone" placeholder="Seu Whatsapp">
+                        <input type="text" id="lead-subject" placeholder="Qual a sua necessidade?">
                     </div>
-                    <textarea placeholder="Comente sobre sua ideia" rows="4"></textarea>
-                    <button class="btn-primary w-100">Enviar mensagem</button>
+                    <textarea id="lead-message" placeholder="Comente sobre sua ideia" rows="4" required></textarea>
+                    <button type="submit" id="lead-submit-btn" class="btn-primary w-100">Enviar mensagem</button>
+                    <div id="lead-status" style="margin-top:15px; font-size:14px; text-align:center; display:none;"></div>
                 </form>
             </div>
         </div>
@@ -937,6 +938,7 @@
 </body>
 
 </html>
+
 
 
 
