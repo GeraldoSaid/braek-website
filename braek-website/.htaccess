@@ -1,0 +1,35 @@
+# Disable directory listing
+Options -Indexes
+
+# ─── PHP configuration ─────────────────────────────────────
+<IfModule mod_php.c>
+    # Increase upload limits for image uploads
+    php_value upload_max_filesize 10M
+    php_value post_max_size 12M
+    php_value max_execution_time 60
+</IfModule>
+
+# ─── Security headers ───────────────────────────────────────
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# ─── Hide sensitive files ───────────────────────────────────
+<FilesMatch "\.(sql|env|log|sh|json)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Allow projects.json specifically (it's a fallback)
+<Files "projects.json">
+    Order allow,deny
+    Allow from all
+</Files>
+
+# ─── Pretty URLs (optional, for future routing) ─────────────
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+</IfModule>

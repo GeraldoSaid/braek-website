@@ -1,0 +1,19 @@
+# Ignore ZIP files and environment variables
+*.zip
+.env
+
+# MacOS files
+.DS_Store
+__MACOSX/
+
+# IDE settings
+.vscode/
+.idea/
+
+# Node logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Other ignores
+Thumbs.db

@@ -207,31 +207,33 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 7. Dynamic Project Engine (CMS Bridge)
-    const PROJECTS_DATA_PATH = 'data/projects.json';
+    // 7. Dynamic Project Engine (API-powered)
+    const PROJECTS_API = 'api/projects/get.php';
 
     async function fetchProjects() {
         try {
-            const response = await fetch(PROJECTS_DATA_PATH);
-            if (!response.ok) throw new Error('Failed to load projects');
+            const response = await fetch(PROJECTS_API);
+            if (!response.ok) throw new Error('API error');
             return await response.json();
         } catch (error) {
             console.error('Error loading projects:', error);
-            return [];
+            return { projects: [] };
         }
     }
 
     function createProjectCard(project, isLarge = false) {
+        const categorySlug = (project.category || '').toLowerCase();
+        const link = project.pageLink || `project-details.html?id=${project.id}`;
+
         if (isLarge) {
-            // Pattern LARGE (Reference Enix)
             return `
-                <div class="project-card large reveal-up" data-category="${project.tags[0].toLowerCase()}">
+                <div class="project-card large reveal-up" data-category="${categorySlug}">
                     <img src="${project.heroImage}" alt="${project.title}" class="project-img">
                     <div class="project-overlay"></div>
                     <div class="project-content">
                         <div class="project-top">
                             <span class="project-badge">${project.category}</span>
-                            <button class="project-arrow-btn" aria-label="Ver projeto" onclick="window.location.href='project-details.html?id=${project.id}'">
+                            <button class="project-arrow-btn" aria-label="Ver projeto" onclick="window.location.href='${link}'">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <line x1="7" y1="17" x2="17" y2="7"></line>
                                     <polyline points="7 7 17 7 17 17"></polyline>
@@ -248,20 +250,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                     <div class="project-hover-bar">
                         <p>${project.about || ''}</p>
-                        <a href="project-details.html?id=${project.id}">View Project ↗</a>
+                        <a href="${link}">Ver Projeto ↗</a>
                     </div>
                 </div>
             `;
         } else {
-            // Pattern SMALL (Reference SSG/Aurora)
             return `
-                <div class="project-card medium reveal-up" data-category="${project.tags[0].toLowerCase()}">
+                <div class="project-card medium reveal-up" data-category="${categorySlug}">
                     <img src="${project.heroImage}" alt="${project.title}" class="project-img">
                     <div class="project-overlay"></div>
                     <div class="project-content">
                         <div class="project-top">
                             <span class="project-badge">${project.category}</span>
-                            <button class="project-arrow-btn" aria-label="Ver projeto" onclick="window.location.href='project-details.html?id=${project.id}'">
+                            <button class="project-arrow-btn" aria-label="Ver projeto" onclick="window.location.href='${link}'">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <line x1="7" y1="17" x2="17" y2="7"></line>
                                     <polyline points="7 7 17 7 17 17"></polyline>
@@ -278,7 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                     <div class="project-hover-bar">
                         <p>${project.about || ''}</p>
-                        <a href="project-details.html?id=${project.id}">View Project ↗</a>
+                        <a href="${link}">Ver Projeto ↗</a>
                     </div>
                 </div>
             `;
@@ -288,44 +289,75 @@ document.addEventListener('DOMContentLoaded', () => {
     async function initProjectEngine() {
         const data = await fetchProjects();
         const projects = data.projects || [];
-        if (!projects || projects.length === 0) return;
 
-        // Render Homepage Featured Projects (Disabled for hardcoded stability)
-        /*
-        const featuredGrid = document.querySelector('.featured-projects-grid');
-        if (featuredGrid) {
-            const featuredOnes = projects.filter(p => p.featured);
-            // First is Large, others are Small
-            featuredGrid.innerHTML = featuredOnes.map((p, index) => createProjectCard(p, index === 0)).join('');
-        }
-        */
-
-        // Render Portfolio Grid
-        const portfolioGrid = document.querySelector('.portfolio-grid-inner');
-        if (portfolioGrid) {
-            // All in portfolio are "Small" pattern but in a 2-col grid
-            portfolioGrid.innerHTML = projects.map(p => createProjectCard(p, false)).join('');
-
-            initDynamicFilters(projects);
-        }
-        // Update total count if display exists
+        // ─── Portfolio Page: Dynamic Cards + Filters ────────────────────────
+        const portfolioGrid = document.getElementById('portfolio-projects-grid');
+        const portfolioLoading = document.getElementById('portfolio-loading');
+        const filterControls = document.getElementById('portfolio-filter-controls');
         const countDisplay = document.getElementById('count-value');
-        if (countDisplay) countDisplay.textContent = projects.length;
 
-        // Handle Project Details Template
+        if (portfolioGrid) {
+            if (projects.length === 0) {
+                if (portfolioLoading) portfolioLoading.textContent = 'Nenhum projeto encontrado.';
+            } else {
+                // 1. Build cards HTML
+                // First project = large, remaining paired into projects-row (2-col grid)
+                let cardsHTML = '';
+                cardsHTML += createProjectCard(projects[0], true);
+
+                let i = 1;
+                while (i < projects.length) {
+                    const a = projects[i];
+                    const b = projects[i + 1];
+                    if (b) {
+                        cardsHTML += `<div class="projects-row">${createProjectCard(a, false)}${createProjectCard(b, false)}</div>`;
+                        i += 2;
+                    } else {
+                        cardsHTML += createProjectCard(a, false);
+                        i += 1;
+                    }
+                }
+
+                portfolioGrid.innerHTML = cardsHTML;
+                portfolioGrid.style.display = '';
+                if (portfolioLoading) portfolioLoading.style.display = 'none';
+
+                // 2. Build unique filter buttons from project categories
+                if (filterControls) {
+                    const uniqueCategories = [...new Set(
+                        projects.map(p => p.category).filter(Boolean)
+                    )];
+                    uniqueCategories.forEach(cat => {
+                        const btn = document.createElement('button');
+                        btn.className = 'filter-btn';
+                        btn.setAttribute('data-filter', cat.toLowerCase());
+                        btn.textContent = cat;
+                        filterControls.appendChild(btn);
+                    });
+                }
+
+                // 3. Set initial count
+                if (countDisplay) countDisplay.textContent = projects.length;
+
+                // 4. Wire up filters
+                initDynamicFilters(projects);
+                filtersInitialized = true;
+
+                // 5. Re-observe newly created reveal elements
+                const allRevealElements = document.querySelectorAll('.reveal-up, .jumpy-trigger');
+                allRevealElements.forEach(el => observer.observe(el));
+            }
+        }
+
+        // ─── Handle Project Details Template ────────────────────────────────
         if (window.location.pathname.includes('project-details.html')) {
             const urlParams = new URLSearchParams(window.location.search);
             const projectId = urlParams.get('id');
             const project = projects.find(p => p.id === projectId);
-
             if (project) {
                 updateProjectDetailsUI(project);
             }
         }
-
-        // Re-observe all newly created reveal elements
-        const allRevealElements = document.querySelectorAll('.reveal-up, .jumpy-trigger');
-        allRevealElements.forEach(el => observer.observe(el));
     }
 
     function updateProjectDetailsUI(project) {
@@ -386,8 +418,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 filterBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
 
-                // Get all cards from the INNER grid specifically
-                const projectCards = document.querySelectorAll('.portfolio-grid-inner .project-card');
+                // Support both .projects-grid (portfolio page) and .portfolio-grid-inner (legacy)
+                const projectCards = document.querySelectorAll('.projects-grid .project-card, .portfolio-grid-inner .project-card');
 
                 let count = 0;
                 projectCards.forEach(card => {
@@ -406,6 +438,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
             });
         });
+    }
+
+    // Static filter init: only runs if portfolio is NOT dynamically loaded via JSON
+    // (prevents double-init when initProjectEngine also calls initDynamicFilters)
+    let filtersInitialized = false;
+    const staticFilterBtns = document.querySelectorAll('.filter-btn');
+    if (staticFilterBtns.length > 0 && !filtersInitialized) {
+        initDynamicFilters([]);
     }
 
     initProjectEngine();

@@ -21,7 +21,8 @@
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <a href="#" class="logo">
-                <img src="assets/Logo.svg" alt="Braek Logo" class="brand-logo" style="height: 32px; width: auto;">
+                <img src="assets/logos/Principal.svg" alt="Braek Logo" class="brand-logo"
+                    style="height: 32px; width: auto;">
             </a>
             <div class="nav-links">
                 <a href="#inicio">Início</a>
@@ -29,10 +30,8 @@
                 <a href="#solucoes">Soluções</a>
                 <a href="#processo">Processo</a>
             </div>
-            <a href="#contato" class="btn-whatsapp">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M21.5 2L2 10.5L10 14L13.5 22L21.5 2Z" fill="currentColor" />
-                </svg>
+            <a href="#contato" class="btn-whatsapp" style="display: flex; align-items: center; gap: 8px;">
+                <img src="assets/icones/whatsapp.svg" alt="WhatsApp" style="width: 26px; height: 26px;">
                 whatsapp
             </a>
         </div>
@@ -42,15 +41,17 @@
     <header class="hero" id="inicio">
         <!-- Placeholder Video for Hero -->
         <video class="hero-bg-video" autoplay loop muted playsinline>
-            <source src="assets/home-animation.mp4" type="video/mp4">
+            <source src="assets/videos/home-animation.mp4" type="video/mp4">
             <!-- Fallback se o vídeo não carregar -->
         </video>
         <div class="hero-overlay"></div>
 
         <div class="hero-content">
-            <div class="hero-label reveal-up" style="margin-bottom: 30px;">
-                <span class="label-icon-wrapper">
-                    <img src="assets/Logo.svg" alt="Braek Logo Icon" class="label-icon">
+            <div class="hero-label reveal-up"
+                style="margin-bottom: 30px; display: inline-flex; align-items: center; gap: 10px; padding: 12px 24px;">
+                <span class="label-icon-wrapper" style="display: flex; align-items: center; justify-content: center;">
+                    <img src="assets/logos/Principal.svg" alt="Braek Logo Icon" class="label-icon"
+                        style="height: 24px; width: auto;">
                 </span>
                 Agência de Branding
             </div>
@@ -85,7 +86,7 @@
             <div class="projects-grid">
                 <!-- Wix / Enix (Large Pattern) -->
                 <div class="project-card large reveal-up" data-category="branding">
-                    <img src="assets/enix.png" alt="Enix Agência Imobiliária" class="project-img">
+                    <img src="assets/projetos/enix/enix.png" alt="Enix Agência Imobiliária" class="project-img">
                     <div class="project-overlay"></div>
                     <div class="project-content">
                         <div class="project-top">
@@ -117,7 +118,7 @@
                 <div class="projects-row">
                     <!-- SSG SAÚDE -->
                     <div class="project-card medium reveal-up" data-category="web design">
-                        <img src="assets/ssg.png" alt="SSG SAÚDE" class="project-img">
+                        <img src="assets/projetos/ssg/ssg.png" alt="SSG SAÚDE" class="project-img">
                         <div class="project-overlay"></div>
                         <div class="project-content">
                             <div class="project-top">
@@ -147,7 +148,7 @@
 
                     <!-- AURORA -->
                     <div class="project-card medium reveal-up" data-category="branding">
-                        <img src="assets/ssg.png" alt="AURORA" class="project-img">
+                        <img src="assets/projetos/ssg/ssg.png" alt="AURORA" class="project-img">
                         <div class="project-overlay"></div>
                         <div class="project-content">
                             <div class="project-top">
@@ -741,8 +742,81 @@
                                 do
                                 projeto.</p>
                             <div class="pk-visuals">
-                                <div class="pk-visual-box"></div>
-                                <div class="pk-visual-box"></div>
+                                <div class="pk-visual-box visual-grid">
+                                    <svg viewBox="0 0 100 100" class="vis-svg vis-chart">
+                                        <defs>
+                                            <linearGradient id="chartGlow" x1="0%" y1="0%" x2="0%" y2="100%">
+                                                <stop offset="0%" stop-color="var(--accent-red)" stop-opacity="0.8" />
+                                                <stop offset="100%" stop-color="var(--accent-red)" stop-opacity="0" />
+                                            </linearGradient>
+                                            <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                                <stop offset="0%" stop-color="#333" stop-opacity="0.5" />
+                                                <stop offset="50%" stop-color="var(--accent-red)" stop-opacity="1" />
+                                                <stop offset="100%" stop-color="#fff" stop-opacity="1" />
+                                            </linearGradient>
+                                            <filter id="ultraGlow" x="-50%" y="-50%" width="200%" height="200%">
+                                                <feGaussianBlur stdDeviation="4" result="blur" />
+                                                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                                            </filter>
+                                            <linearGradient id="dropLineGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                                <stop offset="0%" stop-color="var(--accent-red)" stop-opacity="1" />
+                                                <stop offset="100%" stop-color="var(--accent-red)" stop-opacity="0" />
+                                            </linearGradient>
+                                        </defs>
+                                        <!-- Area path -->
+                                        <path d="M 0 85 Q 25 85 45 60 T 80 50 T 100 25 L 100 100 L 0 100 Z"
+                                            fill="url(#chartGlow)" class="chart-area" />
+                                        <!-- Vertical drop line -->
+                                        <line x1="80" y1="50" x2="80" y2="100" stroke="url(#dropLineGrad)"
+                                            stroke-width="1.5" stroke-dasharray="3,3" class="drop-line" />
+                                        <!-- Line path -->
+                                        <path d="M 0 85 Q 25 85 45 60 T 80 50 T 100 25" fill="none"
+                                            stroke="url(#lineGrad)" class="chart-line" />
+                                        <!-- Glowing Point -->
+                                        <circle cx="80" cy="50" r="5" class="chart-point main-point"
+                                            fill="var(--accent-red)" filter="url(#ultraGlow)" />
+                                        <circle cx="80" cy="50" r="2.5" fill="#fff" class="chart-point p-inner" />
+                                    </svg>
+                                </div>
+                                <div class="pk-visual-box visual-grid">
+                                    <svg viewBox="0 0 100 100" class="vis-svg vis-bars">
+                                        <defs>
+                                            <linearGradient id="barRed1" x1="0%" y1="0%" x2="0%" y2="100%">
+                                                <stop offset="0%" stop-color="#ff1e46" />
+                                                <stop offset="100%" stop-color="rgba(219,6,57,0)" />
+                                            </linearGradient>
+                                            <linearGradient id="barRed2" x1="0%" y1="0%" x2="0%" y2="100%">
+                                                <stop offset="0%" stop-color="#ff6b81" />
+                                                <stop offset="100%" stop-color="rgba(219,6,57,0.2)" />
+                                            </linearGradient>
+                                            <linearGradient id="barGrey" x1="0%" y1="0%" x2="0%" y2="100%">
+                                                <stop offset="0%" stop-color="#444" />
+                                                <stop offset="100%" stop-color="rgba(30,30,30,0)" />
+                                            </linearGradient>
+                                        </defs>
+                                        <!-- Window BG -->
+                                        <rect x="5" y="10" width="90" height="90" rx="6" fill="rgba(255,255,255,0.01)"
+                                            stroke="rgba(255,255,255,0.05)" stroke-width="1" class="win-frame" />
+                                        <rect x="15" y="18" width="70" height="10" rx="4" fill="rgba(0,0,0,0.5)"
+                                            stroke="rgba(255,255,255,0.05)" stroke-width="1" />
+                                        <circle cx="78" cy="23" r="2" fill="none" stroke="#666" stroke-width="1.2" />
+                                        <line x1="79.5" y1="24.5" x2="82" y2="27" stroke="#666" stroke-width="1.2"
+                                            stroke-linecap="round" />
+
+                                        <!-- Bars -->
+                                        <rect x="18" y="55" width="12" height="35" rx="4" fill="url(#barGrey)"
+                                            class="bar bgrey b1" />
+                                        <rect x="36" y="40" width="12" height="50" rx="4" fill="url(#barGrey)"
+                                            class="bar bgrey b2" />
+                                        <rect x="54" y="22" width="12" height="68" rx="4" fill="url(#barRed2)"
+                                            class="bar bred b3" filter="url(#ultraGlow)" />
+                                        <rect x="72" y="50" width="12" height="40" rx="4" fill="url(#barGrey)"
+                                            class="bar bgrey b4" />
+
+                                        <circle cx="60" cy="22" r="3" fill="#fff" class="chart-point bar-point"
+                                            filter="url(#ultraGlow)" />
+                                    </svg>
+                                </div>
                             </div>
                         </div>
 
@@ -801,8 +875,73 @@
                             <p>Hora de executar. Criamos interfaces, identidades ou soluções digitais com foco em
                                 experiência, performance e estética. Tudo feito sob medida, sem templates prontos.</p>
                             <div class="pk-visuals">
-                                <div class="pk-visual-box"></div>
-                                <div class="pk-visual-box"></div>
+                                <div class="pk-visual-box visual-grid">
+                                    <svg viewBox="0 0 100 100" class="vis-svg vis-dial">
+                                        <defs>
+                                            <linearGradient id="dialGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                                <stop offset="0%" stop-color="rgba(219,6,57,0)" />
+                                                <stop offset="50%" stop-color="var(--accent-red)" />
+                                                <stop offset="100%" stop-color="#ff4763" />
+                                            </linearGradient>
+                                            <linearGradient id="dialGradBg" x1="0%" y1="0%" x2="0%" y2="100%">
+                                                <stop offset="0%" stop-color="rgba(219,6,57,0.3)" />
+                                                <stop offset="100%" stop-color="transparent" />
+                                            </linearGradient>
+                                            <filter id="dialGlow" x="-50%" y="-50%" width="200%" height="200%">
+                                                <feGaussianBlur stdDeviation="3" result="blur" />
+                                                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                                            </filter>
+                                        </defs>
+                                        <!-- Outer dashed track -->
+                                        <path d="M 10 90 A 40 40 0 0 1 90 90" fill="none"
+                                            stroke="rgba(255,255,255,0.06)" stroke-width="2" stroke-dasharray="2 4"
+                                            stroke-linecap="round" />
+                                        <!-- Inner track background -->
+                                        <path d="M 18 90 A 32 32 0 0 1 82 90" fill="url(#dialGradBg)"
+                                            stroke="rgba(255,255,255,0.03)" stroke-width="8" stroke-linecap="round" />
+                                        <!-- Value Arc -->
+                                        <path d="M 18 90 A 32 32 0 0 1 82 90" fill="none" stroke="url(#dialGrad)"
+                                            stroke-width="8" class="dial-fill" stroke-linecap="round"
+                                            filter="url(#dialGlow)" />
+
+                                        <!-- Glow pointer -->
+                                        <g class="dial-needle-group">
+                                            <circle cx="50" cy="58" r="4" fill="#fff" filter="url(#dialGlow)"
+                                                class="dial-point" />
+                                            <polygon points="49 90, 51 90, 50 58" fill="url(#dialGrad)" opacity="0.6"
+                                                filter="url(#dialGlow)" />
+                                        </g>
+                                    </svg>
+                                </div>
+                                <div class="pk-visual-box visual-grid">
+                                    <svg viewBox="0 0 100 100" class="vis-svg vis-window">
+                                        <defs>
+                                            <filter id="winGlow" x="-50%" y="-50%" width="200%" height="200%">
+                                                <feGaussianBlur stdDeviation="3" result="blur" />
+                                                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                                            </filter>
+                                        </defs>
+                                        <!-- Background window -->
+                                        <rect x="20" y="8" width="70" height="50" rx="4" fill="rgba(20,20,20,0.8)"
+                                            stroke="rgba(255,255,255,0.05)" stroke-width="1" class="win-bg" />
+                                        <!-- Foreground active window -->
+                                        <rect x="10" y="30" width="60" height="60" rx="5" fill="#0d0d12"
+                                            stroke="rgba(255,255,255,0.15)" stroke-width="1.5"
+                                            class="win-frame win-front" filter="url(#winGlow)" />
+
+                                        <circle cx="18" cy="38" r="2" fill="#555" />
+                                        <circle cx="24" cy="38" r="2" fill="#555" />
+                                        <path d="M 10 45 L 70 45" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+
+                                        <!-- Skeletons -->
+                                        <rect x="18" y="55" width="44" height="6" rx="3" fill="#222"
+                                            class="win-el e1" />
+                                        <rect x="18" y="67" width="30" height="6" rx="3" fill="#333"
+                                            class="win-el e2" />
+                                        <rect x="18" y="79" width="15" height="4" rx="2" fill="var(--accent-red)"
+                                            class="win-el e3" filter="url(#winGlow)" />
+                                    </svg>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -859,7 +998,7 @@
     <footer class="footer" style="position: relative; overflow: hidden; padding: 150px 0 40px; z-index: 1;">
         <!-- Background Video for CTA -->
         <video class="hero-bg-video" autoplay loop muted playsinline>
-            <source src="assets/Video-Cta.mp4" type="video/mp4">
+            <source src="assets/videos/Video-Cta.mp4" type="video/mp4">
         </video>
         <div class="hero-overlay" style="background: rgba(0,0,0,0.7); z-index: -1; position: absolute; inset: 0;"></div>
 
@@ -870,7 +1009,8 @@
             <a href="#contato" class="btn-primary mt-4">Entrar em contato</a>
             <div class="footer-bottom mt-5">
                 <a href="#" class="logo">
-                    <img src="assets/Logo.svg" alt="Braek Logo" class="brand-logo" style="height: 32px; width: auto;">
+                    <img src="assets/logos/Branca.svg" alt="Braek Logo" class="brand-logo"
+                        style="height: 32px; width: auto;">
                 </a>
                 <p>&copy; 2026 Braek. Todos os direitos reservados.</p>
             </div>
@@ -880,6 +1020,7 @@
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
     <script src="main.js"></script>
 </body>
 
