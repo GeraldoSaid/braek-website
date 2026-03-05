@@ -5,6 +5,11 @@
 
 require_once __DIR__ . '/config.php';
 
+// Start session so require_auth() can read $_SESSION['admin_id']
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 // Set JSON response headers
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
