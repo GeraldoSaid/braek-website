@@ -6,16 +6,24 @@
 // HOSTINGER: fill with credentials from hPanel > MySQL Databases
 // ============================================================
 
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'u733058857_braek');
-define('DB_USER', 'u733058857_braek'); // Hostinger: u123456789_braek
-define('DB_PASS', 'AgenciaBraek@2025'); // Hostinger: your MySQL password
-define('DB_CHARSET', 'utf8mb4');
-
-// Base URL — used for image paths returned by the API
-// LOCAL: 'http://localhost/braek-website/braek-website'
-// HOSTINGER: 'https://yourdomain.com'
-define('BASE_URL', 'https://braek.com.br');
+if ($_SERVER['HTTP_HOST'] === 'localhost' || $_SERVER['HTTP_HOST'] === '127.0.0.1') {
+    // LOCAL CONFIGURATION (Laragon)
+    define('DB_HOST', 'localhost');
+    define('DB_NAME', 'braek');
+    define('DB_USER', 'root');
+    define('DB_PASS', '');
+    define('DB_CHARSET', 'utf8mb4');
+    define('BASE_URL', 'http://localhost/braek-website/braek-website');
+}
+else {
+    // PRODUCTION CONFIGURATION (Hostinger)
+    define('DB_HOST', 'localhost');
+    define('DB_NAME', 'u733058857_braek');
+    define('DB_USER', 'u733058857_braek');
+    define('DB_PASS', 'AgenciaBraek@2025');
+    define('DB_CHARSET', 'utf8mb4');
+    define('BASE_URL', 'https://braek.com.br');
+}
 
 // Session name (avoids conflicts if running multiple sites on same server)
 define('SESSION_NAME', 'braek_admin');
