@@ -653,14 +653,17 @@ async function applyGlobalSettings() {
 
         const s = data.settings;
 
-        // Update WhatsApp Links
+        // Update WhatsApp CTA Buttons - IDs set directly in index.html
         if (s.whatsapp) {
-            // Include both cta-whatsapp (footer) and btn-whatsapp (navbar)
-            const waLinks = document.querySelectorAll('.cta-whatsapp, .btn-whatsapp');
-            waLinks.forEach(link => {
-                link.href = s.whatsapp;
-                link.target = "_blank";
+            ['cta-whatsapp-nav', 'cta-whatsapp-hero', 'cta-whatsapp-footer'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.href = s.whatsapp;
+                    el.target = '_blank';
+                    el.rel = 'noopener noreferrer';
+                }
             });
+        });
 
             // Also update the hero button or any other general #contato link that has specific text
             const contactBtns = document.querySelectorAll('a[href="#contato"]');
@@ -720,5 +723,7 @@ async function trackVisit() {
     }
 }
 trackVisit();
+
+
 
 
