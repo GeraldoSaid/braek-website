@@ -1,4 +1,4 @@
-// ============================================================
+﻿// ============================================================
 // admin/admin.js — Admin Panel powered by real PHP/MySQL API
 // ============================================================
 
@@ -36,7 +36,7 @@ const API = {
 // ─── Auth Guard ─────────────────────────────────────────────
 async function checkAuth() {
     try {
-        const res = await fetch(API.check);
+        const res = await fetch(API.check, { credentials: 'include' });
         const data = await res.json();
         if (!data.authenticated) {
             window.location.href = 'login.html';
@@ -52,8 +52,8 @@ async function checkAuth() {
 // ─── Generic fetch helper ────────────────────────────────────
 async function api(url, body = null) {
     const opts = body
-        ? { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }
-        : { method: 'GET' };
+        ? { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body), credentials: 'include' }
+        : { method: 'GET', credentials: 'include' };
     const res = await fetch(url, opts);
     return res.json();
 }
@@ -479,7 +479,7 @@ document.querySelectorAll('.modal-overlay').forEach(overlay => {
 
 // ─── Logout ───────────────────────────────────────────────────
 function logout() {
-    fetch(API.logout, { method: 'POST' }).finally(() => {
+    fetch(API.logout, { method: 'POST', credentials: 'include' }).finally(() => {
         window.location.href = 'login.html';
     });
 }
@@ -627,6 +627,8 @@ async function saveSettings(e) {
         }
     }
 }
+
+
 
 
 
