@@ -4,6 +4,9 @@
     # Prevent infinite loops
     RewriteCond %{ENV:REDIRECT_STATUS} ^$
 
+    # 301 Redirect /index to /
+    RewriteRule ^index$ / [R=301,L]
+
     # Redirect nothing (the root) to the subfolder
     RewriteRule ^$ /braek-website/ [L]
 
