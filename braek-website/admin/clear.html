@@ -1,19 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
-    <title>Logout</title>
+    <title>Sair - Braek Admin</title>
+    <style>
+        body {
+            background: #0a0a0a;
+            color: #fff;
+            font-family: sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        a {
+            color: #e8003d;
+            font-size: 18px;
+            text-decoration: none;
+            border: 1px solid #e8003d;
+            padding: 12px 24px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: inline-block;
+        }
+
+        a:hover {
+            background: #e8003d;
+            color: #fff;
+        }
+    </style>
 </head>
 
 <body>
+    <div>
+        <h2>Sessão encerrada ✅</h2>
+        <p>Seu cache foi limpo com sucesso.</p>
+        <a href="login.html">Entrar novamente</a>
+    </div>
     <script>
-        // Emergency logout - clears localStorage and redirects to login
-        localStorage.removeItem('braek_admin_token');
+        // Clear all local storage — DO NOT redirect automatically to avoid loop
+        localStorage.clear();
         sessionStorage.clear();
-        window.location.href = 'login.html';
+        // Remove the PHP session cookie by expiring it
+        document.cookie.split(";").forEach(c => {
+            document.cookie = c.trim().split("=")[0] + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/";
+        });
     </script>
-    <p>Saindo... <a href="login.html">Clique aqui se não redirecionar</a></p>
 </body>
 
 </html>
