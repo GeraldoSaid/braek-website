@@ -52,8 +52,8 @@ async function checkAuth() {
 // ─── Generic fetch helper ────────────────────────────────────
 async function api(url, body = null) {
     const opts = body
-        ? { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }
-        : { method: 'GET' };
+        ? { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify(body) }
+        : { method: 'GET', headers: getAuthHeaders() };
     const res = await fetch(url, opts);
     return res.json();
 }
@@ -630,6 +630,7 @@ async function saveSettings(e) {
         }
     }
 }
+
 
 
 

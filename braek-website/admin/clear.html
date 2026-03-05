@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Logout</title>
+</head>
+
+<body>
+    <script>
+        // Emergency logout - clears localStorage and redirects to login
+        localStorage.removeItem('braek_admin_token');
+        sessionStorage.clear();
+        window.location.href = 'login.html';
+    </script>
+    <p>Saindo... <a href="login.html">Clique aqui se não redirecionar</a></p>
+</body>
+
+</html>
