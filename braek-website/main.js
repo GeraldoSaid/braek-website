@@ -290,6 +290,28 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = await fetchProjects();
         const projects = data.projects || [];
 
+        // ─── Home Page: Featured Projects ────────────────────────────
+        const homeGrid = document.getElementById('home-projects-container');
+        if (homeGrid && projects.length > 0) {
+            const featured = projects.filter(p => p.featured).slice(0, 3);
+            const display = featured.length > 0 ? featured : projects.slice(0, 3);
+
+            if (display.length > 0) {
+                let cardsHTML = '';
+                cardsHTML += createProjectCard(display[0], true);
+
+                if (display.length > 1) {
+                    cardsHTML += '<div class="projects-row">';
+                    for (let i = 1; i < display.length; i++) {
+                        cardsHTML += createProjectCard(display[i], false);
+                    }
+                    cardsHTML += '</div>';
+                }
+
+                homeGrid.innerHTML = cardsHTML;
+            }
+        }
+
         // ─── Portfolio Page: Dynamic Cards + Filters ────────────────────────
         const portfolioGrid = document.getElementById('portfolio-projects-grid');
         const portfolioLoading = document.getElementById('portfolio-loading');
@@ -297,6 +319,26 @@ document.addEventListener('DOMContentLoaded', () => {
         const countDisplay = document.getElementById('count-value');
 
         if (portfolioGrid) {
+            // 2. Build unique filter buttons from categories API (ALWAYS DO THIS, EVEN IF 0 PROJECTS)
+            if (filterControls) {
+                try {
+                    const catRes = await fetch('api/categories/get.php');
+                    const catData = await catRes.json();
+                    if (catData.categories) {
+                        catData.categories.forEach(cat => {
+                            const btn = document.createElement('button');
+                            btn.className = 'filter-btn';
+                            btn.setAttribute('data-filter', cat.name.toLowerCase());
+                            // If category is empty, we still show the button so the UX doesn't completely break
+                            btn.textContent = cat.name;
+                            filterControls.appendChild(btn);
+                        });
+                    }
+                } catch (e) {
+                    console.error('Failed to load categories', e);
+                }
+            }
+
             if (projects.length === 0) {
                 if (portfolioLoading) portfolioLoading.textContent = 'Nenhum projeto encontrado.';
             } else {
@@ -322,20 +364,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 portfolioGrid.style.display = '';
                 if (portfolioLoading) portfolioLoading.style.display = 'none';
 
-                // 2. Build unique filter buttons from project categories
-                if (filterControls) {
-                    const uniqueCategories = [...new Set(
-                        projects.map(p => p.category).filter(Boolean)
-                    )];
-                    uniqueCategories.forEach(cat => {
-                        const btn = document.createElement('button');
-                        btn.className = 'filter-btn';
-                        btn.setAttribute('data-filter', cat.toLowerCase());
-                        btn.textContent = cat;
-                        filterControls.appendChild(btn);
-                    });
-                }
-
                 // 3. Set initial count
                 if (countDisplay) countDisplay.textContent = projects.length;
 
@@ -347,107 +375,108 @@ document.addEventListener('DOMContentLoaded', () => {
                 const allRevealElements = document.querySelectorAll('.reveal-up, .jumpy-trigger');
                 allRevealElements.forEach(el => observer.observe(el));
             }
-        }
+        }    }
 
-        // ─── Handle Project Details Template ────────────────────────────────
-        if (window.location.pathname.includes('project-details.html')) {
-            const urlParams = new URLSearchParams(window.location.search);
-            const projectId = urlParams.get('id');
-            const project = projects.find(p => p.id === projectId);
-            if (project) {
-                updateProjectDetailsUI(project);
-            }
-        }
+// ─── Handle Project Details Template ────────────────────────────────
+if (window.location.pathname.includes('project-details.html')) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const projectId = urlParams.get('id');
+    const project = projects.find(p => p.id === projectId);
+    if (project) {
+        updateProjectDetailsUI(project);
+    }
+}
     }
 
-    function updateProjectDetailsUI(project) {
-        // Hero Section
-        const heroImg = document.querySelector('.pd-hero-media img');
-        if (heroImg) heroImg.src = project.heroImage;
+function updateProjectDetailsUI(project) {
+    // Hero Section
+    const heroImg = document.querySelector('.pd-hero-media img');
+    if (heroImg) heroImg.src = project.heroImage;
 
-        const badge = document.querySelector('.pd-hero-content .project-badge');
-        if (badge) badge.textContent = project.category;
+    const badge = document.querySelector('.pd-hero-content .project-badge');
+    if (badge) badge.textContent = project.category;
 
-        const h1 = document.querySelector('.pd-hero-content h1');
-        if (h1) h1.textContent = project.title;
+    const h1 = document.querySelector('.pd-hero-content h1');
+    if (h1) h1.textContent = project.title;
 
-        const p = document.querySelector('.pd-hero-content p');
-        if (p) p.textContent = project.subtitle;
+    const p = document.querySelector('.pd-hero-content p');
+    if (p) p.textContent = project.subtitle;
 
-        // Info Items
-        const infoValues = document.querySelectorAll('.pd-sidebar-card .pd-info-value');
-        if (infoValues.length >= 3) {
-            infoValues[0].textContent = project.role;
-            infoValues[1].textContent = project.client;
-            infoValues[2].textContent = project.year;
-        }
+    // Info Items
+    const infoValues = document.querySelectorAll('.pd-sidebar-card .pd-info-value');
+    if (infoValues.length >= 3) {
+        infoValues[0].textContent = project.role;
+        infoValues[1].textContent = project.client;
+        infoValues[2].textContent = project.year;
+    }
 
-        // About & Challenge
-        const descSections = document.querySelectorAll('.pd-content .pd-section');
-        descSections.forEach(section => {
-            const h2 = section.querySelector('h2');
-            const p = section.querySelector('p');
-            if (h2 && p) {
-                if (h2.textContent.includes('OVERVIEW') || h2.textContent.includes('Sobre')) {
-                    p.innerHTML = project.about;
-                } else if (h2.textContent.includes('Desafio')) {
-                    p.innerHTML = project.challenge;
-                }
+    // About & Challenge
+    const descSections = document.querySelectorAll('.pd-content .pd-section');
+    descSections.forEach(section => {
+        const h2 = section.querySelector('h2');
+        const p = section.querySelector('p');
+        if (h2 && p) {
+            if (h2.textContent.includes('OVERVIEW') || h2.textContent.includes('Sobre')) {
+                p.innerHTML = project.about;
+            } else if (h2.textContent.includes('Desafio')) {
+                p.innerHTML = project.challenge;
             }
-        });
+        }
+    });
 
-        // Gallery
-        const galleryGrid = document.querySelector('.gallery-grid');
-        if (galleryGrid) {
-            galleryGrid.innerHTML = project.gallery.map(img => `
+    // Gallery
+    const galleryGrid = document.querySelector('.gallery-grid');
+    if (galleryGrid) {
+        galleryGrid.innerHTML = project.gallery.map(img => `
                 <div class="gallery-item reveal-up">
                     <img src="${img}" alt="Gallery Image">
                 </div>
             `).join('');
-        }
     }
+}
 
-    function initDynamicFilters(projects) {
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const countDisplay = document.getElementById('count-value');
+function initDynamicFilters(projects) {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const countDisplay = document.getElementById('count-value');
 
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const filterValue = btn.getAttribute('data-filter');
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const filterValue = btn.getAttribute('data-filter');
 
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
 
-                // Support both .projects-grid (portfolio page) and .portfolio-grid-inner (legacy)
-                const projectCards = document.querySelectorAll('.projects-grid .project-card, .portfolio-grid-inner .project-card');
+            // Support both .projects-grid (portfolio page) and .portfolio-grid-inner (legacy)
+            const projectCards = document.querySelectorAll('.projects-grid .project-card, .portfolio-grid-inner .project-card');
 
-                let count = 0;
-                projectCards.forEach(card => {
-                    const category = card.getAttribute('data-category');
-                    if (filterValue === 'all' || category === filterValue) {
-                        card.style.display = 'block';
-                        card.classList.remove('filtered-out');
-                        count++;
-                    } else {
-                        card.style.display = 'none';
-                        card.classList.add('filtered-out');
-                    }
-                });
-
-                if (countDisplay) countDisplay.textContent = count;
-                if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+            let count = 0;
+            projectCards.forEach(card => {
+                const category = card.getAttribute('data-category');
+                if (filterValue === 'all' || category === filterValue) {
+                    card.style.display = 'block';
+                    card.classList.remove('filtered-out');
+                    count++;
+                } else {
+                    card.style.display = 'none';
+                    card.classList.add('filtered-out');
+                }
             });
+
+            if (countDisplay) countDisplay.textContent = count;
+            if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
         });
-    }
+    });
+}
 
-    // Static filter init: only runs if portfolio is NOT dynamically loaded via JSON
-    // (prevents double-init when initProjectEngine also calls initDynamicFilters)
-    let filtersInitialized = false;
-    const staticFilterBtns = document.querySelectorAll('.filter-btn');
-    if (staticFilterBtns.length > 0 && !filtersInitialized) {
-        initDynamicFilters([]);
-    }
+// Static filter init: only runs if portfolio is NOT dynamically loaded via JSON
+// (prevents double-init when initProjectEngine also calls initDynamicFilters)
+let filtersInitialized = false;
+const staticFilterBtns = document.querySelectorAll('.filter-btn');
+if (staticFilterBtns.length > 0 && !filtersInitialized) {
+    initDynamicFilters([]);
+}
 
-    initProjectEngine();
+initProjectEngine();
 });
+
 

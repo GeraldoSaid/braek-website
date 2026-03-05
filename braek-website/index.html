@@ -85,100 +85,9 @@
                 </div>
             </div>
 
-            <!-- Physical Grid: Rebuilt for pixel-perfection -->
-            <div class="projects-grid">
-                <!-- Wix / Enix (Large Pattern) -->
-                <div class="project-card large reveal-up" data-category="branding">
-                    <img src="assets/projetos/enix/enix.png" alt="Enix Agência Imobiliária" class="project-img">
-                    <div class="project-overlay"></div>
-                    <div class="project-content">
-                        <div class="project-top">
-                            <span class="project-badge">BRANDING</span>
-                            <button class="project-arrow-btn" aria-label="Ver projeto"
-                                onclick="window.location.href='portfolio'">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <line x1="7" y1="17" x2="17" y2="7"></line>
-                                    <polyline points="7 7 17 7 17 17"></polyline>
-                                </svg>
-                            </button>
-                        </div>
-                        <div class="project-bottom">
-                            <div class="project-info">
-                                <h3>Enix</h3>
-                                <p>Agência de marketing</p>
-                            </div>
-                            <span class="project-year">2024</span>
-                        </div>
-                    </div>
-                    <div class="project-hover-bar">
-                        <p>A complete design system built for scalability and consistency across product</p>
-                        <a href="portfolio">View Project ↗</a>
-                    </div>
-                </div>
-
-                <!-- Two Column Row (Small Pattern) -->
-                <div class="projects-row">
-                    <!-- SSG SAÚDE -->
-                    <div class="project-card medium reveal-up" data-category="web design">
-                        <img src="assets/projetos/ssg/ssg.png" alt="SSG SAÚDE" class="project-img">
-                        <div class="project-overlay"></div>
-                        <div class="project-content">
-                            <div class="project-top">
-                                <span class="project-badge">WEB DESIGN</span>
-                                <button class="project-arrow-btn" aria-label="Ver projeto"
-                                    onclick="window.location.href='portfolio'">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <line x1="7" y1="17" x2="17" y2="7"></line>
-                                        <polyline points="7 7 17 7 17 17"></polyline>
-                                    </svg>
-                                </button>
-                            </div>
-                            <div class="project-bottom">
-                                <div class="project-info">
-                                    <h3>SSG SAÚDE</h3>
-                                    <p>Identidade Visual & Web</p>
-                                </div>
-                                <span class="project-year">2024</span>
-                            </div>
-                        </div>
-                        <div class="project-hover-bar">
-                            <p>Plataforma para clínica médica com agendamento integrado.</p>
-                            <a href="portfolio">View Project ↗</a>
-                        </div>
-                    </div>
-
-                    <!-- AURORA -->
-                    <div class="project-card medium reveal-up" data-category="branding">
-                        <img src="assets/projetos/ssg/ssg.png" alt="AURORA" class="project-img">
-                        <div class="project-overlay"></div>
-                        <div class="project-content">
-                            <div class="project-top">
-                                <span class="project-badge">BRANDING</span>
-                                <button class="project-arrow-btn" aria-label="Ver projeto"
-                                    onclick="window.location.href='portfolio'">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <line x1="7" y1="17" x2="17" y2="7"></line>
-                                        <polyline points="7 7 17 7 17 17"></polyline>
-                                    </svg>
-                                </button>
-                            </div>
-                            <div class="project-bottom">
-                                <div class="project-info">
-                                    <h3>AURORA</h3>
-                                    <p>Design de Marca & Embalagem</p>
-                                </div>
-                                <span class="project-year">2023</span>
-                            </div>
-                        </div>
-                        <div class="project-hover-bar">
-                            <p>Evolução de marca focada no mercado de cosméticos premium.</p>
-                            <a href="portfolio">View Project ↗</a>
-                        </div>
-                    </div>
-                </div>
+            <!-- Dynamic Projects Container (replaces hardcoded HTML) -->
+            <div class="projects-grid" id="home-projects-container">
+                <!-- Javascript will load 3 featured projects here -->
             </div>
         </div>
     </section>
@@ -1028,6 +937,8 @@
 </body>
 
 </html>
+
+
 
 
 
