@@ -183,30 +183,7 @@
                                 <h3>Acessos nos últimos 7 dias</h3>
                             </div>
                             <div class="chart-placeholder">
-                                <div class="chart-bars">
-                                    <div class="bar-col">
-                                        <div class="bar" style="height: 40%"></div><span>Seg</span>
-                                    </div>
-                                    <div class="bar-col">
-                                        <div class="bar" style="height: 60%"></div><span>Ter</span>
-                                    </div>
-                                    <div class="bar-col">
-                                        <div class="bar" style="height: 30%"></div><span>Qua</span>
-                                    </div>
-                                    <div class="bar-col">
-                                        <div class="bar active" style="height: 90%"></div><span>Qui</span>
-                                    </div>
-                                    <div class="bar-col">
-                                        <div class="bar" style="height: 50%"></div><span>Sex</span>
-                                    </div>
-                                    <div class="bar-col">
-                                        <div class="bar" style="height: 70%"></div><span>Sáb</span>
-                                    </div>
-                                    <div class="bar-col">
-                                        <div class="bar" style="height: 20%"></div><span>Dom</span>
-                                    </div>
-                                </div>
-                            </div>
+                                <div class="chart-bars" id="dashboard-chart-bars"></div></div></div>
                         </div>
 
                         <!-- Recent Activities -->
@@ -214,37 +191,7 @@
                             <div class="table-header">
                                 <h3>Atividades Recentes</h3>
                             </div>
-                            <div class="activity-list">
-                                <div class="activity-item">
-                                    <div class="act-dot red"></div>
-                                    <div class="act-text">
-                                        <p><strong>Novo Lead:</strong> Formulário de Marcos Silveira.</p>
-                                        <span>Há 2 horas</span>
-                                    </div>
-                                </div>
-                                <div class="activity-item">
-                                    <div class="act-dot"></div>
-                                    <div class="act-text">
-                                        <p><strong>Projeto Atualizado:</strong> Enix Agência.</p>
-                                        <span>Ontem, 14:30</span>
-                                    </div>
-                                </div>
-                                <div class="activity-item">
-                                    <div class="act-dot"></div>
-                                    <div class="act-text">
-                                        <p><strong>Novo Lead:</strong> Formulário de Juliana Perez.</p>
-                                        <span>01 Mar, 10:15</span>
-                                    </div>
-                                </div>
-                                <div class="activity-item">
-                                    <div class="act-dot"></div>
-                                    <div class="act-text">
-                                        <p><strong>Login no Painel</strong> via Desktop.</p>
-                                        <span>01 Mar, 08:00</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                            <div class="activity-list" id="dashboard-activities"></div></div></div></div>
                     </div>
                 </div>
 
@@ -623,9 +570,8 @@
                             <div class="form-group">
                                 <label>Link do WhatsApp (Para botões CTA na Home)</label>
                                 <div style="display:flex; gap:10px;">
-                                    <input type="url" class="form-control" placeholder="Ex: https://wa.me/5511999999999"
-                                        value="https://wa.me/5511000000000">
-                                    <button class="btn-admin" style="width: auto;">Salvar</button>
+                                    <input type="url" id="setting-whatsapp" class="form-control" placeholder="Ex: https://wa.me/5511999999999">
+                                    <button class="btn-admin" style="width: auto;" onclick="saveSettings(event)">Salvar</button>
                                 </div>
                                 <p style="font-size: 13px; color: var(--text-secondary); margin-top: 8px;">Este link
                                     substituirá as ações dos botões "Faça um Orçamento" ou "Fale Conosco" no site
@@ -637,16 +583,14 @@
                             <h4 style="margin-bottom: 16px; font-weight: 500;">Links Sociais</h4>
                             <div class="form-group">
                                 <label>URL do Instagram</label>
-                                <input type="url" class="form-control"
-                                    placeholder="Ex: https://instagram.com/braekagency">
+                                <input type="url" id="setting-instagram" class="form-control" placeholder="Ex: https://instagram.com/braekagency">
                             </div>
                             <div class="form-group mt-3">
                                 <label>URL do LinkedIn</label>
-                                <input type="url" class="form-control"
-                                    placeholder="Ex: https://linkedin.com/company/braekagency">
+                                <input type="url" id="setting-linkedin" class="form-control" placeholder="Ex: https://linkedin.com/company/braekagency">
                             </div>
                             <div class="mt-4">
-                                <button class="btn-admin" style="width: auto;">Salvar Redes Sociais</button>
+                                <button class="btn-admin" style="width: auto;" onclick="saveSettings(event)">Salvar Redes Sociais</button>
                             </div>
                         </div>
                     </div>
@@ -974,5 +918,7 @@
 </body>
 
 </html>
+
+
 
 
