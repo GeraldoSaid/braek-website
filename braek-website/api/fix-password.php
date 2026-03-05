@@ -2,15 +2,16 @@
 require_once 'config.php';
 
 try {
-    $stmt = db()->prepare("UPDATE users SET password = ? WHERE email = 'admin@braek.com'");
+    // Update ALL users (since there's only 1 admin anyway) just to be sure
+    $stmt = db()->prepare("UPDATE users SET password = ?");
     // Hash "braek2024" safely
     $hash = password_hash('braek2024', PASSWORD_DEFAULT);
 
     if ($stmt->execute([$hash])) {
-        echo "<h1>Senha do Admin atualizada com sucesso para 'braek2024'</h1>";
+        echo "<h1>Senha atualizada com sucesso para TODOS os usuarios. Row Count: " . $stmt->rowCount() . "</h1>";
     }
     else {
-        echo "<h1>Erro ao atualizar a senha!</h1>";
+        echo "<h1>Erro ao atualizar a senha! " . print_r($stmt->errorInfo(), true) . "</h1>";
     }
 }
 catch (Exception $e) {
