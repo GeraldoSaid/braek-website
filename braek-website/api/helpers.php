@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // ============================================================
 // api/helpers.php — Shared utilities for all API endpoints
 // ============================================================
@@ -12,10 +12,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
 // Set JSON response headers
 header('Content-Type: application/json; charset=utf-8');
-// Reflect actual request origin to allow credentials (wildcard * doesn't work with credentials: include)
-$origin = $_SERVER['HTTP_ORIGIN'] ?? '*';
-header('Access-Control-Allow-Origin: ' . $origin);
-header('Access-Control-Allow-Credentials: true');
+header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
 
@@ -62,3 +59,4 @@ function sanitize(string $value): string
 {
     return htmlspecialchars(strip_tags(trim($value)), ENT_QUOTES, 'UTF-8');
 }
+
