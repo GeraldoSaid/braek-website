@@ -7,7 +7,14 @@
     # Redirect nothing (the root) to the subfolder
     RewriteRule ^$ /braek-website/ [L]
 
-    # Redirect everything else to the subfolder unless it already starts with it
+    # Handle clean URLs (remove .html extension)
+    # Check if the requested URL (without .html) exists as a .html file in the subfolder
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{DOCUMENT_ROOT}/braek-website/$1.html -f
+    RewriteRule ^(.*)$ /braek-website/$1.html [L]
+
+    # Fallback: Redirect everything else to the subfolder directly
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_URI} !^/braek-website/
