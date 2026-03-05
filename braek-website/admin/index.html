@@ -928,7 +928,51 @@
     </div>
 
     <script src="admin.js"></script>
+    <!-- Testimonial Modal -->
+    <div id="modal-testimonial" class="modal-overlay">
+        <div class="modal" style="max-width: 500px">
+            <div class="modal-header">
+                <h3>Criar Depoimento</h3>
+                <button class="close-modal" onclick="closeModals()"><svg width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg></button>
+            </div>
+            <div class="modal-body custom-scroll">
+                <form id="testimonial-form" onsubmit="saveTestimonial(event)">
+                    <div class="form-group">
+                        <label>Nome do Cliente</label>
+                        <input type="text" id="test-name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Cargo / Empresa</label>
+                        <input type="text" id="test-role" class="form-control" placeholder="Ex: CEO, Nexa" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Mensagem</label>
+                        <textarea id="test-message" class="form-control" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Coluna Exibição (1 ou 2)</label>
+                        <select id="test-column" class="form-control">
+                            <option value="1">Coluna 1 (Esquerda)</option>
+                            <option value="2">Coluna 2 (Direita)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Avatar / Foto (Opcional URL ou Deixe em branco p/ Initiais)</label>
+                        <input type="text" id="test-avatar" class="form-control" placeholder="https://...">
+                    </div>
+                    <div class="mt-4">
+                        <button type="submit" class="btn-admin w-100">Salvar Depoimento</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
+
 
