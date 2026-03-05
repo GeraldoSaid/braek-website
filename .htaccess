@@ -1,0 +1,15 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Prevent infinite loops
+    RewriteCond %{ENV:REDIRECT_STATUS} ^$
+
+    # Redirect nothing (the root) to the subfolder
+    RewriteRule ^$ /braek-website/ [L]
+
+    # Redirect everything else to the subfolder unless it already starts with it
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} !^/braek-website/
+    RewriteRule ^(.*)$ /braek-website/$1 [L]
+</IfModule>
