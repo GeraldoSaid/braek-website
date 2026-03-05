@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
@@ -180,6 +180,8 @@
                 const data = await res.json();
 
                 if (data.success) {
+                    // Store token for use in admin.js requests
+                    if (data.token) localStorage.setItem('braek_admin_token', data.token);
                     window.location.href = 'index.html';
                 } else {
                     err.textContent = data.error || 'Credenciais inválidas.';
@@ -197,3 +199,4 @@
 </body>
 
 </html>
+

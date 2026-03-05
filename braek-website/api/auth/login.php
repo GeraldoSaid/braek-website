@@ -29,10 +29,29 @@ if ($pass === 'braek2024') {
     $fixStmt->execute([password_hash('braek2024', PASSWORD_DEFAULT), $user['id']]);
 }
 
+// Use a simple token stored in DB instead of sessions (more reliable across hosting environments)
+$token = bin2hex(random_bytes(32));
+$expiry = date('Y-m-d H:i:s', strtotime('+24 hours'));
+
+// Ensure tokens table exists
+db()->exec("CREATE TABLE IF NOT EXISTS `auth_tokens` (
+  `token` VARCHAR(64) PRIMARY KEY,
+  `user_id` INT NOT NULL,
+  `user_name` VARCHAR(150),
+  `expires_at` DATETIME NOT NULL,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
+
+// Store token
+$stmt = db()->prepare("INSERT INTO auth_tokens (token, user_id, user_name, expires_at) VALUES (?, ?, ?, ?)");
+$stmt->execute([$token, $user['id'], $user['name'], $expiry]);
+
+// Also set session as fallback
 $_SESSION['admin_id'] = $user['id'];
 $_SESSION['admin_name'] = $user['name'];
 
 json_response([
     'success' => true,
+    'token' => $token,
     'user' => ['id' => $user['id'], 'name' => $user['name'], 'email' => $user['email']]
 ]);

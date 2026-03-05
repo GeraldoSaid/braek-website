@@ -36,7 +36,7 @@ const API = {
 // ─── Auth Guard ─────────────────────────────────────────────
 async function checkAuth() {
     try {
-        const res = await fetch(API.check);
+        const res = await fetch(API.check, { headers: getAuthHeaders() });
         const data = await res.json();
         if (!data.authenticated) {
             window.location.href = 'login.html';
@@ -479,7 +479,10 @@ document.querySelectorAll('.modal-overlay').forEach(overlay => {
 
 // ─── Logout ───────────────────────────────────────────────────
 function logout() {
-    fetch(API.logout, { method: 'POST' }).finally(() => {
+    const tok = localStorage.getItem('braek_admin_token');
+    const h = tok ? { 'X-Auth-Token': tok } : {};
+    fetch(API.logout, { method: 'POST', headers: h }).finally(() => {
+        localStorage.removeItem('braek_admin_token');
         window.location.href = 'login.html';
     });
 }
@@ -627,6 +630,7 @@ async function saveSettings(e) {
         }
     }
 }
+
 
 
 
