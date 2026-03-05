@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+﻿document.addEventListener('DOMContentLoaded', () => {
 
     // 0. Hero Title: Jumpy Block Animation (Flawless DOM Splitting)
     // We split the text nodes character by character for the JumpyText FX without destroying <br> or <strong> tags.
@@ -655,15 +655,20 @@ async function applyGlobalSettings() {
 
         // Update WhatsApp Links
         if (s.whatsapp) {
-            const waLinks = document.querySelectorAll('.cta-whatsapp');
-            waLinks.forEach(link => link.href = s.whatsapp);
+            // Include both cta-whatsapp (footer) and btn-whatsapp (navbar)
+            const waLinks = document.querySelectorAll('.cta-whatsapp, .btn-whatsapp');
+            waLinks.forEach(link => {
+                link.href = s.whatsapp;
+                link.target = "_blank";
+            });
 
-            // Also update any explicit "btn" classes if they are meant to be whatsapp
-            // For instance, the main CTA might just have href="#" currently
-            const contactBtns = document.querySelectorAll('.btn.primary-btn, .btn.secondary-btn');
+            // Also update the hero button or any other general #contato link that has specific text
+            const contactBtns = document.querySelectorAll('a[href="#contato"]');
             contactBtns.forEach(btn => {
-                if (btn.textContent.toLowerCase().includes('orçamento') || btn.textContent.toLowerCase().includes('whatsapp') || btn.textContent.toLowerCase().includes('fale conosco')) {
+                const text = btn.textContent.toLowerCase();
+                if (text.includes('orçamento') || text.includes('whatsapp') || text.includes('fale conosco') || text.includes('contato')) {
                     btn.href = s.whatsapp;
+                    btn.target = "_blank";
                 }
             });
         }
@@ -671,13 +676,19 @@ async function applyGlobalSettings() {
         // Update Instagram Links
         if (s.instagram) {
             const igLink = document.getElementById('social-instagram');
-            if (igLink) igLink.href = s.instagram;
+            if (igLink) {
+                igLink.href = s.instagram;
+                igLink.target = "_blank";
+            }
         }
 
         // Update LinkedIn Links
         if (s.linkedin) {
             const inLink = document.getElementById('social-linkedin');
-            if (inLink) inLink.href = s.linkedin;
+            if (inLink) {
+                inLink.href = s.linkedin;
+                inLink.target = "_blank";
+            }
         }
 
     } catch (e) {
@@ -685,7 +696,13 @@ async function applyGlobalSettings() {
     }
 }
 
-applyGlobalSettings();
+// Make sure it runs fully
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', applyGlobalSettings);
+} else {
+    applyGlobalSettings();
+}
+
 
 
 // ─── Visitor Tracking ──────────────────────────────────────────
@@ -703,3 +720,5 @@ async function trackVisit() {
     }
 }
 trackVisit();
+
+
