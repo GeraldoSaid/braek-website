@@ -1,5 +1,6 @@
 # Ignore ZIP files and environment variables
 *.zip
+*.exe
 .env
 
 # MacOS files

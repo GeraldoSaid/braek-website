@@ -223,7 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function createProjectCard(project, isLarge = false) {
         const categorySlug = (project.category || '').toLowerCase();
-        const link = project.pageLink || `project-details?id=${project.id}`;
+        const link = project.pageLink || `project-details.html?id=${project.id}`;
 
         if (isLarge) {
             return `
