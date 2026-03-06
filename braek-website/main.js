@@ -663,7 +663,7 @@ async function applyGlobalSettings() {
                     el.rel = 'noopener noreferrer';
                 }
             });
-        });
+
 
             // Also update the hero button or any other general #contato link that has specific text
             const contactBtns = document.querySelectorAll('a[href="#contato"]');
