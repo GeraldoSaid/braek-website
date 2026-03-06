@@ -2278,8 +2278,8 @@ textarea:focus {
 .pd-grid {
 
     display: grid;
-    grid-template-columns: 1.6fr 1fr;
-    gap: 80px;
+    grid-template-columns: 1fr 320px;
+    gap: 64px;
 
 }
 
