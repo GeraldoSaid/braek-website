@@ -182,7 +182,7 @@
                             <div class="table-header" style="border-bottom: none; padding-bottom: 0;">
                                 <h3>Acessos nos últimos 7 dias</h3>
                             </div>
-                                                        <div class="chart-placeholder">
+                            <div class="chart-placeholder">
                                 <div class="chart-bars" id="dashboard-chart-bars"></div>
                             </div>
                         </div>
@@ -572,8 +572,10 @@
                             <div class="form-group">
                                 <label>Link do WhatsApp (Para botões CTA na Home)</label>
                                 <div style="display:flex; gap:10px;">
-                                    <input type="url" id="setting-whatsapp" class="form-control" placeholder="Ex: https://wa.me/5511999999999">
-                                    <button class="btn-admin" style="width: auto;" onclick="saveSettings(event)">Salvar</button>
+                                    <input type="url" id="setting-whatsapp" class="form-control"
+                                        placeholder="Ex: https://wa.me/5511999999999">
+                                    <button class="btn-admin" style="width: auto;"
+                                        onclick="saveSettings(event)">Salvar</button>
                                 </div>
                                 <p style="font-size: 13px; color: var(--text-secondary); margin-top: 8px;">Este link
                                     substituirá as ações dos botões "Faça um Orçamento" ou "Fale Conosco" no site
@@ -585,14 +587,17 @@
                             <h4 style="margin-bottom: 16px; font-weight: 500;">Links Sociais</h4>
                             <div class="form-group">
                                 <label>URL do Instagram</label>
-                                <input type="url" id="setting-instagram" class="form-control" placeholder="Ex: https://instagram.com/braekagency">
+                                <input type="url" id="setting-instagram" class="form-control"
+                                    placeholder="Ex: https://instagram.com/braekagency">
                             </div>
                             <div class="form-group mt-3">
                                 <label>URL do LinkedIn</label>
-                                <input type="url" id="setting-linkedin" class="form-control" placeholder="Ex: https://linkedin.com/company/braekagency">
+                                <input type="url" id="setting-linkedin" class="form-control"
+                                    placeholder="Ex: https://linkedin.com/company/braekagency">
                             </div>
                             <div class="mt-4">
-                                <button class="btn-admin" style="width: auto;" onclick="saveSettings(event)">Salvar Redes Sociais</button>
+                                <button class="btn-admin" style="width: auto;" onclick="saveSettings(event)">Salvar
+                                    Redes Sociais</button>
                             </div>
                         </div>
                     </div>
@@ -620,7 +625,10 @@
                     <input type="text" class="form-control" placeholder="Ex: NX Soluções" required>
                 </div>
 
-                <div class="form-group"><label>Subtítulo</label><input type="text" id="proj-subtitle" class="form-control" placeholder="Ex: Redesign Completo"></div><div class="form-row"><div class="form-group"><label>Categoria Principal</label>
+                <div class="form-group"><label>Subtítulo</label><input type="text" id="proj-subtitle"
+                        class="form-control" placeholder="Ex: Redesign Completo"></div>
+                <div class="form-row">
+                    <div class="form-group"><label>Categoria Principal</label>
                         <select id="proj-category" class="form-control">
                             <option value="">Selecione uma categoria...</option>
                             <option value="branding">Branding</option>
@@ -667,13 +675,16 @@
                             <polyline points="17 8 12 3 7 8"></polyline>
                             <line x1="12" y1="3" x2="12" y2="15"></line>
                         </svg>
-                        <p>Clique ou arraste imagens (.png, .jpg, .webp)</p><input type="file" id="proj-image" accept="image/*" style="opacity:0; position:absolute; inset:0; cursor:pointer;" title="Escolher Imagem">
+                        <p>Clique ou arraste imagens (.png, .jpg, .webp)</p><input type="file" id="proj-image"
+                            accept="image/*" style="opacity:0; position:absolute; inset:0; cursor:pointer;"
+                            title="Escolher Imagem">
                     </div>
 
                     <!-- Galeria Mockup -->
                     <div class="images-preview-grid mt-3">
                         <div class="preview-card hero">
-                            <img id="preview-hero-img" src="../assets/projetos/enix/enix.png" alt="Preview" style="display:none;"><input type="hidden" id="current-hero">
+                            <img id="preview-hero-img" src="../assets/projetos/enix/enix.png" alt="Preview"
+                                style="display:none;"><input type="hidden" id="current-hero">
                             <div class="preview-actions">
                                 <span class="hero-badge" title="Imagem de Capa (Hero)"><svg viewBox="0 0 24 24"
                                         fill="currentColor" width="14" height="14">
@@ -701,43 +712,46 @@
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                         <line x1="18" y1="6" x2="6" y2="18"></line>
                                         <line x1="6" y1="6" x2="18" y2="18"></line>
-                                    </svg></button></div></form></div>
-                </div>
+                                    </svg></button>
+                            </div>
+            </form>
+        </div>
+    </div>
 
-                <div class="form-group" style="display: flex; gap: 12px; align-items: center;">
-                    <input type="checkbox" id="featuredCheck"
-                        style="width: 18px; height: 18px; accent-color: var(--accent-red);">
-                    <label for="featuredCheck" style="margin: 0; font-size: 15px; color: white;">Destacar projeto na
-                        Homepage?</label>
-                </div>
+    <div class="form-group" style="display: flex; gap: 12px; align-items: center;">
+        <input type="checkbox" id="featuredCheck" style="width: 18px; height: 18px; accent-color: var(--accent-red);">
+        <label for="featuredCheck" style="margin: 0; font-size: 15px; color: white;">Destacar projeto na
+            Homepage?</label>
+    </div>
 
-                <div class="form-group mt-4">
-                    <label>Tags Dinâmicas (Pressione Enter para adicionar)</label>
-                    <div class="tags-input-container">
-                        <div class="tags-list">
-                            <span class="custom-tag">Figma <button type="button">&times;</button></span>
-                            <span class="custom-tag">Design System <button type="button">&times;</button></span>
-                        </div>
-                        <input type="text" class="tags-input form-control" placeholder="Nova tag...">
-                    </div>
-                </div>
-
-                <div class="form-group mt-4">
-                    <label>Visão Geral do Projeto (Texto longo)</label>
-                    <textarea class="form-control" rows="3"
-                        placeholder="Descreva o escopo e resultados do projeto..."></textarea>
-                </div>
-
-                <div class="form-group mt-4">
-                    <label>Desafio do Projeto (Texto longo)</label>
-                    <textarea class="form-control" rows="3"
-                        placeholder="Descreva as dificuldades e soluções encontradas..."></textarea>
-                </div>
+    <div class="form-group mt-4">
+        <label>Tags Dinâmicas (Pressione Enter para adicionar)</label>
+        <div class="tags-input-container">
+            <div class="tags-list">
+                <span class="custom-tag">Figma <button type="button">&times;</button></span>
+                <span class="custom-tag">Design System <button type="button">&times;</button></span>
             </div>
-            <div class="modal-footer">
-                <button class="btn-admin btn-admin-outline" style="width: auto;"
-                    onclick="closeModals()">Cancelar</button>
-                <button class="btn-admin" style="width: auto;" onclick="closeModals()">Salvar Novo Projeto</button></div></form></div>
+            <input type="text" class="tags-input form-control" placeholder="Nova tag...">
+        </div>
+    </div>
+
+    <div class="form-group mt-4">
+        <label>Visão Geral do Projeto (Texto longo)</label>
+        <textarea class="form-control" rows="3" placeholder="Descreva o escopo e resultados do projeto..."></textarea>
+    </div>
+
+    <div class="form-group mt-4">
+        <label>Desafio do Projeto (Texto longo)</label>
+        <textarea class="form-control" rows="3"
+            placeholder="Descreva as dificuldades e soluções encontradas..."></textarea>
+    </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn-admin btn-admin-outline" style="width: auto;" onclick="closeModals()">Cancelar</button>
+        <button class="btn-admin" style="width: auto;" onclick="closeModals()">Salvar Novo Projeto</button>
+    </div>
+    </form>
+    </div>
 
     <!-- Read Lead Modal -->
     <div id="modal-lead" class="modal-overlay">
@@ -787,7 +801,8 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label>Nome da Categoria</label>
-                    <input type="text" id="new-category-name" class="form-control" placeholder="Ex: App Design" required>
+                    <input type="text" id="new-category-name" class="form-control" placeholder="Ex: App Design"
+                        required>
                 </div>
                 <div class="form-group">
                     <label>Slug/ID Interno (URL amigável)</label>
@@ -805,7 +820,7 @@
         </div>
     </div>
 
-    <script src="admin.js"></script>
+    <script src="admin.js?v=2"></script>
     <!-- Testimonial Modal -->
     <div id="modal-testimonial" class="modal-overlay">
         <div class="modal" style="max-width: 500px">
@@ -852,9 +867,3 @@
 </body>
 
 </html>
-
-
-
-
-
-
