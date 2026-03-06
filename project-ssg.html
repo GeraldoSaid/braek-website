@@ -48,10 +48,10 @@
         .pd-hero-content {
             position: relative;
             z-index: 2;
-            padding: 48px var(--container-padding);
-            width: 100%;
-            max-width: var(--grid-max-width);
-            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
         }
 
         .pd-hero-content .project-badge {
@@ -60,12 +60,12 @@
 
         .pd-hero-content h1 {
             font-family: var(--font-heading);
-            font-size: clamp(42px, 6vw, 72px);
+            font-size: clamp(54px, 10vw, 105px);
             text-transform: uppercase;
-            line-height: 1.05;
-            letter-spacing: -0.01em;
+            line-height: 0.9;
             color: var(--text-primary);
-            margin-bottom: 10px;
+            margin-bottom: 20px;
+            letter-spacing: -3px;
         }
 
         .pd-hero-subtitle {
@@ -389,15 +389,19 @@
         </div>
     </nav>
 
-    <!-- ======= PROJECT HERO ======= -->
-    <section class="pd-hero">
-        <img src="assets/projetos/ssg/ssg.png" alt="SSG Saúde" class="pd-hero-img">
+    <section class="project-details-hero">
+        <img src="assets/projetos/ssg/ssg.png" alt="SSG Saúde" class="pd-hero-media">
         <div class="pd-hero-overlay"></div>
-        <div class="pd-hero-content reveal-up">
-            <!-- Badge: show "Landing Page" / "Web Design" / "Branding" etc -->
-            <span class="project-badge">WEB DESIGN</span>
-            <h1 class="jumpy-trigger">SSG SAÚDE</h1>
-            <p class="pd-hero-subtitle">Identidade Visual & Web</p>
+        <div class="container">
+            <div class="pd-hero-inner">
+                <div class="pd-grid">
+                    <div class="pd-hero-content reveal-up">
+                        <span class="project-badge">WEB DESIGN</span>
+                        <h1 class="jumpy-trigger">SSG SAÚDE</h1>
+                        <p class="pd-hero-subtitle">Identidade Visual & Web</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -637,7 +641,8 @@
             <a href="/#contato" class="btn-primary mt-4">Entrar em contato</a>
             <div class="footer-bottom mt-5">
                 <a href="/" class="logo">
-                    <img src="assets/logos/Logo.svg" alt="Braek Logo" class="brand-logo" style="height: 32px; width: auto;">
+                    <img src="assets/logos/Logo.svg" alt="Braek Logo" class="brand-logo"
+                        style="height: 32px; width: auto;">
                 </a>
                 <p>&copy; 2026 Braek. Todos os direitos reservados.</p>
             </div>
@@ -647,7 +652,7 @@
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="main.js"></script>
+    <script src="main.js?v=20"></script>
 
     <script>
         // ===== Lightbox =====
@@ -673,5 +678,3 @@
 </body>
 
 </html>
-
-
