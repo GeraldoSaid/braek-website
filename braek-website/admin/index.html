@@ -667,204 +667,178 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Galeria de Imagens</label>
-                    <div class="file-upload-box">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                            <polyline points="17 8 12 3 7 8"></polyline>
-                            <line x1="12" y1="3" x2="12" y2="15"></line>
-                        </svg>
-                        <p>Clique ou arraste imagens (.png, .jpg, .webp)</p><input type="file" id="proj-image"
-                            accept="image/*" style="opacity:0; position:absolute; inset:0; cursor:pointer;"
-                            title="Escolher Imagem">
+                    <div class="form-group">
+                        <label>Galeria de Imagens</label>
+                        <div class="file-upload-box">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                            </svg>
+                            <p>Clique ou arraste múltiplas imagens (.png, .jpg, .webp)</p>
+                            <input type="file" id="proj-image" accept="image/*" multiple
+                                style="opacity:0; position:absolute; inset:0; cursor:pointer;" title="Escolher Imagens">
+                        </div>
+
+                        <!-- Dynamic Gallery Container -->
+                        <div class="images-preview-grid mt-3" id="gallery-preview-container">
+                            <!-- Imagens selecionadas aparecerão aqui via JS -->
+                        </div>
                     </div>
 
-                    <!-- Galeria Mockup -->
-                    <div class="images-preview-grid mt-3">
-                        <div class="preview-card hero">
-                            <img id="preview-hero-img" src="../assets/projetos/enix/enix.png" alt="Preview"
-                                style="display:none;"><input type="hidden" id="current-hero">
-                            <div class="preview-actions">
-                                <span class="hero-badge" title="Imagem de Capa (Hero)"><svg viewBox="0 0 24 24"
-                                        fill="currentColor" width="14" height="14">
-                                        <polygon
-                                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
-                                        </polygon>
-                                    </svg></span>
-                                <button type="button" class="btn-icon danger"><svg width="14" height="14"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                                    </svg></button>
-                            </div>
+                    <div class="form-group" style="display: flex; gap: 12px; align-items: center;">
+                        <input type="checkbox" id="proj-featured"
+                            style="width: 18px; height: 18px; accent-color: var(--accent-red);">
+                        <label for="proj-featured" style="margin: 0; font-size: 15px; color: white;">Destacar projeto na
+                            Homepage?</label>
+                    </div>
+
+                    <div class="form-group mt-4">
+                        <label>Tags Dinâmicas (Pressione Enter para adicionar)</label>
+                        <div class="tags-input-container">
+                            <div class="tags-list" id="proj-tags-list"></div>
+                            <input type="text" class="tags-input form-control" id="proj-tags-input"
+                                placeholder="Nova tag...">
                         </div>
-                        <div class="preview-card">
-                            <img src="../assets/projetos/aurora/aurora.png" alt="Preview">
-                            <div class="preview-actions">
-                                <span class="set-hero-btn" title="Definir como Capa"><svg viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
-                                        <polygon
-                                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
-                                        </polygon>
-                                    </svg></span>
-                                <button type="button" class="btn-icon danger"><svg width="14" height="14"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                                    </svg></button>
-                            </div>
+                    </div>
+
+                    <div class="form-group mt-4">
+                        <label>Visão Geral do Projeto (Texto longo)</label>
+                        <textarea id="proj-about" class="form-control" rows="3"
+                            placeholder="Descreva o escopo e resultados do projeto..."></textarea>
+                    </div>
+
+                    <div class="form-group mt-4">
+                        <label>Desafio do Projeto (Texto longo)</label>
+                        <textarea id="proj-challenge" class="form-control" rows="3"
+                            placeholder="Descreva as dificuldades e soluções encontradas..."></textarea>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn-admin btn-admin-outline" style="width: auto;"
+                            onclick="closeModals()">Cancelar</button>
+                        <button type="submit" class="btn-admin" style="width: auto;" id="save-project-btn">Salvar
+                            Projeto</button>
+                    </div>
             </form>
         </div>
-    </div>
 
-    <div class="form-group" style="display: flex; gap: 12px; align-items: center;">
-        <input type="checkbox" id="featuredCheck" style="width: 18px; height: 18px; accent-color: var(--accent-red);">
-        <label for="featuredCheck" style="margin: 0; font-size: 15px; color: white;">Destacar projeto na
-            Homepage?</label>
-    </div>
-
-    <div class="form-group mt-4">
-        <label>Tags Dinâmicas (Pressione Enter para adicionar)</label>
-        <div class="tags-input-container">
-            <div class="tags-list">
-                <span class="custom-tag">Figma <button type="button">&times;</button></span>
-                <span class="custom-tag">Design System <button type="button">&times;</button></span>
-            </div>
-            <input type="text" class="tags-input form-control" placeholder="Nova tag...">
-        </div>
-    </div>
-
-    <div class="form-group mt-4">
-        <label>Visão Geral do Projeto (Texto longo)</label>
-        <textarea class="form-control" rows="3" placeholder="Descreva o escopo e resultados do projeto..."></textarea>
-    </div>
-
-    <div class="form-group mt-4">
-        <label>Desafio do Projeto (Texto longo)</label>
-        <textarea class="form-control" rows="3"
-            placeholder="Descreva as dificuldades e soluções encontradas..."></textarea>
-    </div>
-    </div>
-    <div class="modal-footer">
-        <button class="btn-admin btn-admin-outline" style="width: auto;" onclick="closeModals()">Cancelar</button>
-        <button class="btn-admin" style="width: auto;" onclick="closeModals()">Salvar Novo Projeto</button>
-    </div>
-    </form>
-    </div>
-
-    <!-- Read Lead Modal -->
-    <div id="modal-lead" class="modal-overlay">
-        <div class="modal">
-            <div class="modal-header">
-                <h3>Mensagem de Contato</h3>
-                <button class="close-modal" onclick="closeModals()"><svg width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg></button>
-            </div>
-            <div class="modal-body custom-scroll" style="line-height: 1.6;">
-                <p style="color:var(--text-secondary); font-size:13px; margin-bottom: 24px;">Enviado em 02 Mar, 2026 as
-                    14:30</p>
-                <p><strong>De:</strong> Marcos Silveira (m.silveira@gmail.com)</p>
-                <p><strong>Telefone:</strong> (11) 98888-7777</p>
-                <hr style="border:0; border-top: 1px solid var(--border-color); margin: 24px 0;">
-                <p style="color:var(--text-secondary); font-size:14px; margin-bottom: 8px;">Mensagem enviada pelo site:
-                </p>
-                <p style="font-size: 16px;">"Olá, gostaria de um orçamento para redesign de marca. Tenho uma agência de
-                    turismo de luxo."</p>
-            </div>
-            <div class="modal-footer">
-                <a href="mailto:m.silveira@gmail.com" class="btn-admin" style="width: auto;">
-                    Responder por E-mail
-                </a>
-                <a href="https://wa.me/5511988887777" target="_blank" class="btn-admin btn-admin-outline"
-                    style="width: auto;">
-                    Chamar no WhatsApp
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Category Form Modal -->
-    <div id="modal-category" class="modal-overlay">
-        <div class="modal" style="max-width: 450px;">
-            <div class="modal-header">
-                <h3>Adicionar Categoria</h3>
-                <button class="close-modal" onclick="closeModals()"><svg width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg></button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label>Nome da Categoria</label>
-                    <input type="text" id="new-category-name" class="form-control" placeholder="Ex: App Design"
-                        required>
+        <!-- Read Lead Modal -->
+        <div id="modal-lead" class="modal-overlay">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3>Mensagem de Contato</h3>
+                    <button class="close-modal" onclick="closeModals()"><svg width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg></button>
                 </div>
-                <div class="form-group">
-                    <label>Slug/ID Interno (URL amigável)</label>
-                    <input type="text" class="form-control" placeholder="Ex: app-design"
-                        style="font-family: monospace;">
-                    <p style="font-size: 12px; color: var(--text-secondary); margin-top: 6px;">Usado para filtros e
-                        URLs. Não use espaços ou acentos.</p>
+                <div class="modal-body custom-scroll" style="line-height: 1.6;">
+                    <p style="color:var(--text-secondary); font-size:13px; margin-bottom: 24px;">Enviado em 02 Mar, 2026
+                        as
+                        14:30</p>
+                    <p><strong>De:</strong> Marcos Silveira (m.silveira@gmail.com)</p>
+                    <p><strong>Telefone:</strong> (11) 98888-7777</p>
+                    <hr style="border:0; border-top: 1px solid var(--border-color); margin: 24px 0;">
+                    <p style="color:var(--text-secondary); font-size:14px; margin-bottom: 8px;">Mensagem enviada pelo
+                        site:
+                    </p>
+                    <p style="font-size: 16px;">"Olá, gostaria de um orçamento para redesign de marca. Tenho uma agência
+                        de
+                        turismo de luxo."</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="mailto:m.silveira@gmail.com" class="btn-admin" style="width: auto;">
+                        Responder por E-mail
+                    </a>
+                    <a href="https://wa.me/5511988887777" target="_blank" class="btn-admin btn-admin-outline"
+                        style="width: auto;">
+                        Chamar no WhatsApp
+                    </a>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button class="btn-admin btn-admin-outline" style="width: auto;"
-                    onclick="closeModals()">Cancelar</button>
-                <button class="btn-admin" style="width: auto;" onclick="closeModals()">Salvar Categoria</button>
-            </div>
         </div>
-    </div>
 
-    <script src="admin.js?v=2"></script>
-    <!-- Testimonial Modal -->
-    <div id="modal-testimonial" class="modal-overlay">
-        <div class="modal" style="max-width: 500px">
-            <div class="modal-header">
-                <h3>Criar Depoimento</h3>
-                <button class="close-modal" onclick="closeModals()"><svg width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg></button>
-            </div>
-            <div class="modal-body custom-scroll">
-                <form id="testimonial-form" onsubmit="saveTestimonial(event)">
+        <!-- Category Form Modal -->
+        <div id="modal-category" class="modal-overlay">
+            <div class="modal" style="max-width: 450px;">
+                <div class="modal-header">
+                    <h3>Adicionar Categoria</h3>
+                    <button class="close-modal" onclick="closeModals()"><svg width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg></button>
+                </div>
+                <div class="modal-body">
                     <div class="form-group">
-                        <label>Nome do Cliente</label>
-                        <input type="text" id="test-name" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Cargo / Empresa</label>
-                        <input type="text" id="test-role" class="form-control" placeholder="Ex: CEO, Nexa" required>
+                        <label>Nome da Categoria</label>
+                        <input type="text" id="new-category-name" class="form-control" placeholder="Ex: App Design"
+                            required>
                     </div>
                     <div class="form-group">
-                        <label>Mensagem</label>
-                        <textarea id="test-message" class="form-control" rows="4" required></textarea>
+                        <label>Slug/ID Interno (URL amigável)</label>
+                        <input type="text" class="form-control" placeholder="Ex: app-design"
+                            style="font-family: monospace;">
+                        <p style="font-size: 12px; color: var(--text-secondary); margin-top: 6px;">Usado para filtros e
+                            URLs. Não use espaços ou acentos.</p>
                     </div>
-                    <div class="form-group">
-                        <label>Coluna Exibi��o (1 ou 2)</label>
-                        <select id="test-column" class="form-control">
-                            <option value="1">Coluna 1 (Esquerda)</option>
-                            <option value="2">Coluna 2 (Direita)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Avatar / Foto (Opcional URL ou Deixe em branco p/ Initiais)</label>
-                        <input type="text" id="test-avatar" class="form-control" placeholder="https://...">
-                    </div>
-                    <div class="mt-4">
-                        <button type="submit" class="btn-admin w-100">Salvar Depoimento</button>
-                    </div>
-                </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-admin btn-admin-outline" style="width: auto;"
+                        onclick="closeModals()">Cancelar</button>
+                    <button class="btn-admin" style="width: auto;" onclick="closeModals()">Salvar Categoria</button>
+                </div>
             </div>
         </div>
-    </div>
-    <script src="admin.js?v=3"></script>
+
+        <script src="admin.js?v=3"></script>
+        <!-- Testimonial Modal -->
+        <div id="modal-testimonial" class="modal-overlay">
+            <div class="modal" style="max-width: 500px">
+                <div class="modal-header">
+                    <h3>Criar Depoimento</h3>
+                    <button class="close-modal" onclick="closeModals()"><svg width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg></button>
+                </div>
+                <div class="modal-body custom-scroll">
+                    <form id="testimonial-form" onsubmit="saveTestimonial(event)">
+                        <div class="form-group">
+                            <label>Nome do Cliente</label>
+                            <input type="text" id="test-name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Cargo / Empresa</label>
+                            <input type="text" id="test-role" class="form-control" placeholder="Ex: CEO, Nexa" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Mensagem</label>
+                            <textarea id="test-message" class="form-control" rows="4" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Coluna Exibi��o (1 ou 2)</label>
+                            <select id="test-column" class="form-control">
+                                <option value="1">Coluna 1 (Esquerda)</option>
+                                <option value="2">Coluna 2 (Direita)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Avatar / Foto (Opcional URL ou Deixe em branco p/ Initiais)</label>
+                            <input type="text" id="test-avatar" class="form-control" placeholder="https://...">
+                        </div>
+                        <div class="mt-4">
+                            <button type="submit" class="btn-admin w-100">Salvar Depoimento</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script src="admin.js?v=3"></script>
 </body>
 
 </html>

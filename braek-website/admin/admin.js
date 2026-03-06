@@ -232,13 +232,20 @@ async function deleteProject(id) {
 
 // ─── Create/Edit Project Form ────────────────────────────────
 let editingProjectId = null;
+let galleryFiles = [];
+let heroImageIndex = 0;
+let currentTags = [];
 
 function openProjectModal() {
     editingProjectId = null;
+    galleryFiles = [];
+    heroImageIndex = 0;
+    currentTags = [];
+
     document.getElementById('modal-project-title').textContent = 'Criar Novo Projeto';
     document.getElementById('project-form').reset();
-    document.getElementById('preview-hero-img').src = '';
-    document.getElementById('preview-hero-img').style.display = 'none';
+    renderGalleryPreviews();
+    renderTags();
     loadCategoriesIntoSelect();
     document.getElementById('modal-project').classList.add('active');
 }
@@ -252,47 +259,81 @@ async function openEditProject(id) {
     document.getElementById('modal-project-title').textContent = 'Editar Projeto';
     await loadCategoriesIntoSelect(project.category);
 
-    document.getElementById('proj-title').value = project.title;
-    document.getElementById('proj-subtitle').value = project.subtitle;
-    document.getElementById('proj-year').value = project.year;
-    document.getElementById('proj-client').value = project.client;
-    document.getElementById('proj-role').value = project.role;
-    document.getElementById('proj-duration').value = project.duration;
-    document.getElementById('proj-link').value = project.pageLink;
-    document.getElementById('proj-about').value = project.about;
-    document.getElementById('proj-challenge').value = project.challenge;
+    document.getElementById('proj-title').value = project.title || '';
+    document.getElementById('proj-subtitle').value = project.subtitle || '';
+    document.getElementById('proj-year').value = project.year || '';
+    document.getElementById('proj-client').value = project.client || '';
+    document.getElementById('proj-role').value = project.role || '';
+    document.getElementById('proj-duration').value = project.duration || '';
+    document.getElementById('proj-link').value = project.pageLink || '';
+    document.getElementById('proj-about').value = project.about || '';
+    document.getElementById('proj-challenge').value = project.challenge || '';
     document.getElementById('proj-featured').checked = project.featured;
 
-    if (project.heroImage) {
-        const img = document.getElementById('preview-hero-img');
-        img.src = '../' + project.heroImage;
-        img.style.display = 'block';
-        document.getElementById('current-hero').value = project.heroImage;
+    // Load gallery and hero
+    galleryFiles = [];
+    currentTags = project.tags || [];
+
+    if (project.gallery && Array.isArray(project.gallery)) {
+        galleryFiles.push(...project.gallery);
     }
 
+    if (project.heroImage) {
+        const hIdx = galleryFiles.indexOf(project.heroImage);
+        if (hIdx === -1) {
+            galleryFiles.unshift(project.heroImage);
+            heroImageIndex = 0;
+        } else {
+            heroImageIndex = hIdx;
+        }
+    } else {
+        heroImageIndex = 0;
+    }
+
+    renderGalleryPreviews();
+    renderTags();
     document.getElementById('modal-project').classList.add('active');
 }
 
 async function saveProject() {
     const btn = document.getElementById('save-project-btn');
-    btn.disabled = true; btn.textContent = 'Salvando...';
+    if (!btn) return;
+    btn.disabled = true;
+    btn.textContent = 'Trabalhando nas Imagens...';
 
-    // Upload image if a new file was selected
-    let heroImage = document.getElementById('current-hero').value || '';
-    const fileInput = document.getElementById('proj-image');
-
-    if (fileInput.files.length > 0) {
-        const formData = new FormData();
-        formData.append('image', fileInput.files[0]);
-        const upRes = await fetch(API.upload, { method: 'POST', body: formData });
-        const upData = await upRes.json();
-        if (upData.url) {
-            heroImage = upData.url;
+    // 1. Upload new File objects
+    const finalGalleryUrls = [];
+    for (let i = 0; i < galleryFiles.length; i++) {
+        const item = galleryFiles[i];
+        if (item instanceof File) {
+            const formData = new FormData();
+            formData.append('image', item);
+            try {
+                const upRes = await fetch(API.upload, { method: 'POST', body: formData });
+                const upData = await upRes.json();
+                if (upData.url) {
+                    finalGalleryUrls.push(upData.url);
+                } else {
+                    showToast(upData.error || 'Erro no upload da imagem.', 'error');
+                    btn.disabled = false; btn.textContent = 'Salvar Projeto';
+                    return;
+                }
+            } catch (e) {
+                showToast('Erro de conexão no upload.', 'error');
+                btn.disabled = false; btn.textContent = 'Salvar Projeto';
+                return;
+            }
         } else {
-            showToast(upData.error || 'Erro no upload da imagem.', 'error');
-            btn.disabled = false; btn.textContent = 'Salvar Projeto';
-            return;
+            finalGalleryUrls.push(item);
         }
+    }
+
+    btn.textContent = 'Salvando Dados...';
+
+    // 2. Identify hero image
+    let heroImage = '';
+    if (finalGalleryUrls.length > 0) {
+        heroImage = finalGalleryUrls[heroImageIndex] || finalGalleryUrls[0];
     }
 
     const payload = {
@@ -306,22 +347,29 @@ async function saveProject() {
         pageLink: document.getElementById('proj-link').value,
         about: document.getElementById('proj-about').value,
         challenge: document.getElementById('proj-challenge').value,
-        heroImage,
+        heroImage: heroImage,
+        gallery: finalGalleryUrls,
+        tags: currentTags,
         featured: document.getElementById('proj-featured').checked ? 1 : 0,
     };
 
     const url = editingProjectId ? API.projects.update : API.projects.create;
     if (editingProjectId) payload.id = editingProjectId;
 
-    const data = await api(url, payload);
-    btn.disabled = false; btn.textContent = 'Salvar Projeto';
+    try {
+        const data = await api(url, payload);
+        btn.disabled = false; btn.textContent = 'Salvar Projeto';
 
-    if (data.success) {
-        closeModals();
-        loadProjects();
-        showToast(editingProjectId ? 'Projeto atualizado!' : 'Projeto criado!', 'success');
-    } else {
-        showToast(data.error || 'Erro ao salvar projeto.', 'error');
+        if (data.success) {
+            closeModals();
+            loadProjects();
+            showToast(editingProjectId ? 'Projeto atualizado!' : 'Projeto criado!', 'success');
+        } else {
+            showToast(data.error || 'Erro ao salvar projeto.', 'error');
+        }
+    } catch (e) {
+        showToast('Erro ao salvar projeto.', 'error');
+        btn.disabled = false; btn.textContent = 'Salvar Projeto';
     }
 }
 
@@ -437,21 +485,98 @@ async function markLeadRead(id) {
     if (badge) { badge.textContent = 'Lido'; badge.classList.remove('danger'); }
 }
 
-// ─── Image preview on file select ───────────────────────────
+// ─── Image preview / Gallery Management ─────────────────────
 function initImagePreview() {
     const fileInput = document.getElementById('proj-image');
-    if (!fileInput) return;
-    fileInput.addEventListener('change', () => {
-        const file = fileInput.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = e => {
-            const img = document.getElementById('preview-hero-img');
-            img.src = e.target.result;
-            img.style.display = 'block';
-        };
-        reader.readAsDataURL(file);
-    });
+    if (fileInput) {
+        fileInput.addEventListener('change', () => {
+            const files = Array.from(fileInput.files);
+            if (files.length === 0) return;
+
+            galleryFiles.push(...files);
+            renderGalleryPreviews();
+            fileInput.value = ''; // Reset input so it fires change again
+        });
+    }
+
+    // Sub-init Tags
+    const tagInput = document.getElementById('proj-tags-input');
+    if (tagInput) {
+        tagInput.addEventListener('keydown', e => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const val = tagInput.value.trim();
+                if (val && !currentTags.includes(val)) {
+                    currentTags.push(val);
+                    renderTags();
+                }
+                tagInput.value = '';
+            }
+        });
+    }
+}
+
+function renderGalleryPreviews() {
+    const container = document.getElementById('gallery-preview-container');
+    if (!container) return;
+
+    if (galleryFiles.length === 0) {
+        container.innerHTML = '<p style="color:var(--text-secondary);font-size:13px;grid-column:1/-1;text-align:center;">Nenhuma imagem adicionada.</p>';
+        return;
+    }
+
+    if (heroImageIndex >= galleryFiles.length) {
+        heroImageIndex = 0;
+    }
+
+    container.innerHTML = galleryFiles.map((item, index) => {
+        const src = (item instanceof File) ? URL.createObjectURL(item) : '../' + item;
+        const isHero = index === heroImageIndex;
+
+        return `
+            <div class="preview-card ${isHero ? 'hero' : ''}">
+                <img src="${src}" alt="Preview">
+                <div class="preview-actions">
+                    <span class="${isHero ? 'hero-badge' : 'set-hero-btn'}" 
+                          title="${isHero ? 'Imagem de Capa (Hero)' : 'Definir como Capa'}"
+                          onclick="setHeroImage(${index})">
+                        <svg viewBox="0 0 24 24" fill="${isHero ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" width="14" height="14">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                        </svg>
+                    </span>
+                    <button type="button" class="btn-icon danger" onclick="removeGalleryImage(${index})">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function setHeroImage(index) {
+    heroImageIndex = index;
+    renderGalleryPreviews();
+}
+
+function removeGalleryImage(index) {
+    galleryFiles.splice(index, 1);
+    renderGalleryPreviews();
+}
+
+function renderTags() {
+    const list = document.getElementById('proj-tags-list');
+    if (!list) return;
+    list.innerHTML = currentTags.map((tag, i) => `
+        <span class="custom-tag">${tag} <button type="button" onclick="removeTag(${i})">&times;</button></span>
+    `).join('');
+}
+
+function removeTag(index) {
+    currentTags.splice(index, 1);
+    renderTags();
 }
 
 // ─── Toast notifications ─────────────────────────────────────
