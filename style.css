@@ -2228,7 +2228,6 @@ textarea:focus {
     position: relative;
     z-index: 2;
     text-align: left;
-    max-width: 800px;
 }
 
 
