@@ -145,17 +145,47 @@
             </div>
 
             <!-- Dynamic featured grid -->
-            <img src="assets/logos/Logo.svg" alt="Braek Logo" class="brand-logo" style="height: 32px; width: auto;">
-            </a>
-            <p>&copy; 2026 Braek. Todos os direitos reservados.</p>
+            <div class="featured-projects-grid">
+                <!-- Data from projects.json -->
+            </div>
         </div>
-        </div>
-        </footer>
+    </section>
 
-        <!-- Scripts -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-        <script src="main.js?v=12"></script>
+    <!-- Dynamic Lightbox Modal -->
+    <div id="project-lightbox" class="pd-lightbox">
+        <span class="pd-lightbox-close">&times;</span>
+        <div class="pd-lightbox-content">
+            <!-- Dynamic content -->
+        </div>
+    </div>
+
+    <!-- Final CTA Footer -->
+    <footer class="footer" style="position: relative; overflow: hidden; padding: 150px 0 40px; z-index: 1;">
+        <!-- Background Video for CTA -->
+        <video class="hero-bg-video" autoplay loop muted playsinline>
+            <source src="assets/videos/Video-Cta.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay" style="background: rgba(0,0,0,0.7); z-index: -1; position: absolute; inset: 0;"></div>
+
+        <div class="container text-center">
+            <h2 class="reveal-blur">No oceano digital, só<br>sobrevive quem se destaca.</h2>
+            <p>O mercado está cheio de marcas que nascem em silêncio.<br>Na BRAEK, emolduramos para que a sua se torne
+                dominante.</p>
+            <a href="#" id="cta-whatsapp-footer" class="btn-primary mt-4 cta-whatsapp">Entrar em contato</a>
+            <div class="footer-bottom mt-5">
+                <a href="/" class="logo">
+                    <img src="assets/logos/Branca.svg" alt="Braek Logo" class="brand-logo"
+                        style="height: 32px; width: auto;">
+                </a>
+                <p>&copy; 2026 Braek. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="main.js?v=12"></script>
 </body>
 
 </html>

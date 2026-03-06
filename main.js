@@ -472,6 +472,29 @@ document.addEventListener('DOMContentLoaded', () => {
             infoValues[2].textContent = project.year;
         }
 
+        // Visit Button
+        const sidebarCard = document.querySelector('.pd-sidebar-card');
+        if (sidebarCard) {
+            // Remove existing button if any
+            const existingBtn = sidebarCard.querySelector('.btn-visit-project');
+            if (existingBtn) existingBtn.remove();
+
+            if (project.visit_url || project.pageLink) {
+                const link = project.visit_url || project.pageLink;
+                const btn = document.createElement('a');
+                btn.href = link;
+                btn.target = '_blank';
+                btn.className = 'btn-primary w-100 mt-4 btn-visit-project';
+                btn.style.marginTop = '20px';
+                btn.style.display = 'flex';
+                btn.style.alignItems = 'center';
+                btn.style.justifyContent = 'center';
+                btn.style.gap = '10px';
+                btn.innerHTML = `Visit project <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>`;
+                sidebarCard.appendChild(btn);
+            }
+        }
+
         // About & Challenge
         const descSections = document.querySelectorAll('.pd-content .pd-section');
         descSections.forEach(section => {

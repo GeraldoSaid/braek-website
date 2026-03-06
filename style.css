@@ -2234,9 +2234,8 @@ textarea:focus {
 .pd-hero-content {
     position: relative;
     z-index: 2;
-    text-align: center;
-    max-width: 900px;
-    margin: 0 auto;
+    text-align: left;
+    max-width: 800px;
 }
 
 
@@ -2268,7 +2267,6 @@ textarea:focus {
     color: var(--text-secondary);
     opacity: 0.9;
     max-width: 600px;
-    margin: 0 auto;
 }
 
 
