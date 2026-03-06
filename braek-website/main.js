@@ -427,11 +427,21 @@ document.addEventListener('DOMContentLoaded', () => {
         // Gallery
         const galleryGrid = document.querySelector('.gallery-grid');
         if (galleryGrid) {
-            galleryGrid.innerHTML = project.gallery.map(img => `
-                <div class="gallery-item reveal-up">
-                    <img src="${img}" alt="Gallery Image">
-                </div>
-            `).join('');
+            galleryGrid.innerHTML = project.gallery.map(file => {
+                const isVideo = file.match(/\.(mp4|webm|ogg)$/i);
+                if (isVideo) {
+                    return `
+                        <div class="gallery-item reveal-up">
+                            <video src="${file}" controls muted loop style="width:100%; border-radius:12px;"></video>
+                        </div>
+                    `;
+                }
+                return `
+                    <div class="gallery-item reveal-up">
+                        <img src="${file}" alt="Gallery Image">
+                    </div>
+                `;
+            }).join('');
         }
     }
 

@@ -13,25 +13,28 @@ if (empty($_FILES['image'])) {
 }
 
 $file = $_FILES['image'];
-$maxSize = 5 * 1024 * 1024; // 5MB
-$allowed = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+$maxSize = 100 * 1024 * 1024; // 100MB
+$allowed = [
+    'image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/svg+xml',
+    'video/mp4', 'video/webm', 'video/ogg'
+];
 $uploadDir = __DIR__ . '/../assets/projetos/uploads/';
 
 // Validate
 if ($file['error'] !== UPLOAD_ERR_OK) {
-    json_response(['error' => 'Erro no upload do arquivo.'], 422);
+    json_response(['error' => 'Erro no upload do arquivo (Erro: ' . $file['error'] . ').'], 422);
 }
 
 if ($file['size'] > $maxSize) {
-    json_response(['error' => 'Arquivo muito grande. Máximo: 5MB.'], 422);
+    json_response(['error' => 'Arquivo muito grande. Máximo permitido: 100MB.'], 422);
 }
 
-// Validate MIME type from file content (not just extension)
+// Validate MIME type from file content
 $finfo = new finfo(FILEINFO_MIME_TYPE);
 $mimeType = $finfo->file($file['tmp_name']);
 
 if (!in_array($mimeType, $allowed)) {
-    json_response(['error' => 'Tipo de arquivo não permitido. Use JPG, PNG ou WebP.'], 422);
+    json_response(['error' => 'Tipo de arquivo não permitido. Use Imagens ou Vídeos (MP4/WebM).'], 422);
 }
 
 // Generate unique filename

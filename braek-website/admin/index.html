@@ -80,7 +80,7 @@
                 </div>
             </nav>
             <div class="sidebar-footer">
-                <a href="index.html" class="nav-item">
+                <a href="index.html" class="nav-item" onclick="logout()">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
                         <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
@@ -97,8 +97,8 @@
             <header class="topbar">
                 <h1 class="page-title" id="pageTitle">Dashboard</h1>
                 <div class="user-profile">
-                    <span>Carlos Eduardo</span>
-                    <div class="avatar">C</div>
+                    <span>Admin</span>
+                    <div class="avatar">A</div>
                 </div>
             </header>
 
@@ -219,97 +219,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- Mockup Data -->
-                                <tr>
-                                    <td>
-                                        <div class="td-flex">
-                                            <img src="../assets/projetos/enix/enix.png" class="td-img" alt="Capa">
-                                        </div>
-                                    </td>
-                                    <td><strong>Enix Agência</strong><br><span
-                                            style="color:var(--text-secondary);font-size:12px;">Marketing</span></td>
-                                    <td>Branding</td>
-                                    <td>2024</td>
-                                    <td><span class="badge success">Ativo na Home</span></td>
-                                    <td>
-                                        <div class="action-btns">
-                                            <button class="btn-icon" title="Editar"><svg width="16" height="16"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2">
-                                                    <polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon>
-                                                </svg></button>
-                                            <button class="btn-icon danger" title="Excluir"><svg width="16" height="16"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2">
-                                                    <polyline points="3 6 5 6 21 6"></polyline>
-                                                    <path
-                                                        d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                                                    </path>
-                                                </svg></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="td-flex">
-                                            <img src="../assets/projetos/aurora/aurora.png" class="td-img" alt="Capa">
-                                        </div>
-                                    </td>
-                                    <td><strong>Aurora</strong><br><span
-                                            style="color:var(--text-secondary);font-size:12px;">Cosméticos</span></td>
-                                    <td>Web Design</td>
-                                    <td>2023</td>
-                                    <td><span class="badge success">Ativo na Home</span></td>
-                                    <td>
-                                        <div class="action-btns">
-                                            <button class="btn-icon" title="Editar"><svg width="16" height="16"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2">
-                                                    <polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon>
-                                                </svg></button>
-                                            <button class="btn-icon danger" title="Excluir"><svg width="16" height="16"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2">
-                                                    <polyline points="3 6 5 6 21 6"></polyline>
-                                                    <path
-                                                        d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                                                    </path>
-                                                </svg></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="td-flex">
-                                            <img src="../assets/projetos/ssg/ssg.png" class="td-img" alt="Capa">
-                                        </div>
-                                    </td>
-                                    <td><strong>SSG Saúde</strong><br><span
-                                            style="color:var(--text-secondary);font-size:12px;">Clínica Médica</span>
-                                    </td>
-                                    <td>UX/UI Design</td>
-                                    <td>2024</td>
-                                    <td><span class="badge"
-                                            style="background: rgba(255,255,255,0.05); border-color:transparent;">Não</span>
-                                    </td>
-                                    <td>
-                                        <div class="action-btns">
-                                            <button class="btn-icon" title="Editar"><svg width="16" height="16"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2">
-                                                    <polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon>
-                                                </svg></button>
-                                            <button class="btn-icon danger" title="Excluir"><svg width="16" height="16"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2">
-                                                    <polyline points="3 6 5 6 21 6"></polyline>
-                                                    <path
-                                                        d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                                                    </path>
-                                                </svg></button>
-                                        </div>
-                                    </td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -335,79 +244,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- Mockup Data -->
-                                <tr>
-                                    <td><span
-                                            style="color:var(--text-secondary);font-size:13px;font-family:monospace;">branding</span>
-                                    </td>
-                                    <td><strong>Branding</strong></td>
-                                    <td>12</td>
-                                    <td>
-                                        <div class="action-btns">
-                                            <button class="btn-icon" title="Editar"><svg width="16" height="16"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2">
-                                                    <polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon>
-                                                </svg></button>
-                                            <button class="btn-icon danger" title="Excluir"><svg width="16" height="16"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2">
-                                                    <polyline points="3 6 5 6 21 6"></polyline>
-                                                    <path
-                                                        d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                                                    </path>
-                                                </svg></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span
-                                            style="color:var(--text-secondary);font-size:13px;font-family:monospace;">web-design</span>
-                                    </td>
-                                    <td><strong>Web Design</strong></td>
-                                    <td>8</td>
-                                    <td>
-                                        <div class="action-btns">
-                                            <button class="btn-icon" title="Editar"><svg width="16" height="16"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2">
-                                                    <polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon>
-                                                </svg></button>
-                                            <button class="btn-icon danger" title="Excluir"><svg width="16" height="16"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2">
-                                                    <polyline points="3 6 5 6 21 6"></polyline>
-                                                    <path
-                                                        d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                                                    </path>
-                                                </svg></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span
-                                            style="color:var(--text-secondary);font-size:13px;font-family:monospace;">ux-ui</span>
-                                    </td>
-                                    <td><strong>UX/UI Design</strong></td>
-                                    <td>5</td>
-                                    <td>
-                                        <div class="action-btns">
-                                            <button class="btn-icon" title="Editar"><svg width="16" height="16"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2">
-                                                    <polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon>
-                                                </svg></button>
-                                            <button class="btn-icon danger" title="Excluir"><svg width="16" height="16"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2">
-                                                    <polyline points="3 6 5 6 21 6"></polyline>
-                                                    <path
-                                                        d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                                                    </path>
-                                                </svg></button>
-                                        </div>
-                                    </td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -431,41 +267,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- Mockup Leads -->
-                                <tr>
-                                    <td><span class="badge danger">Não Lido</span></td>
-                                    <td><strong>Marcos Silveira</strong></td>
-                                    <td>m.silveira@gmail.com<br><span
-                                            style="color:var(--text-secondary);font-size:12px;">(11) 98888-7777</span>
-                                    </td>
-                                    <td>"Olá, gostaria de um orçamento para redesign de marc..."</td>
-                                    <td>02 Mar, 2026</td>
-                                    <td>
-                                        <button class="btn-admin btn-admin-outline"
-                                            style="padding: 6px 12px; font-size: 12px; width: auto;"
-                                            onclick="openLeadModal()">
-                                            Ler Mensagem
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="badge"
-                                            style="background: rgba(255,255,255,0.05); border-color:transparent;">Lido</span>
-                                    </td>
-                                    <td><strong>Juliana Perez</strong></td>
-                                    <td>juliana.perez@startuplab.co<br><span
-                                            style="color:var(--text-secondary);font-size:12px;">(21) 97777-6666</span>
-                                    </td>
-                                    <td>"Vimos o case da Enix e temos interesse em..."</td>
-                                    <td>01 Mar, 2026</td>
-                                    <td>
-                                        <button class="btn-admin btn-admin-outline"
-                                            style="padding: 6px 12px; font-size: 12px; width: auto;"
-                                            onclick="openLeadModal()">
-                                            Ler Mensagem
-                                        </button>
-                                    </td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -492,70 +293,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- Mockup Data -->
-                                <tr>
-                                    <td>
-                                        <div class="avatar"
-                                            style="width: 40px; height: 40px; border-radius: 50%; background: var(--accent-red); color: white; display:flex; align-items:center; justify-content:center; font-weight: bold;">
-                                            J
-                                        </div>
-                                    </td>
-                                    <td><strong>Juliana Silva</strong><br><span
-                                            style="color:var(--text-secondary);font-size:12px;">CEO, Nexa</span></td>
-                                    <td><span class="badge"
-                                            style="background: rgba(255,255,255,0.05); border-color:transparent;">Coluna
-                                            1</span></td>
-                                    <td>"Excelente trabalho! O site ficou increv..."</td>
-                                    <td>
-                                        <div class="action-btns">
-                                            <button class="btn-icon" title="Editar"><svg width="16" height="16"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2">
-                                                    <polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon>
-                                                </svg></button>
-                                            <button class="btn-icon danger" title="Excluir"><svg width="16" height="16"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2">
-                                                    <polyline points="3 6 5 6 21 6"></polyline>
-                                                    <path
-                                                        d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                                                    </path>
-                                                </svg></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="avatar"
-                                            style="width: 40px; height: 40px; border-radius: 50%; background: #333; color: white; display:flex; align-items:center; justify-content:center; font-weight: bold;">
-                                            M
-                                        </div>
-                                    </td>
-                                    <td><strong>Marcos Souza</strong><br><span
-                                            style="color:var(--text-secondary);font-size:12px;">Fundador, Growth</span>
-                                    </td>
-                                    <td><span class="badge"
-                                            style="background: rgba(255,255,255,0.05); border-color:transparent;">Coluna
-                                            2</span></td>
-                                    <td>"Muito ágeis e o design superou..."</td>
-                                    <td>
-                                        <div class="action-btns">
-                                            <button class="btn-icon" title="Editar"><svg width="16" height="16"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2">
-                                                    <polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon>
-                                                </svg></button>
-                                            <button class="btn-icon danger" title="Excluir"><svg width="16" height="16"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2">
-                                                    <polyline points="3 6 5 6 21 6"></polyline>
-                                                    <path
-                                                        d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                                                    </path>
-                                                </svg></button>
-                                        </div>
-                                    </td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -622,7 +359,7 @@
             <form id="project-form" class="modal-body custom-scroll" onsubmit="event.preventDefault(); saveProject();">
                 <div class="form-group">
                     <label>Título do Projeto</label>
-                    <input type="text" class="form-control" placeholder="Ex: NX Soluções" required>
+                    <input type="text" id="proj-title" class="form-control" placeholder="Ex: NX Soluções" required>
                 </div>
 
                 <div class="form-group"><label>Subtítulo</label><input type="text" id="proj-subtitle"
@@ -631,11 +368,6 @@
                     <div class="form-group"><label>Categoria Principal</label>
                         <select id="proj-category" class="form-control">
                             <option value="">Selecione uma categoria...</option>
-                            <option value="branding">Branding</option>
-                            <option value="web-design">Web Design</option>
-                            <option value="ux-ui">UX/UI Design</option>
-                            <option disabled>──────────</option>
-                            <option value="nova">+ Gerenciar Categorias</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -667,177 +399,176 @@
                 </div>
 
                 <div class="form-group">
-                    <div class="form-group">
-                        <label>Galeria de Imagens</label>
-                        <div class="file-upload-box">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2">
-                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                <polyline points="17 8 12 3 7 8"></polyline>
-                                <line x1="12" y1="3" x2="12" y2="15"></line>
-                            </svg>
-                            <p>Clique ou arraste múltiplas imagens (.png, .jpg, .webp)</p>
-                            <input type="file" id="proj-image" accept="image/*" multiple
-                                style="opacity:0; position:absolute; inset:0; cursor:pointer;" title="Escolher Imagens">
-                        </div>
-
-                        <!-- Dynamic Gallery Container -->
-                        <div class="images-preview-grid mt-3" id="gallery-preview-container">
-                            <!-- Imagens selecionadas aparecerão aqui via JS -->
-                        </div>
+                    <label>Galeria de Imagens</label>
+                    <div class="file-upload-box">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="17 8 12 3 7 8"></polyline>
+                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                        <p>Clique ou arraste múltiplas imagens (.png, .jpg, .webp)</p>
+                        <input type="file" id="proj-image" accept="image/*,video/*" multiple title="Escolher Arquivos">
                     </div>
 
-                    <div class="form-group" style="display: flex; gap: 12px; align-items: center;">
-                        <input type="checkbox" id="proj-featured"
-                            style="width: 18px; height: 18px; accent-color: var(--accent-red);">
-                        <label for="proj-featured" style="margin: 0; font-size: 15px; color: white;">Destacar projeto na
-                            Homepage?</label>
+                    <!-- Dynamic Gallery Container -->
+                    <div class="images-preview-grid mt-3" id="gallery-preview-container">
+                        <!-- Imagens selecionadas aparecerão aqui via JS -->
                     </div>
+                </div>
 
-                    <div class="form-group mt-4">
-                        <label>Tags Dinâmicas (Pressione Enter para adicionar)</label>
-                        <div class="tags-input-container">
-                            <div class="tags-list" id="proj-tags-list"></div>
-                            <input type="text" class="tags-input form-control" id="proj-tags-input"
-                                placeholder="Nova tag...">
-                        </div>
-                    </div>
+                <div class="form-group" style="display: flex; gap: 12px; align-items: center;">
+                    <input type="checkbox" id="proj-featured"
+                        style="width: 18px; height: 18px; accent-color: var(--accent-red);">
+                    <label for="proj-featured" style="margin: 0; font-size: 15px; color: white;">Destacar projeto na
+                        Homepage?</label>
+                </div>
 
-                    <div class="form-group mt-4">
-                        <label>Visão Geral do Projeto (Texto longo)</label>
-                        <textarea id="proj-about" class="form-control" rows="3"
-                            placeholder="Descreva o escopo e resultados do projeto..."></textarea>
+                <div class="form-group mt-4">
+                    <label>Tags Dinâmicas (Pressione Enter para adicionar)</label>
+                    <div class="tags-input-container">
+                        <div class="tags-list" id="proj-tags-list"></div>
+                        <input type="text" class="tags-input form-control" id="proj-tags-input"
+                            placeholder="Nova tag...">
                     </div>
+                </div>
 
-                    <div class="form-group mt-4">
-                        <label>Desafio do Projeto (Texto longo)</label>
-                        <textarea id="proj-challenge" class="form-control" rows="3"
-                            placeholder="Descreva as dificuldades e soluções encontradas..."></textarea>
-                    </div>
+                <div class="form-group mt-4">
+                    <label>Visão Geral do Projeto (Texto longo)</label>
+                    <textarea id="proj-about" class="form-control" rows="3"
+                        placeholder="Descreva o escopo e resultados do projeto..."></textarea>
+                </div>
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn-admin btn-admin-outline" style="width: auto;"
-                            onclick="closeModals()">Cancelar</button>
-                        <button type="submit" class="btn-admin" style="width: auto;" id="save-project-btn">Salvar
-                            Projeto</button>
-                    </div>
+                <div class="form-group mt-4">
+                    <label>Desafio do Projeto (Texto longo)</label>
+                    <textarea id="proj-challenge" class="form-control" rows="3"
+                        placeholder="Descreva as dificuldades e soluções encontradas..."></textarea>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn-admin btn-admin-outline" style="width: auto;"
+                        onclick="closeModals()">Cancelar</button>
+                    <button type="submit" class="btn-admin" style="width: auto;" id="save-project-btn">Salvar
+                        Projeto</button>
+                </div>
             </form>
         </div>
+    </div>
 
-        <!-- Read Lead Modal -->
-        <div id="modal-lead" class="modal-overlay">
-            <div class="modal">
-                <div class="modal-header">
-                    <h3>Mensagem de Contato</h3>
-                    <button class="close-modal" onclick="closeModals()"><svg width="24" height="24" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="18" y1="6" x2="6" y2="18"></line>
-                            <line x1="6" y1="6" x2="18" y2="18"></line>
-                        </svg></button>
-                </div>
-                <div class="modal-body custom-scroll" style="line-height: 1.6;">
-                    <p style="color:var(--text-secondary); font-size:13px; margin-bottom: 24px;">Enviado em 02 Mar, 2026
-                        as
-                        14:30</p>
-                    <p><strong>De:</strong> Marcos Silveira (m.silveira@gmail.com)</p>
-                    <p><strong>Telefone:</strong> (11) 98888-7777</p>
-                    <hr style="border:0; border-top: 1px solid var(--border-color); margin: 24px 0;">
-                    <p style="color:var(--text-secondary); font-size:14px; margin-bottom: 8px;">Mensagem enviada pelo
-                        site:
-                    </p>
-                    <p style="font-size: 16px;">"Olá, gostaria de um orçamento para redesign de marca. Tenho uma agência
-                        de
-                        turismo de luxo."</p>
-                </div>
-                <div class="modal-footer">
-                    <a href="mailto:m.silveira@gmail.com" class="btn-admin" style="width: auto;">
-                        Responder por E-mail
-                    </a>
-                    <a href="https://wa.me/5511988887777" target="_blank" class="btn-admin btn-admin-outline"
-                        style="width: auto;">
-                        Chamar no WhatsApp
-                    </a>
-                </div>
+    <!-- Read Lead Modal -->
+    <div id="modal-lead" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Mensagem de Contato</h3>
+                <button class="close-modal" onclick="closeModals()"><svg width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg></button>
+            </div>
+            <div class="modal-body custom-scroll" style="line-height: 1.6;">
+                <p id="lead-detail-date" style="color:var(--text-secondary); font-size:13px; margin-bottom: 24px;">
+                    Mensagem Recebida</p>
+                <p><strong>De:</strong> <span id="lead-detail-name">...</span> (<span id="lead-detail-email">...</span>)
+                </p>
+                <p><strong>Telefone:</strong> <span id="lead-detail-phone">...</span></p>
+                <hr style="border:0; border-top: 1px solid var(--border-color); margin: 24px 0;">
+                <p style="color:var(--text-secondary); font-size:14px; margin-bottom: 8px;">Mensagem enviada pelo
+                    site:
+                </p>
+                <p style="font-size: 16px;" id="lead-detail-msg">"</p>
+            </div>
+            <div class="modal-footer">
+                <a href="mailto:contact@braek.com" class="btn-admin" style="width: auto;" id="lead-reply-email">
+                    Responder por E-mail
+                </a>
+                <a href="#" target="_blank" class="btn-admin btn-admin-outline" style="width: auto;"
+                    id="lead-reply-whatsapp">
+                    Chamar no WhatsApp
+                </a>
             </div>
         </div>
+    </div>
 
-        <!-- Category Form Modal -->
-        <div id="modal-category" class="modal-overlay">
-            <div class="modal" style="max-width: 450px;">
-                <div class="modal-header">
-                    <h3>Adicionar Categoria</h3>
-                    <button class="close-modal" onclick="closeModals()"><svg width="24" height="24" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="18" y1="6" x2="6" y2="18"></line>
-                            <line x1="6" y1="6" x2="18" y2="18"></line>
-                        </svg></button>
+    <!-- Category Form Modal -->
+    <div id="modal-category" class="modal-overlay">
+        <div class="modal" style="max-width: 450px;">
+            <div class="modal-header">
+                <h3>Adicionar Categoria</h3>
+                <button class="close-modal" onclick="closeModals()"><svg width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Nome da Categoria</label>
+                    <input type="text" id="new-category-name" class="form-control" placeholder="Ex: App Design"
+                        required>
                 </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label>Nome da Categoria</label>
-                        <input type="text" id="new-category-name" class="form-control" placeholder="Ex: App Design"
-                            required>
-                    </div>
-                    <div class="form-group">
-                        <label>Slug/ID Interno (URL amigável)</label>
-                        <input type="text" class="form-control" placeholder="Ex: app-design"
-                            style="font-family: monospace;">
-                        <p style="font-size: 12px; color: var(--text-secondary); margin-top: 6px;">Usado para filtros e
-                            URLs. Não use espaços ou acentos.</p>
-                    </div>
+                <div class="form-group">
+                    <label>Slug/ID Interno (URL amigável)</label>
+                    <input type="text" id="new-category-slug" class="form-control" placeholder="Ex: app-design"
+                        style="font-family: monospace;">
+                    <p style="font-size: 12px; color: var(--text-secondary); margin-top: 6px;">Usado para filtros e
+                        URLs. Não use espaços ou acentos.</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-admin btn-admin-outline" style="width: auto;"
+                    onclick="closeModals()">Cancelar</button>
+                <button class="btn-admin" style="width: auto;" onclick="saveCategory()">Salvar Categoria</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Testimonial Modal -->
+    <div id="modal-testimonial" class="modal-overlay">
+        <div class="modal" style="max-width: 500px">
+            <div class="modal-header">
+                <h3>Criar Depoimento</h3>
+                <button class="close-modal" onclick="closeModals()"><svg width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg></button>
+            </div>
+            <form id="testimonial-form" class="modal-body custom-scroll" onsubmit="saveTestimonial(event)">
+                <div class="form-group">
+                    <label>Nome do Cliente</label>
+                    <input type="text" id="test-name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Cargo/Empresa</label>
+                    <input type="text" id="test-role" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Coluna (1, 2 ou 3)</label>
+                    <select id="test-column" class="form-control">
+                        <option value="1">Coluna 1</option>
+                        <option value="2">Coluna 2</option>
+                        <option value="3">Coluna 3</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>URL da Foto (Avatar)</label>
+                    <input type="text" id="test-avatar" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Depoimento</label>
+                    <textarea id="test-message" class="form-control" rows="4" required></textarea>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn-admin btn-admin-outline" style="width: auto;"
+                    <button type="button" class="btn-admin btn-admin-outline" style="width: auto;"
                         onclick="closeModals()">Cancelar</button>
-                    <button class="btn-admin" style="width: auto;" onclick="closeModals()">Salvar Categoria</button>
+                    <button type="submit" class="btn-admin" style="width: auto;">Salvar Depoimento</button>
                 </div>
-            </div>
+            </form>
         </div>
+    </div>
 
-        <!-- Testimonial Modal -->
-        <div id="modal-testimonial" class="modal-overlay">
-            <div class="modal" style="max-width: 500px">
-                <div class="modal-header">
-                    <h3>Criar Depoimento</h3>
-                    <button class="close-modal" onclick="closeModals()"><svg width="24" height="24" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="18" y1="6" x2="6" y2="18"></line>
-                            <line x1="6" y1="6" x2="18" y2="18"></line>
-                        </svg></button>
-                </div>
-                <div class="modal-body custom-scroll">
-                    <form id="testimonial-form" onsubmit="saveTestimonial(event)">
-                        <div class="form-group">
-                            <label>Nome do Cliente</label>
-                            <input type="text" id="test-name" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Cargo / Empresa</label>
-                            <input type="text" id="test-role" class="form-control" placeholder="Ex: CEO, Nexa" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Mensagem</label>
-                            <textarea id="test-message" class="form-control" rows="4" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Coluna Exibi��o (1 ou 2)</label>
-                            <select id="test-column" class="form-control">
-                                <option value="1">Coluna 1 (Esquerda)</option>
-                                <option value="2">Coluna 2 (Direita)</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Avatar / Foto (Opcional URL ou Deixe em branco p/ Initiais)</label>
-                            <input type="text" id="test-avatar" class="form-control" placeholder="https://...">
-                        </div>
-                        <div class="mt-4">
-                            <button type="submit" class="btn-admin w-100">Salvar Depoimento</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <script src="admin.js?v=3"></script>
+    <script src="admin.js?v=7"></script>
 </body>
 
 </html>

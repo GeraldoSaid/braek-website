@@ -208,10 +208,10 @@ async function loadProjects() {
             <td>
                 <div class="action-btns">
                     <button class="btn-icon" title="Editar" onclick="openEditProject('${p.id}')">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
                     </button>
                     <button class="btn-icon danger" title="Excluir" onclick="deleteProject('${p.id}')">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
                     </button>
                 </div>
             </td>
@@ -253,7 +253,7 @@ function openProjectModal() {
 async function openEditProject(id) {
     editingProjectId = id;
     const data = await api(API.projects.get + '?id=' + id);
-    const project = (data.projects || []).find(p => p.id === id);
+    const project = (data.projects || []).find(p => p.id == id);
     if (!project) return;
 
     document.getElementById('modal-project-title').textContent = 'Editar Projeto';
@@ -389,7 +389,7 @@ async function loadCategories() {
             <td>
                 <div class="action-btns">
                     <button class="btn-icon danger" title="Excluir" onclick="deleteCategory(${c.id})">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
                     </button>
                 </div>
             </td>
@@ -407,15 +407,19 @@ async function loadCategoriesIntoSelect(selected = '') {
 }
 
 async function saveCategory() {
-    const input = document.getElementById('new-category-name');
-    const name = input?.value?.trim();
+    const nameInput = document.getElementById('new-category-name');
+    const slugInput = document.getElementById('new-category-slug');
+    const name = nameInput?.value?.trim();
+    const slug = slugInput?.value?.trim();
     if (!name) return;
 
-    const data = await api(API.categories.create, { name });
+    const data = await api(API.categories.create, { name, slug });
     if (data.success) {
         closeModals();
         loadCategories();
         showToast('Categoria criada!', 'success');
+        if (nameInput) nameInput.value = '';
+        if (slugInput) slugInput.value = '';
     } else {
         showToast(data.error || 'Erro ao criar categoria.', 'error');
     }
@@ -455,7 +459,7 @@ async function loadLeads() {
             <td>${new Date(l.created_at).toLocaleDateString('pt-BR')}</td>
             <td>
                 <button class="btn-admin btn-admin-outline" style="padding:6px 12px;font-size:12px;width:auto;"
-                    onclick="openLeadDetail(${l.id}, '${l.name.replace(/'/g, "\\'")}', '${l.email}', '${l.phone}', \`${(l.message || '').replace(/`/g, '\\`')}\`)">
+                    onclick="openLeadDetail(${l.id}, '${l.name.replace(/'/g, "\\'")}', '${l.email}', '${l.phone}', \`${(l.message || '').replace(/`/g, '\\`')}\`, '${new Date(l.created_at).toLocaleDateString('pt-BR')}')">
                     Ler Mensagem
                 </button>
             </td>
@@ -467,12 +471,12 @@ async function loadLeads() {
     if (unreadEl) unreadEl.textContent = leads.filter(l => l.status === 'unread').length;
 }
 
-function openLeadDetail(id, name, email, phone, message) {
-    document.getElementById('lead-detail-name').textContent = name;
-    document.getElementById('lead-detail-email').textContent = email;
-    document.getElementById('lead-detail-phone').textContent = phone || '—';
-    document.getElementById('lead-detail-msg').textContent = message;
-    document.getElementById('lead-detail-id').value = id;
+function openLeadDetail(id, name, email, phone, message, date) {
+    if (document.getElementById('lead-detail-name')) document.getElementById('lead-detail-name').textContent = name;
+    if (document.getElementById('lead-detail-email')) document.getElementById('lead-detail-email').textContent = email;
+    if (document.getElementById('lead-detail-phone')) document.getElementById('lead-detail-phone').textContent = phone || '—';
+    if (document.getElementById('lead-detail-msg')) document.getElementById('lead-detail-msg').textContent = message;
+    if (document.getElementById('lead-detail-date')) document.getElementById('lead-detail-date').textContent = `Enviado em ${date}`;
     document.getElementById('modal-lead').classList.add('active');
 
     // Mark as read
@@ -521,7 +525,7 @@ function renderGalleryPreviews() {
     if (!container) return;
 
     if (galleryFiles.length === 0) {
-        container.innerHTML = '<p style="color:var(--text-secondary);font-size:13px;grid-column:1/-1;text-align:center;">Nenhuma imagem adicionada.</p>';
+        container.innerHTML = '<p style="color:var(--text-secondary);font-size:13px;grid-column:1/-1;text-align:center;">Nenhuma imagem ou vídeo adicionado.</p>';
         return;
     }
 
@@ -530,21 +534,34 @@ function renderGalleryPreviews() {
     }
 
     container.innerHTML = galleryFiles.map((item, index) => {
-        const src = (item instanceof File) ? URL.createObjectURL(item) : '../' + item;
+        const isFile = (item instanceof File);
+        const fileName = isFile ? item.name : item;
+        const src = isFile ? URL.createObjectURL(item) : '../' + item;
         const isHero = index === heroImageIndex;
+        const isVideo = fileName.match(/\.(mp4|webm|ogg)$/i) || (isFile && item.type.startsWith('video/'));
+
+        const mediaHtml = isVideo
+            ? `<video src="${src}" style="width:100%;height:100%;object-fit:cover;"></video>`
+            : `<img src="${src}" alt="Preview">`;
 
         return `
-            <div class="preview-card ${isHero ? 'hero' : ''}">
-                <img src="${src}" alt="Preview">
+            <div class="preview-card ${isHero ? 'hero' : ''}" 
+                 draggable="true" 
+                 ondragstart="handleDragStart(event, ${index})" 
+                 ondragover="handleDragOver(event)" 
+                 ondragenter="this.style.border='2px solid var(--accent-red)'"
+                 ondragleave="this.style.border='2px solid transparent'"
+                 ondrop="handleDrop(event, ${index})">
+                ${mediaHtml}
                 <div class="preview-actions">
                     <span class="${isHero ? 'hero-badge' : 'set-hero-btn'}" 
-                          title="${isHero ? 'Imagem de Capa (Hero)' : 'Definir como Capa'}"
-                          onclick="setHeroImage(${index})">
+                          title="${isHero ? 'Capa do Projeto' : 'Definir como Capa'}"
+                          onclick="event.stopPropagation(); setHeroImage(${index})">
                         <svg viewBox="0 0 24 24" fill="${isHero ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" width="14" height="14">
                             <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
                         </svg>
                     </span>
-                    <button type="button" class="btn-icon danger" onclick="removeGalleryImage(${index})">
+                    <button type="button" class="btn-icon danger" onclick="event.stopPropagation(); removeGalleryImage(${index})">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <line x1="18" y1="6" x2="6" y2="18"></line>
                             <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -556,6 +573,47 @@ function renderGalleryPreviews() {
     }).join('');
 }
 
+// ─── Drag & Drop Handlers ────────────────────────────────────
+let draggedItemIndex = null;
+
+function handleDragStart(e, index) {
+    draggedItemIndex = index;
+    e.dataTransfer.effectAllowed = 'move';
+    e.target.style.opacity = '0.5';
+}
+
+function handleDragOver(e) {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    return false;
+}
+
+function handleDrop(e, targetIndex) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (draggedItemIndex === null || draggedItemIndex === targetIndex) return;
+
+    // Reorder galleryFiles
+    const items = [...galleryFiles];
+    const draggedItem = items[draggedItemIndex];
+
+    items.splice(draggedItemIndex, 1);
+    items.splice(targetIndex, 0, draggedItem);
+
+    // Update heroImageIndex if it was moved
+    if (heroImageIndex === draggedItemIndex) {
+        heroImageIndex = targetIndex;
+    } else if (draggedItemIndex < heroImageIndex && targetIndex >= heroImageIndex) {
+        heroImageIndex--;
+    } else if (draggedItemIndex > heroImageIndex && targetIndex <= heroImageIndex) {
+        heroImageIndex++;
+    }
+
+    galleryFiles = items;
+    renderGalleryPreviews();
+}
+
 function setHeroImage(index) {
     heroImageIndex = index;
     renderGalleryPreviews();
@@ -563,6 +621,8 @@ function setHeroImage(index) {
 
 function removeGalleryImage(index) {
     galleryFiles.splice(index, 1);
+    if (heroImageIndex === index) heroImageIndex = 0;
+    else if (heroImageIndex > index) heroImageIndex--;
     renderGalleryPreviews();
 }
 
@@ -653,7 +713,7 @@ async function loadTestimonials() {
             <td>
                 <div class="action-btns">
                     <button class="btn-icon danger" title="Excluir" onclick="deleteTestimonial('${t.id}')">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
                     </button>
                 </div>
             </td>
@@ -757,13 +817,3 @@ async function saveSettings(e) {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
