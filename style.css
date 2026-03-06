@@ -2232,17 +2232,15 @@ textarea:focus {
 
 
 .pd-hero-content {
-
     position: relative;
     z-index: 2;
-    text-align: left;
-    max-width: 800px;
-
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
 
 .pd-hero-content .project-badge {
-
     display: inline-block;
     background-color: var(--accent-red);
     color: white;
@@ -2250,29 +2248,27 @@ textarea:focus {
     border-radius: 50px;
     font-size: 0.85rem;
     font-weight: 500;
-    margin-bottom: 30px;
-
+    margin-bottom: 25px;
 }
 
 
 .pd-hero-content h1 {
-
-    font-size: clamp(60px, 8vw, 84px);
-    line-height: 0.95;
+    font-size: clamp(54px, 10vw, 105px);
+    line-height: 0.9;
     color: white;
     text-transform: uppercase;
     margin-bottom: 20px;
-
+    letter-spacing: -3px;
 }
 
 
 .pd-hero-content p {
-
     font-family: var(--font-body);
     font-size: 1.3rem;
     color: var(--text-secondary);
     opacity: 0.9;
-
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 

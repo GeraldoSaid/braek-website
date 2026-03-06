@@ -389,7 +389,64 @@ document.addEventListener('DOMContentLoaded', () => {
             const project = projects.find(p => p.id === projectId);
             if (project) {
                 updateProjectDetailsUI(project);
+                initLightbox();
+                initNextProjects(projects, project.id);
             }
+        }
+    }
+
+    function initLightbox() {
+        const lightbox = document.getElementById('project-lightbox');
+        if (!lightbox) return;
+
+        const content = lightbox.querySelector('.pd-lightbox-content');
+        const closeBtn = lightbox.querySelector('.pd-lightbox-close');
+        const galleryItems = document.querySelectorAll('.gallery-item img, .gallery-item video');
+
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                content.innerHTML = '';
+                const clone = item.cloneNode(true);
+                if (clone.tagName === 'VIDEO') {
+                    clone.controls = true;
+                    clone.autoplay = true;
+                }
+                content.appendChild(clone);
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        const closeLightbox = () => {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+            setTimeout(() => { content.innerHTML = ''; }, 400);
+        };
+
+        closeBtn.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+
+        // ESC key to close
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) closeLightbox();
+        });
+    }
+
+    function initNextProjects(allProjects, currentId) {
+        const container = document.querySelector('.featured-projects-grid');
+        if (!container) return;
+
+        // Filter out current project and pick 2-3 others
+        const nextOnes = allProjects.filter(p => p.id !== currentId).slice(0, 3);
+
+        if (nextOnes.length > 0) {
+            container.innerHTML = nextOnes.map(p => createProjectCard(p, false)).join('');
+
+            // Observe for animations
+            const reveals = container.querySelectorAll('.reveal-up');
+            reveals.forEach(el => observer.observe(el));
         }
     }
 
