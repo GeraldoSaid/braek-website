@@ -614,16 +614,14 @@
                         <line x1="6" y1="6" x2="18" y2="18"></line>
                     </svg></button>
             </div>
-            <div class="modal-body custom-scroll">
+            <form id="project-form" class="modal-body custom-scroll" onsubmit="event.preventDefault(); saveProject();">
                 <div class="form-group">
                     <label>Título do Projeto</label>
                     <input type="text" class="form-control" placeholder="Ex: NX Soluções" required>
                 </div>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Categoria Principal</label>
-                        <select class="form-control">
+                <div class="form-group"><label>Subtítulo</label><input type="text" id="proj-subtitle" class="form-control" placeholder="Ex: Redesign Completo"></div><div class="form-row"><div class="form-group"><label>Categoria Principal</label>
+                        <select id="proj-category" class="form-control">
                             <option value="">Selecione uma categoria...</option>
                             <option value="branding">Branding</option>
                             <option value="web-design">Web Design</option>
@@ -634,29 +632,29 @@
                     </div>
                     <div class="form-group">
                         <label>Ano</label>
-                        <input type="text" class="form-control" placeholder="Ex: 2026">
+                        <input type="text" id="proj-year" class="form-control" placeholder="Ex: 2026">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label>Cliente</label>
-                        <input type="text" class="form-control" placeholder="Ex: NX S/A">
+                        <input type="text" id="proj-client" class="form-control" placeholder="Ex: NX S/A">
                     </div>
                     <div class="form-group">
                         <label>Duração</label>
-                        <input type="text" class="form-control" placeholder="Ex: 6 meses">
+                        <input type="text" id="proj-duration" class="form-control" placeholder="Ex: 6 meses">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label>Papel/Role (Seu cargo no projeto)</label>
-                        <input type="text" class="form-control" placeholder="Ex: Lead Designer">
+                        <input type="text" id="proj-role" class="form-control" placeholder="Ex: Lead Designer">
                     </div>
                     <div class="form-group">
                         <label>Link Externo (Visitar Projeto)</label>
-                        <input type="url" class="form-control" placeholder="Ex: https://meusite.com">
+                        <input type="url" id="proj-link" class="form-control" placeholder="Ex: https://meusite.com">
                     </div>
                 </div>
 
@@ -669,13 +667,13 @@
                             <polyline points="17 8 12 3 7 8"></polyline>
                             <line x1="12" y1="3" x2="12" y2="15"></line>
                         </svg>
-                        <p>Clique ou arraste imagens (.png, .jpg, .webp)</p>
+                        <p>Clique ou arraste imagens (.png, .jpg, .webp)</p><input type="file" id="proj-image" accept="image/*" style="opacity:0; position:absolute; inset:0; cursor:pointer;" title="Escolher Imagem">
                     </div>
 
                     <!-- Galeria Mockup -->
                     <div class="images-preview-grid mt-3">
                         <div class="preview-card hero">
-                            <img src="../assets/projetos/enix/enix.png" alt="Preview">
+                            <img id="preview-hero-img" src="../assets/projetos/enix/enix.png" alt="Preview" style="display:none;"><input type="hidden" id="current-hero">
                             <div class="preview-actions">
                                 <span class="hero-badge" title="Imagem de Capa (Hero)"><svg viewBox="0 0 24 24"
                                         fill="currentColor" width="14" height="14">
@@ -703,10 +701,7 @@
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                         <line x1="18" y1="6" x2="6" y2="18"></line>
                                         <line x1="6" y1="6" x2="18" y2="18"></line>
-                                    </svg></button>
-                            </div>
-                        </div>
-                    </div>
+                                    </svg></button></div></form></div>
                 </div>
 
                 <div class="form-group" style="display: flex; gap: 12px; align-items: center;">
@@ -742,10 +737,7 @@
             <div class="modal-footer">
                 <button class="btn-admin btn-admin-outline" style="width: auto;"
                     onclick="closeModals()">Cancelar</button>
-                <button class="btn-admin" style="width: auto;" onclick="closeModals()">Salvar Novo Projeto</button>
-            </div>
-        </div>
-    </div>
+                <button class="btn-admin" style="width: auto;" onclick="closeModals()">Salvar Novo Projeto</button></div></form></div>
 
     <!-- Read Lead Modal -->
     <div id="modal-lead" class="modal-overlay">
@@ -795,7 +787,7 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label>Nome da Categoria</label>
-                    <input type="text" class="form-control" placeholder="Ex: App Design" required>
+                    <input type="text" id="new-category-name" class="form-control" placeholder="Ex: App Design" required>
                 </div>
                 <div class="form-group">
                     <label>Slug/ID Interno (URL amigável)</label>
@@ -809,66 +801,6 @@
                 <button class="btn-admin btn-admin-outline" style="width: auto;"
                     onclick="closeModals()">Cancelar</button>
                 <button class="btn-admin" style="width: auto;" onclick="closeModals()">Salvar Categoria</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Testimonial Form Modal -->
-    <div id="modal-testimonial" class="modal-overlay">
-        <div class="modal" style="max-width: 500px;">
-            <div class="modal-header">
-                <h3>Adicionar Depoimento</h3>
-                <button class="close-modal" onclick="closeModals()"><svg width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg></button>
-            </div>
-            <div class="modal-body custom-scroll">
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Nome do Cliente</label>
-                        <input type="text" class="form-control" placeholder="Ex: Juliana Silva" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Cargo / Empresa</label>
-                        <input type="text" class="form-control" placeholder="Ex: CEO, Nexa">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Em qual coluna o depoimento será exibido?</label>
-                    <select class="form-control">
-                        <option value="1">Coluna 1 (Esquerda)</option>
-                        <option value="2">Coluna 2 (Direita)</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label>Foto do Cliente</label>
-                    <div class="file-upload-box" style="padding: 20px;">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                            <polyline points="17 8 12 3 7 8"></polyline>
-                            <line x1="12" y1="3" x2="12" y2="15"></line>
-                        </svg>
-                        <p style="margin-top:8px;">Arraste a foto (1:1 / Quadrada)</p>
-                    </div>
-                </div>
-
-                <div class="form-group mt-4">
-                    <label>Mensagem do Depoimento</label>
-                    <textarea class="form-control" rows="4"
-                        placeholder="Escreva aqui o que o cliente disse sobre a agência..."></textarea>
-                </div>
-
-            </div>
-            <div class="modal-footer">
-                <button class="btn-admin btn-admin-outline" style="width: auto;"
-                    onclick="closeModals()">Cancelar</button>
-                <button class="btn-admin" style="width: auto;" onclick="closeModals()">Salvar Depoimento</button>
             </div>
         </div>
     </div>
@@ -900,7 +832,7 @@
                         <textarea id="test-message" class="form-control" rows="4" required></textarea>
                     </div>
                     <div class="form-group">
-                        <label>Coluna Exibi��o (1 ou 2)</label>
+                        <label>Coluna Exibi��o (1 ou 2)</label>
                         <select id="test-column" class="form-control">
                             <option value="1">Coluna 1 (Esquerda)</option>
                             <option value="2">Coluna 2 (Direita)</option>
