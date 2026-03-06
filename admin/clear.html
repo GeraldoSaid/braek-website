@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Saindo... - Braek Admin</title>
+    <style>
+        body {
+            background: #0a0a0a;
+            color: #fff;
+            font-family: sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #333;
+            border-top-color: #e8003d;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        a.btn {
+            color: #e8003d;
+            font-size: 18px;
+            text-decoration: none;
+            border: 1px solid #e8003d;
+            padding: 12px 24px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: inline-block;
+        }
+
+        a.btn:hover {
+            background: #e8003d;
+            color: #fff;
+        }
+
+        #msg {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div class="spinner" id="spinner"></div>
+        <p id="loading-text">Encerrando sessão...</p>
+        <div id="msg">
+            <h2>Sessão encerrada ✅</h2>
+            <p>Pode fazer login novamente.</p>
+            <a class="btn" href="login.html">Entrar</a>
+        </div>
+    </div>
+    <script>
+        // 1. Clear client-side storage
+        localStorage.clear();
+        sessionStorage.clear();
+
+        // 2. Expire all cookies for this domain
+        document.cookie.split(";").forEach(c => {
+            const name = c.trim().split("=")[0];
+            document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/";
+            document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/admin";
+        });
+
+        // 3. Call the server-side logout to destroy the PHP session
+        fetch('../api/auth/logout.php', { method: 'POST' })
+            .catch(() => { })
+            .finally(() => {
+                document.getElementById('spinner').style.display = 'none';
+                document.getElementById('loading-text').style.display = 'none';
+                document.getElementById('msg').style.display = 'block';
+            });
+    </script>
+</body>
+
+</html>

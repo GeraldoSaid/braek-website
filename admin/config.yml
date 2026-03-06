@@ -1,0 +1,37 @@
+backend:
+  name: test-repo # Para teste inicial no Netlify Drop sem precisar de login
+
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+collections:
+  - name: "admin_content"
+    label: "Gerenciar Site"
+    files:
+      - name: "projects_data"
+        label: "Lista de Projetos"
+        file: "data/projects.json"
+        format: "json"
+        fields:
+          - label: "Projetos"
+            name: "projects"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "ID do Projeto (Slug)", name: "id", widget: "string", hint: "Ex: ssg-saude" }
+              - { label: "Título do Projeto", name: "title", widget: "string" }
+              - { label: "Subtítulo / Serviço", name: "subtitle", widget: "string" }
+              - { label: "Categoria Principal", name: "category", widget: "select", options: ["Landing Page", "Web Design", "Branding", "UX/UI Design", "App Design"] }
+              - { label: "Destaque na Home?", name: "featured", widget: "boolean" }
+              - { label: "Imagem de Capa (Hero)", name: "heroImage", widget: "image" }
+              - { label: "Tags", name: "tags", widget: "list" }
+              - { label: "Ano", name: "year", widget: "string" }
+              - { label: "Cliente", name: "client", widget: "string" }
+              - { label: "Papel/Role", name: "role", widget: "string" }
+              - { label: "Sobre o Projeto", name: "about", widget: "text" }
+              - { label: "O Desafio", name: "challenge", widget: "text" }
+              - label: "Galeria de Imagens"
+                name: "gallery"
+                widget: "list"
+                field: { label: "Imagem", name: "image", widget: "image" }
+              - { label: "Visitar Site (Opcional)", name: "visitLink", widget: "string", required: false }

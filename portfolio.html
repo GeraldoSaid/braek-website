@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfólio | Braek</title>
+    <meta name="description" content="Explore nossos projetos e veja como a Braek rompe com o óbvio.">
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css?v=3">
+    <!-- Fonts -->
+    <link rel="preload" href="assets/fonts/Newblack/Newblack/TTF/NewBlackTypeface-Bold.ttf" as="font" type="font/ttf"
+        crossorigin="anonymous">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/logos/Principal.svg">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar scrolled" id="navbar" style="opacity: 1; transform: translate(-50%, 0);">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <img src="assets/logos/Logo.svg" alt="Braek Logo" class="brand-logo" style="height: 32px; width: auto;">
+            </a>
+            <div class="nav-links">
+                <a href="/#inicio">Início</a>
+                <a href="/#projetos">Projetos</a>
+                <a href="/#solucoes">Soluções</a>
+                <a href="/#processo">Processo</a>
+            </div>
+            <a href="/#contato" class="btn-whatsapp">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21.5 2L2 10.5L10 14L13.5 22L21.5 2Z" fill="currentColor" />
+                </svg>
+                whatsapp
+            </a>
+        </div>
+    </nav>
+
+    <!-- Portfolio Header -->
+    <section class="section portfolio-header" style="padding-top: 180px; padding-bottom: 60px;">
+        <div class="container">
+            <div class="section-header reveal-up">
+                <div class="badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" />
+                    </svg> Nossos projetos</div>
+                <h1 class="jumpy-trigger">VEJA ALGUNS DE NOSSOS<br>GRANDES PROJETOS.</h1>
+                <p>Cada projeto que criamos tem um objetivo: destacar e vender. Veja alguns dos materiais visuais que
+                    ajudam infoprodutores e grandes lançamentos a performar melhor.</p>
+            </div>
+
+            <!-- Filter Bar -->
+            <div class="portfolio-filters reveal-up" style="transition-delay: 0.2s;">
+                <div class="filter-controls" id="portfolio-filter-controls">
+                    <!-- Dynamically populated by main.js from projects.json -->
+                    <button class="filter-btn active" data-filter="all">All</button>
+                </div>
+                <div class="project-count">
+                    <span id="count-value">—</span> projects
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Grid -->
+    <section class="section portfolio-grid" style="padding-top: 0;">
+        <div class="container">
+            <!-- Loading state -->
+            <div id="portfolio-loading"
+                style="text-align:center; padding: 80px 0; color: var(--text-secondary); font-size: 0.95rem; letter-spacing: 1px; text-transform: uppercase;">
+                Carregando projetos...
+            </div>
+            <!-- Cards injected here by main.js -->
+            <div class="projects-grid" id="portfolio-projects-grid" style="display:none;"></div>
+        </div>
+    </section>
+
+    <!-- Final CTA Footer -->
+    <footer class="footer" style="position: relative; overflow: hidden; padding: 150px 0 40px; z-index: 1;">
+        <!-- Background Video for CTA -->
+        <video class="hero-bg-video" autoplay loop muted playsinline>
+            <source src="assets/videos/Video-Cta.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay" style="background: rgba(0,0,0,0.7); z-index: -1; position: absolute; inset: 0;"></div>
+
+        <div class="container text-center">
+            <h2 class="reveal-blur">No oceano digital, só<br>sobrevive quem se destaca.</h2>
+            <p>O mercado está cheio de marcas que nascem em silêncio.<br>Na BRAEK, emolduramos para que a sua se torne
+                dominante.</p>
+            <a href="/#contato" class="btn-primary mt-4">Entrar em contato</a>
+            <div class="footer-bottom mt-5">
+                <a href="/" class="logo">
+                    <img src="assets/logos/Logo.svg" alt="Braek Logo" class="brand-logo"
+                        style="height: 32px; width: auto;">
+                </a>
+                <p>&copy; 2026 Braek. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
+
+

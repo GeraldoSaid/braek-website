@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSG Saúde | Braek</title>
+    <meta name="description" content="Detalhes do projeto SSG Saúde pela Braek.">
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css?v=4">
+    <!-- Fonts -->
+    <link rel="preload" href="assets/fonts/Newblack/Newblack/TTF/NewBlackTypeface-Bold.ttf" as="font" type="font/ttf"
+        crossorigin="anonymous">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/logos/Principal.svg">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar scrolled" id="navbar" style="opacity: 1; transform: translate(-50%, 0);">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <img src="assets/logos/Logo.svg" alt="Braek Logo" class="brand-logo" style="height: 32px; width: auto;">
+            </a>
+            <div class="nav-links">
+                <a href="/#inicio">Início</a>
+                <a href="portfolio">Portfólio</a>
+                <a href="/#solucoes">Soluções</a>
+                <a href="/#processo">Processo</a>
+            </div>
+            <a href="/#contato" class="btn-whatsapp">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21.5 2L2 10.5L10 14L13.5 22L21.5 2Z" fill="currentColor" />
+                </svg>
+                whatsapp
+            </a>
+        </div>
+    </nav>
+
+    <!-- Project Hero (4-Layer Structure) -->
+    <section class="project-details-hero">
+        <!-- Layer 1: Media -->
+        <div class="pd-hero-media">
+            <img src="assets/projetos/ssg/ssg.png" alt="SSG Saúde">
+            <div class="pd-hero-overlay"></div>
+        </div>
+
+        <!-- Layer 2 & 3: Grid & Content -->
+        <div class="container">
+            <div class="pd-hero-content reveal-up">
+                <span class="project-badge">Landing Page</span>
+                <h1 class="jumpy-trigger">SSG SAÚDE</h1>
+                <p>Design System</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Overview -->
+    <section class="project-intro section">
+        <div class="container">
+            <div class="pd-grid">
+                <!-- Content Left -->
+                <div class="pd-content reveal-up">
+                    <div class="pd-section">
+                        <h2>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 2v20M2 12h20" />
+                            </svg>
+                            OVERVIEW
+                        </h2>
+                        <div class="pd-description">
+                            <p>O SSG Saúde é um ecossistema completo de saúde digital, focado em unificar a linguagem
+                                visual entre médicos e pacientes. O desafio era criar uma interface que transmitisse
+                                confiança, agilidade e modernidade, mantendo a acessibilidade para todos os usuários.
+                            </p>
+                            <p class="mt-3">Neste projeto, desenvolvemos um Design System robusto com mais de 200
+                                componentes, garantindo escalabilidade para o produto e consistência visual em todas as
+                                telas.</p>
+                        </div>
+                        <div class="pd-tags">
+                            <span class="pd-tag">Figma</span>
+                            <span class="pd-tag">Design System</span>
+                            <span class="pd-tag">UI Kit</span>
+                            <span class="pd-tag">Prototyping</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar Right -->
+                <div class="pd-sidebar reveal-up" style="transition-delay: 0.2s;">
+                    <div class="pd-sidebar-card">
+                        <h3>PROJECT INFO</h3>
+                        <div class="pd-info-item">
+                            <span class="pd-info-label">Role</span>
+                            <span class="pd-info-value">Lead Designer</span>
+                        </div>
+                        <div class="pd-info-item">
+                            <span class="pd-info-label">Client</span>
+                            <span class="pd-info-value">SSG Saúde Group</span>
+                        </div>
+                        <div class="pd-info-item">
+                            <span class="pd-info-label">Duration</span>
+                            <span class="pd-info-value">6 months</span>
+                        </div>
+                        <div class="pd-info-item">
+                            <span class="pd-info-label">Year</span>
+                            <span class="pd-info-value">2024</span>
+                        </div>
+                        <!-- Visit button removed for Branding projects (demo SSG) -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Gallery -->
+    <section class="pd-gallery section">
+        <div class="container text-center">
+            <div class="gallery-grid">
+                <div class="gallery-item reveal-up">
+                    <img src="assets/projetos/enix/enix.png" alt="Gallery 1">
+                </div>
+                <div class="gallery-item reveal-up" style="transition-delay: 0.1s;">
+                    <img src="assets/projetos/aurora/aurora.png" alt="Gallery 2">
+                </div>
+                <div class="gallery-item reveal-up" style="grid-column: span 2;">
+                    <img src="assets/projetos/ssg/ssg.png" alt="Gallery 3" style="aspect-ratio: 16/7; object-fit: cover;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- More Projects Section -->
+    <section class="section" style="border-top: 1px solid var(--card-border);">
+        <div class="container">
+            <div class="more-projects-header reveal-up">
+                <div>
+                    <span class="pd-info-label" style="margin-bottom: 10px; display: block;">PRÓXIMO PROJETO</span>
+                    <h2 style="margin-bottom: 0;">VOCÊ PODE GOSTAR</h2>
+                </div>
+                <a href="portfolio" class="btn-primary">Ver portfólio completo</a>
+            </div>
+
+            <!-- Dynamic featured grid -->
+            <div class="featured-projects-grid">
+                <!-- Data from projects.json -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" style="padding: 100px 0 40px;">
+        <div class="container text-center">
+            <h2 class="reveal-blur">VAMOS CRIAR ALGO<br>HISTÓRICO JUNTOS?</h2>
+            <p>Seu projeto merece o destaque que só a Braek pode entregar.</p>
+            <a href="/#contato" class="btn-primary mt-4">Entrar em contato</a>
+            <div class="footer-bottom mt-5">
+                <a href="/" class="logo">
+                    <img src="assets/logos/Logo.svg" alt="Braek Logo" class="brand-logo" style="height: 32px; width: auto;">
+                </a>
+                <p>&copy; 2026 Braek. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
+
+
