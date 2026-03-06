@@ -293,7 +293,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // ─── Home Page: Featured Projects ────────────────────────────
         const homeGrid = document.getElementById('home-projects-container');
         if (homeGrid && projects.length > 0) {
-            const featured = projects.filter(p => p.featured).slice(0, 3);
+            // Robust check for featured (handles "0", "1", 0, 1, true, false)
+            const featured = projects.filter(p => p.featured && p.featured !== "0" && p.featured !== 0).slice(0, 3);
             const display = featured.length > 0 ? featured : projects.slice(0, 3);
 
             if (display.length > 0) {
@@ -309,6 +310,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 homeGrid.innerHTML = cardsHTML;
+
+                // Re-observe newly created reveal elements for home page
+                const newRev = homeGrid.querySelectorAll('.reveal-up');
+                newRev.forEach(el => observer.observe(el));
             }
         }
 
