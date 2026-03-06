@@ -376,20 +376,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 allRevealElements.forEach(el => observer.observe(el));
             }
         }
-    }
 
-    // ─── Handle Project Details Template ────────────────────────────────
-    if (window.location.pathname.includes('project-details.html')) {
-        const urlParams = new URLSearchParams(window.location.search);
-        const projectId = urlParams.get('id');
-        const project = projects.find(p => p.id === projectId);
-        if (project) {
-            updateProjectDetailsUI(project);
+        // ─── Handle Project Details Template ────────────────────────────────
+        if (window.location.pathname.includes('project-details.html')) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const projectId = urlParams.get('id');
+            const project = projects.find(p => p.id === projectId);
+            if (project) {
+                updateProjectDetailsUI(project);
+            }
         }
     }
-}
 
-function updateProjectDetailsUI(project) {
+    function updateProjectDetailsUI(project) {
         // Hero Section
         const heroImg = document.querySelector('.pd-hero-media img');
         if (heroImg) heroImg.src = project.heroImage;
@@ -436,7 +435,7 @@ function updateProjectDetailsUI(project) {
         }
     }
 
-function initDynamicFilters(projects) {
+    function initDynamicFilters(projects) {
         const filterBtns = document.querySelectorAll('.filter-btn');
         const countDisplay = document.getElementById('count-value');
 
@@ -469,101 +468,101 @@ function initDynamicFilters(projects) {
         });
     }
 
-// Static filter init: only runs if portfolio is NOT dynamically loaded via JSON
-// (prevents double-init when initProjectEngine also calls initDynamicFilters)
-let filtersInitialized = false;
-const staticFilterBtns = document.querySelectorAll('.filter-btn');
-if (staticFilterBtns.length > 0 && !filtersInitialized) {
-    initDynamicFilters([]);
-}
+    // Static filter init: only runs if portfolio is NOT dynamically loaded via JSON
+    // (prevents double-init when initProjectEngine also calls initDynamicFilters)
+    let filtersInitialized = false;
+    const staticFilterBtns = document.querySelectorAll('.filter-btn');
+    if (staticFilterBtns.length > 0 && !filtersInitialized) {
+        initDynamicFilters([]);
+    }
 
-initProjectEngine();
+    initProjectEngine();
 
-// ─── Contact Form (Leads API) ──────────────────────────────────
-const leadForm = document.getElementById('lead-form');
-if (leadForm) {
-    leadForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
+    // ─── Contact Form (Leads API) ──────────────────────────────────
+    const leadForm = document.getElementById('lead-form');
+    if (leadForm) {
+        leadForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
 
-        const btn = document.getElementById('lead-submit-btn');
-        const status = document.getElementById('lead-status');
-        const originalText = btn.textContent;
+            const btn = document.getElementById('lead-submit-btn');
+            const status = document.getElementById('lead-status');
+            const originalText = btn.textContent;
 
-        btn.disabled = true;
-        btn.textContent = 'Enviando...';
-        status.style.display = 'none';
+            btn.disabled = true;
+            btn.textContent = 'Enviando...';
+            status.style.display = 'none';
 
-        const payload = {
-            name: document.getElementById('lead-name').value,
-            email: document.getElementById('lead-email').value,
-            phone: document.getElementById('lead-phone').value,
-            message: `[Assunto: ${document.getElementById('lead-subject').value}] \n\n${document.getElementById('lead-message').value}`
-        };
+            const payload = {
+                name: document.getElementById('lead-name').value,
+                email: document.getElementById('lead-email').value,
+                phone: document.getElementById('lead-phone').value,
+                message: `[Assunto: ${document.getElementById('lead-subject').value}] \n\n${document.getElementById('lead-message').value}`
+            };
+
+            try {
+                const res = await fetch('/api/leads/create.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    status.style.display = 'block';
+                    status.style.color = '#10b981'; // Tailwind emerald-500
+                    status.textContent = 'Mensagem enviada com sucesso! Entraremos em contato.';
+                    leadForm.reset();
+                } else {
+                    status.style.display = 'block';
+                    status.style.color = '#ef4444'; // Tailwind red-500
+                    status.textContent = data.error || 'Erro ao enviar. Tente novamente.';
+                }
+            } catch (error) {
+                status.style.display = 'block';
+                status.style.color = '#ef4444';
+                status.textContent = 'Ocorreu um erro de rede.';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = originalText;
+            }
+        });
+    }
+
+
+
+    // ─── Testimonials API ──────────────────────────────────────
+    async function initTestimonials() {
+        const container = document.getElementById('testimonials-container');
+        if (!container) return;
 
         try {
-            const res = await fetch('/api/leads/create.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
+            const res = await fetch('/api/testimonials/get.php');
             const data = await res.json();
+            const tests = data.testimonials || [];
 
-            if (data.success) {
-                status.style.display = 'block';
-                status.style.color = '#10b981'; // Tailwind emerald-500
-                status.textContent = 'Mensagem enviada com sucesso! Entraremos em contato.';
-                leadForm.reset();
-            } else {
-                status.style.display = 'block';
-                status.style.color = '#ef4444'; // Tailwind red-500
-                status.textContent = data.error || 'Erro ao enviar. Tente novamente.';
+            if (tests.length === 0) return;
+
+            const col1 = tests.filter(t => parseInt(t.column_id) === 1);
+            const col2 = tests.filter(t => parseInt(t.column_id) !== 1);
+
+            // If everything is in one column, auto-distribute
+            if (col1.length > 0 && col2.length === 0) {
+                while (col1.length > tests.length / 2) {
+                    col2.push(col1.pop());
+                }
+            } else if (col2.length > 0 && col1.length === 0) {
+                while (col2.length > tests.length / 2) {
+                    col1.push(col2.pop());
+                }
             }
-        } catch (error) {
-            status.style.display = 'block';
-            status.style.color = '#ef4444';
-            status.textContent = 'Ocorreu um erro de rede.';
-        } finally {
-            btn.disabled = false;
-            btn.textContent = originalText;
-        }
-    });
-}
 
+            // To ensure the marquee works correctly, it needs enough items to fill the screen width.
+            // If there's only 1 or 2 items, we must clone them inside the array to make the tick loop seamless.
+            const minItems = 5;
+            while (col1.length > 0 && col1.length < minItems) col1.push(...col1.slice(0, minItems - col1.length));
+            while (col2.length > 0 && col2.length < minItems) col2.push(...col2.slice(0, minItems - col2.length));
 
-
-// ─── Testimonials API ──────────────────────────────────────
-async function initTestimonials() {
-    const container = document.getElementById('testimonials-container');
-    if (!container) return;
-
-    try {
-        const res = await fetch('/api/testimonials/get.php');
-        const data = await res.json();
-        const tests = data.testimonials || [];
-
-        if (tests.length === 0) return;
-
-        const col1 = tests.filter(t => parseInt(t.column_id) === 1);
-        const col2 = tests.filter(t => parseInt(t.column_id) !== 1);
-
-        // If everything is in one column, auto-distribute
-        if (col1.length > 0 && col2.length === 0) {
-            while (col1.length > tests.length / 2) {
-                col2.push(col1.pop());
-            }
-        } else if (col2.length > 0 && col1.length === 0) {
-            while (col2.length > tests.length / 2) {
-                col1.push(col2.pop());
-            }
-        }
-
-        // To ensure the marquee works correctly, it needs enough items to fill the screen width.
-        // If there's only 1 or 2 items, we must clone them inside the array to make the tick loop seamless.
-        const minItems = 5;
-        while (col1.length > 0 && col1.length < minItems) col1.push(...col1.slice(0, minItems - col1.length));
-        while (col2.length > 0 && col2.length < minItems) col2.push(...col2.slice(0, minItems - col2.length));
-
-        const buildCard = (t) => `
+            const buildCard = (t) => `
                 <div class="testimonial-card glow-mouse-card">
                     <div class="tc-top">
                         <div class="tc-author">
@@ -588,58 +587,58 @@ async function initTestimonials() {
                 </div>
             `;
 
-        let html = '';
+            let html = '';
 
-        // Row 1
-        if (col1.length > 0) {
-            const cardsHtml = col1.map(buildCard).join('');
-            html += `
+            // Row 1
+            if (col1.length > 0) {
+                const cardsHtml = col1.map(buildCard).join('');
+                html += `
                     <div class="ticker-wrapper mt-5 reveal-up">
                         <div class="ticker">${cardsHtml}</div>
                         <div class="ticker" aria-hidden="true">${cardsHtml}</div>
                     </div>
                 `;
-        }
+            }
 
-        // Row 2 (Reverse)
-        if (col2.length > 0) {
-            const cardsHtml = col2.map(buildCard).join('');
-            html += `
+            // Row 2 (Reverse)
+            if (col2.length > 0) {
+                const cardsHtml = col2.map(buildCard).join('');
+                html += `
                     <div class="ticker-wrapper reverse mt-5 reveal-up" style="transition-delay: 0.1s;">
                         <div class="ticker">${cardsHtml}</div>
                         <div class="ticker" aria-hidden="true">${cardsHtml}</div>
                     </div>
                 `;
-        }
+            }
 
-        container.innerHTML = html;
+            container.innerHTML = html;
 
-        // Re-observe new reveal elements
-        const newReveals = container.querySelectorAll('.reveal-up');
-        newReveals.forEach(el => {
-            if (typeof observer !== 'undefined') observer.observe(el);
-        });
-
-        // Attach glow mouse effect logic to the new cards
-        setTimeout(() => {
-            document.querySelectorAll('.glow-mouse-card').forEach(card => {
-                card.addEventListener('mousemove', e => {
-                    const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    card.style.setProperty('--mouse-x', x + 'px');
-                    card.style.setProperty('--mouse-y', y + 'px');
-                });
+            // Re-observe new reveal elements
+            const newReveals = container.querySelectorAll('.reveal-up');
+            newReveals.forEach(el => {
+                if (typeof observer !== 'undefined') observer.observe(el);
             });
-        }, 100);
 
-    } catch (e) {
-        console.error('Failed to load testimonials:', e);
+            // Attach glow mouse effect logic to the new cards
+            setTimeout(() => {
+                document.querySelectorAll('.glow-mouse-card').forEach(card => {
+                    card.addEventListener('mousemove', e => {
+                        const rect = card.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        card.style.setProperty('--mouse-x', x + 'px');
+                        card.style.setProperty('--mouse-y', y + 'px');
+                    });
+                });
+            }, 100);
+
+        } catch (e) {
+            console.error('Failed to load testimonials:', e);
+        }
     }
-}
 
-// Initialize fetching dynamic testimonials
-initTestimonials();
+    // Initialize fetching dynamic testimonials
+    initTestimonials();
 
 });
 
