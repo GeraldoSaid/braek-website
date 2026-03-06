@@ -1,4 +1,4 @@
-﻿// ============================================================
+// ============================================================
 // admin/admin.js — Admin Panel powered by real PHP/MySQL API
 // ============================================================
 
@@ -36,7 +36,20 @@ const API = {
 // ─── Auth Guard ─────────────────────────────────────────────
 async function checkAuth() {
     try {
-        const res = await fetch(API.check, { headers: getAuthHeaders() });
+        const res = await fetch(API.check);
+        const text = await res.text();
+        if (!text.trim().startsWith('{')) { window.location.href = 'login.html'; return; }
+        const data = JSON.parse(text);
+        if (!data.authenticated) {
+            window.location.href = 'login.html';
+        } else {
+            const nameEl = document.querySelector('.user-profile span');
+            if (nameEl && data.user) nameEl.textContent = data.user.name;
+        }
+    } catch (e) {
+        window.location.href = 'login.html';
+    }
+});
         if (!res.ok) {
             if (res.status === 401) window.location.href = 'login.html';
             return;
@@ -70,8 +83,8 @@ async function checkAuth() {
 // ─── Generic fetch helper ────────────────────────────────────
 async function api(url, body = null) {
     const opts = body
-        ? { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify(body) }
-        : { method: 'GET', headers: getAuthHeaders() };
+        ? { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }
+        : { method: 'GET' };
     const res = await fetch(url, opts);
     return res.json();
 }
@@ -497,12 +510,7 @@ document.querySelectorAll('.modal-overlay').forEach(overlay => {
 
 // ─── Logout ───────────────────────────────────────────────────
 function logout() {
-    const tok = localStorage.getItem('braek_admin_token');
-    const h = tok ? { 'X-Auth-Token': tok } : {};
-    fetch(API.logout, { method: 'POST', headers: h }).finally(() => {
-        localStorage.removeItem('braek_admin_token');
-        window.location.href = 'login.html';
-    });
+    fetch(API.logout, { method: 'POST' }).finally(() => { window.location.href = 'login.html'; });
 }
 
 // ─── Init ─────────────────────────────────────────────────────
