@@ -44,20 +44,20 @@
         .pd-hero-content {
             position: relative;
             z-index: 2;
-            padding: 48px var(--container-padding);
-            width: 100%;
-            max-width: var(--grid-max-width);
-            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
         }
 
         .pd-hero-content h1 {
             font-family: var(--font-heading);
-            font-size: clamp(42px, 6vw, 72px);
+            font-size: clamp(54px, 10vw, 105px);
             text-transform: uppercase;
-            line-height: 1.05;
-            letter-spacing: -0.01em;
+            line-height: 0.9;
             color: var(--text-primary);
-            margin-bottom: 10px;
+            margin-bottom: 20px;
+            letter-spacing: -3px;
         }
 
         .pd-hero-subtitle {
@@ -344,13 +344,19 @@
     </nav>
 
     <!-- HERO -->
-    <section class="pd-hero">
-        <img src="assets/projetos/enix/enix.png" alt="Enix – Identidade Visual" class="pd-hero-img">
+    <section class="project-details-hero">
+        <img src="assets/projetos/enix/enix.png" alt="Enix – Identidade Visual" class="pd-hero-media">
         <div class="pd-hero-overlay"></div>
-        <div class="pd-hero-content reveal-up">
-            <span class="project-badge">BRANDING</span>
-            <h1 class="jumpy-trigger">ENIX</h1>
-            <p class="pd-hero-subtitle">Agência de Marketing — Identidade Visual Completa</p>
+        <div class="container">
+            <div class="pd-hero-inner">
+                <div class="pd-grid">
+                    <div class="pd-hero-content reveal-up">
+                        <span class="project-badge">BRANDING</span>
+                        <h1 class="jumpy-trigger">ENIX</h1>
+                        <p class="pd-hero-subtitle">Agência de Marketing — Identidade Visual Completa</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -465,9 +471,9 @@
                     <div class="project-overlay"></div>
                     <div class="project-content">
                         <div class="project-top"><span class="project-badge">WEB DESIGN</span><button
-                                class="project-arrow-btn" onclick="window.location.href='project-ssg'"><svg
-                                    width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                class="project-arrow-btn" onclick="window.location.href='project-ssg'"><svg width="18"
+                                    height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
                                     <line x1="7" y1="17" x2="17" y2="7"></line>
                                     <polyline points="7 7 17 7 17 17"></polyline>
                                 </svg></button></div>
@@ -550,7 +556,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="main.js"></script>
+    <script src="main.js?v=20"></script>
     <script>
         function openLightbox(el) { const img = el.querySelector('img'); document.getElementById('lightbox-img').src = img.src; document.getElementById('lightbox-img').alt = img.alt; document.getElementById('lightbox').classList.add('active'); document.body.style.overflow = 'hidden'; }
         function closeLightbox(event) { if (!event || event.target === document.getElementById('lightbox') || event.target.classList.contains('lightbox-close')) { document.getElementById('lightbox').classList.remove('active'); document.body.style.overflow = ''; } }
@@ -559,5 +565,3 @@
 </body>
 
 </html>
-
-
