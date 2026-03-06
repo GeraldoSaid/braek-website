@@ -1,4 +1,4 @@
-﻿document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
 
     // 0. Hero Title: Jumpy Block Animation (Flawless DOM Splitting)
     // We split the text nodes character by character for the JumpyText FX without destroying <br> or <strong> tags.
@@ -501,7 +501,7 @@ if (leadForm) {
         };
 
         try {
-            const res = await fetch('api/leads/create.php', {
+            const res = await fetch('/api/leads/create.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
@@ -537,7 +537,7 @@ async function initTestimonials() {
     if (!container) return;
 
     try {
-        const res = await fetch('api/testimonials/get.php');
+        const res = await fetch('/api/testimonials/get.php');
         const data = await res.json();
         const tests = data.testimonials || [];
 
@@ -647,7 +647,7 @@ initTestimonials();
 // ─── Global Settings (Social Links & WhatsApp) ─────────────
 async function applyGlobalSettings() {
     try {
-        const res = await fetch('api/settings/get.php');
+        const res = await fetch('/api/settings/get.php');
         const data = await res.json();
         if (!data.success || !data.settings) return;
 
@@ -713,7 +713,7 @@ async function trackVisit() {
     try {
         // Only track once per session
         if (!sessionStorage.getItem('braek_visited')) {
-            const res = await fetch('api/track/visit.php', { method: 'POST' });
+            const res = await fetch('/api/track/visit.php', { method: 'POST' });
             if (res.ok) {
                 sessionStorage.setItem('braek_visited', 'true');
             }
