@@ -223,7 +223,7 @@ async function deleteProject(id) {
     if (!confirm('Tem certeza que deseja excluir este projeto?')) return;
     const data = await api(API.projects.delete, { id });
     if (data.success) {
-        document.getElementById(`proj - ${id} `)?.remove();
+        document.getElementById(`proj-${id}`)?.remove();
         showToast('Projeto excluído.', 'success');
     } else {
         showToast(data.error || 'Erro ao excluir.', 'error');
@@ -382,7 +382,7 @@ async function loadCategories() {
     const cats = data.categories || [];
 
     tbody.innerHTML = cats.map(c => `
-        < tr id = "cat-${c.id}" >
+        <tr id="cat-${c.id}">
             <td><span style="color:var(--text-secondary);font-size:13px;font-family:monospace;">${c.slug}</span></td>
             <td><strong>${c.name}</strong></td>
             <td>${c.total ?? 0}</td>
@@ -393,7 +393,7 @@ async function loadCategories() {
                     </button>
                 </div>
             </td>
-        </tr >
+        </tr>
         `).join('') || '<tr><td colspan="4" style="text-align:center;color:#666;padding:24px;">Nenhuma categoria.</td></tr>';
 }
 
@@ -403,7 +403,7 @@ async function loadCategoriesIntoSelect(selected = '') {
     const data = await api(API.categories.get);
     const cats = data.categories || [];
     select.innerHTML = '<option value="">Selecione...</option>' +
-        cats.map(c => `< option value = "${c.name}" ${c.name === selected ? 'selected' : ''}> ${c.name}</option > `).join('');
+        cats.map(c => `<option value="${c.name}" ${c.name === selected ? 'selected' : ''}>${c.name}</option>`).join('');
 }
 
 async function saveCategory() {
@@ -425,7 +425,7 @@ async function deleteCategory(id) {
     if (!confirm('Excluir esta categoria?')) return;
     const data = await api(API.categories.delete, { id });
     if (data.success) {
-        document.getElementById(`cat - ${id} `)?.remove();
+        document.getElementById(`cat-${id}`)?.remove();
         showToast('Categoria excluída.', 'success');
     } else {
         showToast(data.error || 'Erro ao excluir.', 'error');
@@ -447,7 +447,7 @@ async function loadLeads() {
     }
 
     tbody.innerHTML = leads.map(l => `
-        < tr id = "lead-${l.id}" >
+        <tr id="lead-${l.id}">
             <td><span class="badge ${l.status === 'unread' ? 'danger' : ''}">${l.status === 'unread' ? 'Não Lido' : 'Lido'}</span></td>
             <td><strong>${l.name}</strong></td>
             <td>${l.email}<br><span style="color:var(--text-secondary);font-size:12px;">${l.phone}</span></td>
@@ -458,8 +458,8 @@ async function loadLeads() {
                     onclick="openLeadDetail(${l.id}, '${l.name.replace(/'/g, "\\'")}', '${l.email}', '${l.phone}', \`${(l.message || '').replace(/`/g, '\\`')}\`)">
                     Ler Mensagem
                 </button>
-            </td >
-        </tr >
+            </td>
+        </tr>
         `).join('');
 
     // Update overview unread count
@@ -481,7 +481,7 @@ function openLeadDetail(id, name, email, phone, message) {
 
 async function markLeadRead(id) {
     await api(API.leads.update, { id, status: 'read' });
-    const badge = document.querySelector(`#lead - ${id} .badge.danger`);
+    const badge = document.querySelector(`#lead-${id} .badge.danger`);
     if (badge) { badge.textContent = 'Lido'; badge.classList.remove('danger'); }
 }
 
@@ -583,13 +583,13 @@ function removeTag(index) {
 function showToast(message, type = 'success') {
     const toast = document.createElement('div');
     toast.style.cssText = `
-    position: fixed; bottom: 24px; right: 24px; z - index: 9999;
-    padding: 14px 20px; border - radius: 10px; font - size: .875rem;
-    font - family: Inter, sans - serif; font - weight: 500;
-    background:${type === 'success' ? '#1a3a1a' : '#3a1a1a'};
+    position: fixed; bottom: 24px; right: 24px; z-index: 9999;
+    padding: 14px 20px; border-radius: 10px; font-size: .875rem;
+    font-family: Inter, sans-serif; font-weight: 500;
+    background: ${type === 'success' ? '#1a3a1a' : '#3a1a1a'};
     border: 1px solid ${type === 'success' ? '#2d6a2d' : '#6a2d2d'};
-    color:${type === 'success' ? '#4ade80' : '#f87171'};
-    box - shadow: 0 8px 32px rgba(0, 0, 0, .4);
+    color: ${type === 'success' ? '#4ade80' : '#f87171'};
+    box-shadow: 0 8px 32px rgba(0, 0, 0, .4);
     animation: slideIn .25s ease;
     `;
     toast.textContent = message;
