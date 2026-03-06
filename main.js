@@ -466,10 +466,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Info Items
         const infoValues = document.querySelectorAll('.pd-sidebar-card .pd-info-value');
-        if (infoValues.length >= 3) {
-            infoValues[0].textContent = project.role;
-            infoValues[1].textContent = project.client;
-            infoValues[2].textContent = project.year;
+        if (infoValues.length >= 4) {
+            infoValues[0].textContent = project.role || '—';
+            infoValues[1].textContent = project.client || '—';
+            infoValues[2].textContent = project.duration || '—';
+            infoValues[3].textContent = project.year || '—';
         }
 
         // Visit Button
