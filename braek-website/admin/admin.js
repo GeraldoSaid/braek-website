@@ -37,19 +37,6 @@ const API = {
 async function checkAuth() {
     try {
         const res = await fetch(API.check);
-        const text = await res.text();
-        if (!text.trim().startsWith('{')) { window.location.href = 'login.html'; return; }
-        const data = JSON.parse(text);
-        if (!data.authenticated) {
-            window.location.href = 'login.html';
-        } else {
-            const nameEl = document.querySelector('.user-profile span');
-            if (nameEl && data.user) nameEl.textContent = data.user.name;
-        }
-    } catch (e) {
-        window.location.href = 'login.html';
-    }
-});
         if (!res.ok) {
             if (res.status === 401) window.location.href = 'login.html';
             return;
@@ -66,17 +53,6 @@ async function checkAuth() {
     } catch (e) {
         console.warn('checkAuth error:', e);
         // Don't redirect on network/parse errors
-    }
-});
-        const data = await res.json();
-        if (!data.authenticated) {
-            window.location.href = 'login.html';
-        } else {
-            const nameEl = document.querySelector('.user-profile span');
-            if (nameEl && data.user) nameEl.textContent = data.user.name;
-        }
-    } catch (e) {
-        window.location.href = 'login.html';
     }
 }
 
