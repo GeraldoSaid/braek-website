@@ -385,7 +385,13 @@ document.addEventListener('DOMContentLoaded', () => {
         // ─── Handle Project Details Template ────────────────────────────────
         if (window.location.pathname.includes('project-details.html') || window.location.pathname.includes('/projeto/')) {
             const urlParams = new URLSearchParams(window.location.search);
-            const projectId = urlParams.get('id');
+            let projectId = urlParams.get('id');
+
+            // If ID is not in query (clean URL), try to get it from the last parts of the path
+            if (!projectId && window.location.pathname.includes('/projeto/')) {
+                const parts = window.location.pathname.split('/');
+                projectId = parts[parts.length - 1] || parts[parts.length - 2];
+            }
 
             if (projectId) {
                 // Fetch ONLY this project for efficiency
