@@ -208,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 7. Dynamic Project Engine (API-powered)
-    const PROJECTS_API = 'api/projects/get.php';
+    const PROJECTS_API = '/api/projects/get.php';
 
     async function fetchProjects() {
         try {
@@ -327,7 +327,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // 2. Build unique filter buttons from categories API (ALWAYS DO THIS, EVEN IF 0 PROJECTS)
             if (filterControls) {
                 try {
-                    const catRes = await fetch('api/categories/get.php');
+                    const catRes = await fetch('/api/categories/get.php');
                     const catData = await catRes.json();
                     if (catData.categories) {
                         catData.categories.forEach(cat => {

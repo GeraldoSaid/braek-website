@@ -26,8 +26,9 @@
     RewriteBase /
 
     # 1. Map /projeto/[slug] to project-details.html?id=[slug]
-    # This allows direct access like braek.com.br/projeto/enix
-    RewriteRule ^projeto/([^/.]+)/?$ project-details.html?id=$1 [L,QSA]
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^projeto/([^/.]+)/?$ /project-details.html?id=$1 [L,QSA]
 
     # 2. Redirect legacy project-*.html to new /projeto/* structure (SEO friendly)
     RewriteRule ^project-([^/.]+)\.html$ /projeto/$1 [R=301,L]
