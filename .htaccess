@@ -31,7 +31,7 @@
     RewriteRule ^projeto/([^/.]+)/?$ /project-details.html?id=$1 [L,QSA]
 
     # 2. Redirect legacy project-*.html to new /projeto/* structure (SEO friendly)
-    # Exclude project-details.html itself as it's the template
-    RewriteCond %{REQUEST_URI} !project-details\.html
-    RewriteRule ^project-([^/.]+)\.html$ /projeto/$1 [R=301,L]
+    # Exclude project-details.html itself to prevent incorrect mapping to /projeto/details
+    RewriteCond %{REQUEST_URI} !project-details\.html$
+    RewriteRule ^project-(?!details)([^/.]+)\.html$ /projeto/$1 [R=301,L]
 </IfModule>

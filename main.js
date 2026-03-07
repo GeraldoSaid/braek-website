@@ -482,8 +482,12 @@ document.addEventListener('DOMContentLoaded', () => {
         // Hero Section
         const heroImg = document.querySelector('.pd-hero-media img');
         if (heroImg) {
-            const absoluteHero = project.heroImage.startsWith('/') ? project.heroImage : '/' + project.heroImage;
-            heroImg.src = absoluteHero;
+            const absoluteHero = (project.heroImage || '').startsWith('/') ? project.heroImage : '/' + project.heroImage;
+            if (project.heroImage) {
+                heroImg.src = absoluteHero;
+                heroImg.style.display = 'block';
+                heroImg.alt = project.title || 'Hero Image';
+            }
         }
 
         const badge = document.querySelector('.pd-hero-content .project-badge');
