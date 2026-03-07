@@ -475,7 +475,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateProjectDetailsUI(project) {
         // Hero Section
         const heroImg = document.querySelector('.pd-hero-media img');
-        if (heroImg) heroImg.src = project.heroImage;
+        if (heroImg) {
+            const absoluteHero = project.heroImage.startsWith('/') ? project.heroImage : '/' + project.heroImage;
+            heroImg.src = absoluteHero;
+        }
 
         const badge = document.querySelector('.pd-hero-content .project-badge');
         if (badge) badge.textContent = project.category;
@@ -537,16 +540,17 @@ document.addEventListener('DOMContentLoaded', () => {
         if (galleryGrid) {
             galleryGrid.innerHTML = project.gallery.map(file => {
                 const isVideo = file.match(/\.(mp4|webm|ogg)$/i);
+                const absoluteFile = file.startsWith('/') ? file : '/' + file;
                 if (isVideo) {
                     return `
                         <div class="gallery-item reveal-up">
-                            <video src="${file}" controls muted loop style="width:100%; border-radius:12px;"></video>
+                            <video src="${absoluteFile}" controls muted loop style="width:100%; border-radius:12px;"></video>
                         </div>
                     `;
                 }
                 return `
                     <div class="gallery-item reveal-up">
-                        <img src="${file}" alt="Gallery Image">
+                        <img src="${absoluteFile}" alt="Gallery Image">
                     </div>
                 `;
             }).join('');
