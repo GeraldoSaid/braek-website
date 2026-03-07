@@ -2191,6 +2191,10 @@ textarea:focus {
     overflow: hidden;
 }
 
+.project-details-hero .container {
+    height: 100%;
+}
+
 .pd-hero-inner {
     height: 100%;
     display: flex;
