@@ -223,7 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function createProjectCard(project, isLarge = false) {
         const categorySlug = (project.category || '').toLowerCase();
-        const link = project.pageLink || `project-details.html?id=${project.id}`;
+        const link = `/projeto/${project.id}`;
 
         if (isLarge) {
             return `
@@ -383,14 +383,36 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // ─── Handle Project Details Template ────────────────────────────────
-        if (window.location.pathname.includes('project-details.html')) {
+        if (window.location.pathname.includes('project-details.html') || window.location.pathname.includes('/projeto/')) {
             const urlParams = new URLSearchParams(window.location.search);
             const projectId = urlParams.get('id');
-            const project = projects.find(p => p.id === projectId);
-            if (project) {
-                updateProjectDetailsUI(project);
-                initLightbox();
-                initNextProjects(projects, project.id);
+
+            if (projectId) {
+                // Fetch ONLY this project for efficiency
+                try {
+                    const res = await fetch(`${PROJECTS_API}?id=${projectId}`);
+                    const singleData = await res.json();
+                    const project = (singleData.projects || []).find(p => p.id === projectId);
+
+                    if (project) {
+                        updateProjectDetailsUI(project);
+                        initLightbox();
+                        initNextProjects(projects, project.id);
+
+                        // SEO: Update page title and description
+                        document.title = `${project.title} | Braek`;
+                        const metaDesc = document.querySelector('meta[name="description"]');
+                        if (metaDesc) metaDesc.content = project.subtitle || `Detalhes do projeto ${project.title} pela Braek.`;
+                    } else {
+                        // Project not found - redirect or show message
+                        const heroContent = document.querySelector('.pd-hero-content');
+                        if (heroContent) {
+                            heroContent.innerHTML = `<h1>PROJETO NÃO ENCONTRADO</h1><p>O projeto que você está procurando não existe ou foi removido.</p><a href="/portfolio" class="btn-primary mt-4">Ver Portfólio</a>`;
+                        }
+                    }
+                } catch (e) {
+                    console.error('Error loading project details:', e);
+                }
             }
         }
     }

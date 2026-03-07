@@ -2189,6 +2189,7 @@ textarea:focus {
     min-height: 550px;
     background-color: #000;
     overflow: hidden;
+    padding-top: var(--nav-height);
 }
 
 .project-details-hero .container {

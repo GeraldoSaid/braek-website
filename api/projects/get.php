@@ -11,6 +11,11 @@ if (!empty($_GET['category'])) {
     $params[] = sanitize($_GET['category']);
 }
 
+if (!empty($_GET['id'])) {
+    $sql .= ' AND slug = ?';
+    $params[] = sanitize($_GET['id']);
+}
+
 if (!empty($_GET['featured'])) {
     $sql .= ' AND featured = 1';
 }
