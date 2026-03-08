@@ -30,6 +30,9 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^projeto/([^/.]+)/?$ /project-details.html?id=$1 [L,QSA]
 
+    # Map /portfolio to portfolio.html
+    RewriteRule ^portfolio/?$ /portfolio.html [L]
+
     # 2. Redirect legacy project-*.html to new /projeto/* structure (SEO friendly)
     # Exclude project-details.html itself to prevent incorrect mapping to /projeto/details
     RewriteCond %{REQUEST_URI} !project-details\.html$
