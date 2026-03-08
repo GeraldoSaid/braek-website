@@ -105,6 +105,49 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // 5. Mobile Menu Logic with GSAP
+    function initMobileMenu() {
+        const toggle = document.querySelector('.menu-toggle');
+        const close = document.querySelector('.menu-close');
+        const menu = document.querySelector('.mobile-menu');
+        const links = document.querySelectorAll('.mobile-nav-links a');
+        const footer = document.querySelector('.mobile-menu-footer');
+
+        if (!toggle || !menu) return;
+
+        const tl = gsap.timeline({ paused: true });
+
+        tl.to(menu, {
+            display: 'block',
+            opacity: 1,
+            duration: 0.4,
+            ease: 'power2.out'
+        })
+            .to(links, {
+                opacity: 1,
+                y: 0,
+                duration: 0.5,
+                stagger: 0.1,
+                ease: 'power3.out'
+            }, '-=0.2')
+            .to(footer, {
+                opacity: 1,
+                y: 0,
+                duration: 0.5,
+                ease: 'power3.out'
+            }, '-=0.3');
+
+        toggle.addEventListener('click', () => tl.play());
+        close.addEventListener('click', () => tl.reverse());
+
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                tl.reverse();
+            });
+        });
+    }
+    initMobileMenu();
+
     // 5. Mouse tracking glow cards
     const glowCards = document.querySelectorAll('.glow-mouse-card');
     glowCards.forEach(card => {
