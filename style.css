@@ -656,6 +656,7 @@ span:not(.char-anim) {
     flex-direction: column;
     align-items: center;
     text-align: center;
+    width: 100%;
 }
 
 
@@ -792,6 +793,7 @@ span:not(.char-anim) {
     font-weight: 500;
     color: white;
     background: transparent;
+    margin-inline: auto;
 
 }
 
@@ -823,7 +825,7 @@ span:not(.char-anim) {
     line-height: 1.05;
     margin-bottom: 30px;
     letter-spacing: -0.02em;
-    max-width: 900px;
+    max-width: 1000px;
     font-weight: normal;
     text-align: center;
     margin-inline: auto;
