@@ -1,7 +1,7 @@
 @font-face {
 
     font-family: 'Newblack';
-    src: url('assets/fonts/Newblack/Newblack/TTF/NewBlackTypeface-Regular.ttf') format('truetype');
+    src: url('/assets/fonts/Newblack/Newblack/TTF/NewBlackTypeface-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -12,7 +12,7 @@
 @font-face {
 
     font-family: 'Newblack';
-    src: url('assets/fonts/Newblack/Newblack/TTF/NewBlackTypeface-Bold.ttf') format('truetype');
+    src: url('/assets/fonts/Newblack/Newblack/TTF/NewBlackTypeface-Bold.ttf') format('truetype');
     font-weight: bold;
     font-style: normal;
     font-display: swap;
@@ -23,7 +23,7 @@
 @font-face {
 
     font-family: 'Overused Grotesk';
-    src: url('assets/fonts/overused-grotesk-font-family-1769254762-0/OverusedGrotesk-Roman-BF64eeac18184a5.ttf') format('truetype');
+    src: url('/assets/fonts/overused-grotesk-font-family-1769254762-0/OverusedGrotesk-Roman-BF64eeac18184a5.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -34,7 +34,7 @@
 @font-face {
 
     font-family: 'Overused Grotesk';
-    src: url('assets/fonts/overused-grotesk-font-family-1769254762-0/OverusedGrotesk-Bold-BF64eeac17f1b7f.ttf') format('truetype');
+    src: url('/assets/fonts/overused-grotesk-font-family-1769254762-0/OverusedGrotesk-Bold-BF64eeac17f1b7f.ttf') format('truetype');
     font-weight: bold;
     font-style: normal;
     font-display: swap;

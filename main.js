@@ -720,7 +720,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="tc-top">
                         <div class="tc-author">
                             <div class="author-img" style="border-radius:50%; width:48px; height:48px; background:var(--accent-red); display:flex; align-items:center; justify-content:center; color:white; font-weight:bold; overflow:hidden;">
-                                ${t.avatar ? `<img src="${t.avatar}" style="width:100%; height:100%; object-fit:cover;">` : t.name.charAt(0).toUpperCase()}
+                                ${t.avatar ? `<img src="${t.avatar.startsWith('/') ? t.avatar : '/' + t.avatar}" style="width:100%; height:100%; object-fit:cover;">` : t.name.charAt(0).toUpperCase()}
                             </div>
                             <div class="tc-info">
                                 <h4>${t.name}</h4>
