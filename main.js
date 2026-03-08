@@ -225,10 +225,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const categorySlug = (project.category || '').toLowerCase();
         const link = `/projeto/${project.id}`;
 
+        // Ensure absolute path for images to work on dynamic routes
+        const absHero = project.heroImage.startsWith('/') ? project.heroImage : '/' + project.heroImage;
+
         if (isLarge) {
             return `
                 <div class="project-card large reveal-up" data-category="${categorySlug}">
-                    <img src="${project.heroImage}" alt="${project.title}" class="project-img">
+                    <img src="${absHero}" alt="${project.title}" class="project-img">
                     <div class="project-overlay"></div>
                     <div class="project-content">
                         <div class="project-top">
@@ -257,7 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             return `
                 <div class="project-card medium reveal-up" data-category="${categorySlug}">
-                    <img src="${project.heroImage}" alt="${project.title}" class="project-img">
+                    <img src="${absHero}" alt="${project.title}" class="project-img">
                     <div class="project-overlay"></div>
                     <div class="project-content">
                         <div class="project-top">

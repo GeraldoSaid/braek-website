@@ -1021,17 +1021,18 @@ span:not(.char-anim) {
 
 .project-badge {
 
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 20px;
-    padding: 4px 10px;
-    font-size: 0.65rem;
-    font-weight: 500;
-    letter-spacing: 1px;
+    padding: 6px 14px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
     text-transform: uppercase;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     color: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 
 }
 
