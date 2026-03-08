@@ -137,12 +137,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 ease: 'power3.out'
             }, '-=0.3');
 
-        toggle.addEventListener('click', () => tl.play());
-        close.addEventListener('click', () => tl.reverse());
+        toggle.addEventListener('click', () => {
+            menu.classList.add('active');
+            tl.play();
+        });
+        close.addEventListener('click', () => {
+            tl.reverse().eventCallback('onReverseComplete', () => {
+                menu.classList.remove('active');
+            });
+        });
 
         links.forEach(link => {
             link.addEventListener('click', () => {
-                tl.reverse();
+                tl.reverse().eventCallback('onReverseComplete', () => {
+                    menu.classList.remove('active');
+                });
             });
         });
     }

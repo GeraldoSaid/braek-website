@@ -203,12 +203,10 @@ a {
 /* ========================================================================== Typography & Buttons ========================================================================== */
 
 h1 {
-
-    font-size: clamp(48px, 10vw, 105px);
+    font-size: clamp(48px, 8vw, 105px);
     line-height: 1.1;
     margin-bottom: var(--space-lg);
     letter-spacing: -2px;
-
 }
 
 
@@ -225,18 +223,13 @@ h2 {
 
 p,
 a {
-
-    font-size: clamp(12px, 1.5vw, 18px);
+    font-size: clamp(16px, 1.6vw, 18px);
     color: var(--text-secondary);
-
 }
 
-
 span:not(.char-anim) {
-
-    font-size: clamp(12px, 1.5vw, 18px);
+    font-size: clamp(16px, 1.6vw, 18px);
     color: var(--text-secondary);
-
 }
 
 
@@ -2700,10 +2693,12 @@ textarea:focus {
     z-index: 2000;
     display: none;
     opacity: 0;
+    pointer-events: none;
 }
 
 .mobile-menu.active {
     display: block;
+    pointer-events: all;
 }
 
 .mobile-menu-inner {
@@ -2721,20 +2716,32 @@ textarea:focus {
 }
 
 .menu-close {
-    background: none;
-    border: none;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     color: white;
     cursor: pointer;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: all 0.3s ease;
+}
+
+.menu-close:hover {
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .mobile-nav-links {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 24px;
 }
 
 .mobile-nav-links a {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     font-weight: 500;
     color: white;
     text-decoration: none;
@@ -2742,6 +2749,7 @@ textarea:focus {
     font-family: var(--font-display);
     opacity: 0;
     transform: translateY(20px);
+    line-height: 1;
 }
 
 .mobile-menu-footer {
