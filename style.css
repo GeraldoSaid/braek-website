@@ -2784,9 +2784,11 @@ textarea:focus {
 
 @media (max-width: 768px) {
     h1 {
-        font-size: clamp(24px, 8vw, 34px);
+        font-size: clamp(22px, 7vw, 28px);
         letter-spacing: -0.5px;
         line-height: 1.2;
+        overflow-wrap: normal !important;
+        word-break: normal !important;
     }
 
     .testimonial-card {
