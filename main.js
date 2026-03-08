@@ -383,21 +383,39 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // ─── Handle Project Details Template ────────────────────────────────
-        if (window.location.pathname.includes('project-details.html') || window.location.pathname.includes('/projeto/')) {
+        if (window.location.pathname.includes('project-details.html') ||
+            window.location.pathname.includes('/projeto/')) {
+
             const urlParams = new URLSearchParams(window.location.search);
             let projectId = urlParams.get('id');
 
-            // If ID is not in query (clean URL), try to get it from the last parts of the path
+            console.log('[Project Engine] Path:', window.location.pathname);
+            console.log('[Project Engine] Query ID:', projectId);
+
+            // If ID is not in query, try to get it from path like /projeto/enix
             if (!projectId && window.location.pathname.includes('/projeto/')) {
-                const parts = window.location.pathname.split('/');
-                projectId = parts[parts.length - 1] || parts[parts.length - 2];
+                const cleanPath = window.location.pathname.replace(/\/$/, ''); // Remove trailing slash
+                const parts = cleanPath.split('/');
+                projectId = parts[parts.length - 1];
+
+                // If the last part is "projeto" or "details", we might need the one before or it's invalid
+                if (projectId === 'projeto' || projectId === 'project-details.html') {
+                    projectId = null;
+                }
             }
 
-            if (projectId) {
+            console.log('[Project Engine] Final ID:', projectId);
+
+            if (projectId && projectId !== 'details') {
                 // Fetch ONLY this project for efficiency
                 try {
-                    const res = await fetch(`${PROJECTS_API}?id=${projectId}`);
+                    const apiUrl = `${PROJECTS_API}?id=${projectId}`;
+                    console.log('[Project Engine] Fetching:', apiUrl);
+
+                    const res = await fetch(apiUrl);
                     const singleData = await res.json();
+
+                    // The API returns { projects: [...] }
                     const project = (singleData.projects || []).find(p => p.id === projectId);
 
                     if (project) {
