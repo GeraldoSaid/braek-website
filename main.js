@@ -207,6 +207,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     const wordWrap = document.createElement('span');
                     wordWrap.style.display = 'inline-block';
                     wordWrap.style.whiteSpace = 'nowrap';
+                    wordWrap.style.wordBreak = 'normal';
+                    wordWrap.style.hyphens = 'none';
 
                     [...word].forEach(char => {
                         const span = document.createElement('span');
