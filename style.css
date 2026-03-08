@@ -203,10 +203,12 @@ a {
 /* ========================================================================== Typography & Buttons ========================================================================== */
 
 h1 {
-    font-size: clamp(48px, 8vw, 105px);
+    font-size: clamp(38px, 8vw, 105px);
     line-height: 1.1;
     margin-bottom: var(--space-lg);
     letter-spacing: -2px;
+    word-break: normal;
+    overflow-wrap: break-word;
 }
 
 
@@ -2581,7 +2583,7 @@ textarea:focus {
 
 /* Mobile Menu Styles */
 .menu-toggle {
-    display: none;
+    display: none !important;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -2593,6 +2595,8 @@ textarea:focus {
     cursor: pointer;
     z-index: 1001;
     transition: all 0.3s ease;
+    padding: 0;
+    outline: none;
 }
 
 .hamburger {
@@ -2616,14 +2620,17 @@ textarea:focus {
     position: fixed;
     inset: 0;
     background-color: #000;
-    z-index: 2000;
-    display: none;
+    z-index: 9999;
+    /* Higher priority */
+    display: none !important;
     opacity: 0;
     pointer-events: none;
+    transition: opacity 0.4s ease;
 }
 
 .mobile-menu.active {
-    display: block;
+    display: block !important;
+    opacity: 1;
     pointer-events: all;
 }
 
@@ -2752,7 +2759,7 @@ textarea:focus {
     }
 
     .menu-toggle {
-        display: flex;
+        display: flex !important;
     }
 
 
