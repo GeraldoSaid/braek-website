@@ -654,8 +654,8 @@ span:not(.char-anim) {
     z-index: 1;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
+    align-items: center;
+    text-align: center;
 }
 
 
@@ -825,6 +825,8 @@ span:not(.char-anim) {
     letter-spacing: -0.02em;
     max-width: 900px;
     font-weight: normal;
+    text-align: center;
+    margin-inline: auto;
 
 }
 
