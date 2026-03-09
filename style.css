@@ -1417,7 +1417,7 @@ span:not(.char-anim) {
 
     .gsap-reveal-title {
 
-        font-size: 36px;
+        font-size: clamp(24px, 7vw, 30px);
 
     }
 
