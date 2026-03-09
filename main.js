@@ -558,7 +558,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const nextOnes = allProjects.filter(p => p.id !== currentId).slice(0, 3);
 
         if (nextOnes.length > 0) {
-            container.innerHTML = nextOnes.map(p => createProjectCard(p, false)).join('');
+            let cardsHTML = '';
+            cardsHTML += createProjectCard(nextOnes[0], true); // First card large
+
+            if (nextOnes.length > 1) {
+                cardsHTML += '<div class="projects-row">';
+                for (let i = 1; i < nextOnes.length; i++) {
+                    cardsHTML += createProjectCard(nextOnes[i], false);
+                }
+                cardsHTML += '</div>';
+            }
+
+            container.innerHTML = cardsHTML;
+
+            // Notice that by reusing the home styles, we need the container to actually be .projects-grid
+            container.className = 'projects-grid';
 
             // Observe for animations
             const reveals = container.querySelectorAll('.reveal-up');
