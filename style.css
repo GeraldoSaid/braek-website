@@ -220,7 +220,7 @@ a {
 /* ========================================================================== Typography & Buttons ========================================================================== */
 
 h1 {
-    font-size: clamp(38px, 8vw, 105px);
+    font-size: clamp(32px, 5vw, 64px);
     line-height: 1.1;
     margin-bottom: var(--space-lg);
     letter-spacing: -2px;
@@ -1385,7 +1385,7 @@ span:not(.char-anim):not(.word-wrap):not(.word-space) {
 .gsap-reveal-title {
 
     font-family: var(--font-heading);
-    font-size: 62px;
+    font-size: 48px;
     text-align: center;
     text-transform: uppercase;
     line-height: 1.1;
@@ -2265,7 +2265,7 @@ textarea:focus {
 
 
 .pd-hero-content h1 {
-    font-size: clamp(54px, 10vw, 105px);
+    font-size: clamp(40px, 6vw, 72px);
     line-height: 0.9;
     color: white;
     text-transform: uppercase;
