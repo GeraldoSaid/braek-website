@@ -246,7 +246,7 @@ a {
     color: var(--text-secondary);
 }
 
-span:not(.char-anim) {
+span:not(.char-anim):not(.word-wrap):not(.word-space) {
     font-size: clamp(16px, 1.6vw, 18px);
     color: var(--text-secondary);
 }
@@ -1417,7 +1417,7 @@ span:not(.char-anim) {
 
     .gsap-reveal-title {
 
-        font-size: 36px;
+        font-size: 28px;
 
     }
 
@@ -2784,7 +2784,7 @@ textarea:focus {
 
 @media (max-width: 768px) {
     h1 {
-        font-size: clamp(32px, 10vw, 48px);
+        font-size: clamp(28px, 8vw, 36px);
         letter-spacing: -1px;
         line-height: 1.1;
     }
