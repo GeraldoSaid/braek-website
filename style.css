@@ -246,7 +246,7 @@ a {
     color: var(--text-secondary);
 }
 
-span:not(.char-anim):not(.word-wrap):not(.word-space) {
+span:not(.char-anim) {
     font-size: clamp(16px, 1.6vw, 18px);
     color: var(--text-secondary);
 }
@@ -1417,7 +1417,7 @@ span:not(.char-anim):not(.word-wrap):not(.word-space) {
 
     .gsap-reveal-title {
 
-        font-size: clamp(24px, 7vw, 30px);
+        font-size: 36px;
 
     }
 
@@ -2783,55 +2783,16 @@ textarea:focus {
 
 
 @media (max-width: 768px) {
+    h1 {
+        font-size: clamp(32px, 10vw, 48px);
+        letter-spacing: -1px;
+        line-height: 1.1;
+    }
 
-    /* Testimonial preservation */
     .testimonial-card {
         width: 85vw;
         padding: 24px;
         gap: 20px;
-    }
-
-    /* 1. Ajuste do Container Principal */
-    .hero {
-        padding-top: 120px;
-        padding-bottom: 60px;
-    }
-
-    /* 2. Harmonização Flexbox do Conteúdo (Respiro Perfeito) */
-    .hero-content {
-        gap: 28px;
-        width: 100%;
-        max-width: 90vw;
-        margin: 0 auto;
-    }
-
-    /* 3. Anulando Margens Locais em Prol do Fluxo (Gap) */
-    .hero-label {
-        margin: 0;
-        font-size: 0.85rem;
-        padding: 6px 14px;
-    }
-
-    .hero-title {
-        margin: 0;
-    }
-
-    /* 4. Solução Cirúrgica para Quebras de Linha vs Grandiosidade */
-    .hero-title,
-    h1.hero-title {
-        font-size: clamp(26px, 8vw, 36px);
-        line-height: 1.15;
-        letter-spacing: -0.5px;
-        overflow-wrap: normal !important;
-        word-break: normal !important;
-    }
-
-    /* 5. Adequação Premium da Call To Action (Hitbox Mobile) */
-    .hero-content .btn-primary {
-        margin: 0;
-        width: 100%;
-        max-width: 280px;
-        padding: 14px 20px;
     }
 }
 

@@ -10,29 +10,19 @@ document.addEventListener('DOMContentLoaded', () => {
         function splitNode(node, container) {
             if (node.nodeType === Node.TEXT_NODE) {
                 const text = node.textContent;
-                // Split by spaces but preserve the spaces as individual segments
-                const segments = text.split(/(\s+)/);
-                segments.forEach(segment => {
-                    if (/^\s+$/.test(segment)) {
-                        // It's just whitespace, add as text node so native wrapping works between words
-                        container.appendChild(document.createTextNode(segment));
-                    } else if (segment.length > 0) {
-                        // It's a word. Group characters in a nowrap span so the word never breaks mid-line!
-                        const wordSpan = document.createElement('span');
-                        wordSpan.className = 'word-wrap';
-                        wordSpan.style.display = 'inline-block';
-                        wordSpan.style.whiteSpace = 'nowrap';
-
-                        const chars = segment.split('');
-                        chars.forEach(char => {
-                            const span = document.createElement('span');
-                            span.className = 'char-anim';
-                            span.textContent = char;
-                            span.style.animationDelay = `${globalLetterIndex * 0.04}s`;
-                            wordSpan.appendChild(span);
-                            globalLetterIndex++;
-                        });
-                        container.appendChild(wordSpan);
+                // We split by every character, preserving raw spaces for line wrapping
+                const chars = text.split('');
+                chars.forEach(char => {
+                    if (/\s/.test(char)) {
+                        // Inherit raw space so kerning and native wrapping work
+                        container.appendChild(document.createTextNode(char));
+                    } else {
+                        const span = document.createElement('span');
+                        span.className = 'char-anim';
+                        span.textContent = char;
+                        span.style.animationDelay = `${globalLetterIndex * 0.04}s`;
+                        container.appendChild(span);
+                        globalLetterIndex++;
                     }
                 });
             } else if (node.nodeType === Node.ELEMENT_NODE) {
@@ -215,7 +205,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     // Word wrapper prevents mid-word line breaks
                     const wordWrap = document.createElement('span');
-                    wordWrap.className = 'word-wrap';
                     wordWrap.style.display = 'inline-block';
                     wordWrap.style.whiteSpace = 'nowrap';
                     wordWrap.style.wordBreak = 'normal';
@@ -223,7 +212,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     [...word].forEach(char => {
                         const span = document.createElement('span');
-                        span.className = 'char-anim'; // Add char-anim so it escapes the global styling too just in case!
                         Object.assign(span.style, styles);
                         span.style.opacity = '0';
                         span.textContent = char;
@@ -236,7 +224,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Space between words (outside nowrap wrapper = natural break point)
                     if (wordIndex < words.length - 1) {
                         const space = document.createElement('span');
-                        space.className = 'word-space';
                         Object.assign(space.style, styles);
                         space.style.opacity = '1';
                         space.innerHTML = '&nbsp;';
