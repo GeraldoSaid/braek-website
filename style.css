@@ -246,7 +246,7 @@ a {
     color: var(--text-secondary);
 }
 
-span:not(.char-anim) {
+span:not(.char-anim):not(.word-wrap):not(.word-space) {
     font-size: clamp(16px, 1.6vw, 18px);
     color: var(--text-secondary);
 }

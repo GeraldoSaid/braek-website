@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     } else if (segment.length > 0) {
                         // It's a word. Group characters in a nowrap span so the word never breaks mid-line!
                         const wordSpan = document.createElement('span');
+                        wordSpan.className = 'word-wrap';
                         wordSpan.style.display = 'inline-block';
                         wordSpan.style.whiteSpace = 'nowrap';
 
@@ -214,6 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     // Word wrapper prevents mid-word line breaks
                     const wordWrap = document.createElement('span');
+                    wordWrap.className = 'word-wrap';
                     wordWrap.style.display = 'inline-block';
                     wordWrap.style.whiteSpace = 'nowrap';
                     wordWrap.style.wordBreak = 'normal';
@@ -221,6 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     [...word].forEach(char => {
                         const span = document.createElement('span');
+                        span.className = 'char-anim'; // Add char-anim so it escapes the global styling too just in case!
                         Object.assign(span.style, styles);
                         span.style.opacity = '0';
                         span.textContent = char;
@@ -233,6 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Space between words (outside nowrap wrapper = natural break point)
                     if (wordIndex < words.length - 1) {
                         const space = document.createElement('span');
+                        space.className = 'word-space';
                         Object.assign(space.style, styles);
                         space.style.opacity = '1';
                         space.innerHTML = '&nbsp;';
