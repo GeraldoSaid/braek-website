@@ -247,14 +247,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 { opacity: 0 },
                 {
                     opacity: 1,
-                    ease: 'none',
-                    stagger: 0.03,
+                    ease: 'power3.out',
+                    stagger: 0.04,
+                    duration: 1,
                     scrollTrigger: {
                         trigger: el,
-                        start: 'top 75%',
-                        end: 'bottom 40%',
-                        scrub: true,
-                        once: false,
+                        start: 'top 85%',
+                        toggleActions: 'play none none reverse'
                     }
                 }
             );
@@ -800,9 +799,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (col1.length > 0) {
                 const cardsHtml = col1.map(buildCard).join('');
                 html += `
-                    <div class="ticker-wrapper mt-5 reveal-up">
-                        <div class="ticker">${cardsHtml}</div>
-                        <div class="ticker" aria-hidden="true">${cardsHtml}</div>
+                    <div class="reveal-up mt-5">
+                        <div class="ticker-wrapper">
+                            <div class="ticker">${cardsHtml}</div>
+                            <div class="ticker" aria-hidden="true">${cardsHtml}</div>
+                        </div>
                     </div>
                 `;
             }
@@ -811,9 +812,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (col2.length > 0) {
                 const cardsHtml = col2.map(buildCard).join('');
                 html += `
-                    <div class="ticker-wrapper reverse mt-5 reveal-up" style="transition-delay: 0.1s;">
-                        <div class="ticker">${cardsHtml}</div>
-                        <div class="ticker" aria-hidden="true">${cardsHtml}</div>
+                    <div class="reveal-up mt-5" style="transition-delay: 0.1s;">
+                        <div class="ticker-wrapper reverse">
+                            <div class="ticker">${cardsHtml}</div>
+                            <div class="ticker" aria-hidden="true">${cardsHtml}</div>
+                        </div>
                     </div>
                 `;
             }
