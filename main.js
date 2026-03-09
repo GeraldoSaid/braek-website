@@ -520,6 +520,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         galleryItems.forEach(item => {
             item.addEventListener('click', () => {
+                if (window.lightboxTimeout) clearTimeout(window.lightboxTimeout);
                 content.innerHTML = '';
                 const clone = item.cloneNode(true);
                 if (clone.tagName === 'VIDEO') {
@@ -535,7 +536,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const closeLightbox = () => {
             lightbox.classList.remove('active');
             document.body.style.overflow = '';
-            setTimeout(() => { content.innerHTML = ''; }, 400);
+            window.lightboxTimeout = setTimeout(() => { content.innerHTML = ''; }, 400);
         };
 
         closeBtn.addEventListener('click', closeLightbox);
