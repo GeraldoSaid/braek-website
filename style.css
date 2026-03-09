@@ -2796,4 +2796,51 @@ textarea:focus {
     }
 }
 
+/* ========== Lightbox ========== */
+.pd-lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    backdrop-filter: blur(12px);
+}
+
+.pd-lightbox.active {
+    display: flex;
+}
+
+.pd-lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--card-border);
+    background: var(--card-bg);
+    color: var(--text-primary);
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.pd-lightbox-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.pd-lightbox img,
+.pd-lightbox video {
+    max-width: 90vw;
+    max-height: 85vh;
+    object-fit: contain;
+    border-radius: var(--radius-md);
+}
+
 /* CI/CD Test - Webhook verified 2026-03-05 18:18:24 */
